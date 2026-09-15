@@ -1000,7 +1000,7 @@
         const defaults = this.defaults();
 
         try {
-          const raw = localStorage.getItem(this.key);
+          const raw = FirebaseParty.getItem(this.key);
           if (!raw) return defaults;
 
           const stored = JSON.parse(raw);
@@ -1029,7 +1029,7 @@
 
       save() {
         try {
-          localStorage.setItem(this.key, JSON.stringify(this.data));
+          FirebaseParty.setItem(this.key, JSON.stringify(this.data));
         } catch {
           this.memoryOnly = true;
         }
@@ -1230,7 +1230,7 @@
       }
     }
 
-    class LocalPartyManager {
+    class FirebasePartyManager {
       constructor() {
         this.party = null;
       }
@@ -4148,7 +4148,7 @@
         this.app = document.querySelector("#app");
         this.storage = new StorageManager();
         this.audio = new AudioManager(this.storage);
-        this.party = new LocalPartyManager();
+        this.party = new FirebasePartyManager();
         this.games = new GameManager(this.storage, this.audio);
         this.ui = new UIManager(
           this.app,
@@ -4168,6 +4168,18 @@
     }
 
     new App();
+    new App();
+// Firebase init here
+const firebaseConfig = {
+  apiKey: "...",
+  authDomain: "...",
+  projectId: "...",
+  appId: "..."
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+new App();
   </script>
 </body>
 </html>
