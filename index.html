@@ -4,14 +4,11 @@
   <meta charset="utf-8" />
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
+    content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no"
   />
   <meta name="theme-color" content="#101328" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="black-translucent"
-  />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Thumb Arena" />
   <title>Thumb Arena</title>
 
@@ -50,13 +47,7 @@
       overscroll-behavior: none;
       background: #060713;
       color: var(--text);
-      font-family:
-        ui-rounded,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+      font-family: ui-rounded, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       user-select: none;
       -webkit-user-select: none;
     }
@@ -71,16 +62,6 @@
       cursor: pointer;
     }
 
-    button:disabled {
-      cursor: not-allowed;
-      filter: grayscale(1);
-      opacity: 0.55;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
     #app {
       position: relative;
       width: 100%;
@@ -89,16 +70,8 @@
       margin: 0 auto;
       overflow: hidden;
       background:
-        radial-gradient(
-          circle at 12% 10%,
-          rgba(87, 229, 255, 0.17),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 90% 22%,
-          rgba(173, 125, 255, 0.18),
-          transparent 30%
-        ),
+        radial-gradient(circle at 12% 10%, rgba(87, 229, 255, 0.17), transparent 30%),
+        radial-gradient(circle at 90% 22%, rgba(173, 125, 255, 0.18), transparent 30%),
         linear-gradient(155deg, var(--bg), var(--bg2));
     }
 
@@ -129,6 +102,12 @@
       animation-delay: -4s;
     }
 
+    @keyframes floatBlob {
+      50% {
+        transform: translate(17px, 16px) scale(1.08);
+      }
+    }
+
     .screen {
       position: absolute;
       z-index: 2;
@@ -143,6 +122,18 @@
       display: flex;
       flex-direction: column;
       animation: screenIn 0.24s ease both;
+    }
+
+    @keyframes screenIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .center {
@@ -162,15 +153,9 @@
       border: 2px solid rgba(255, 255, 255, 0.16);
       border-radius: 36px;
       background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.18),
-          rgba(255, 255, 255, 0.03),
-          #575b74
-        );
-      box-shadow:
-        inset 0 3px 2px rgba(255, 255, 255, 0.18),
-        var(--shadow);
+        linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.03)),
+        #575b74;
+      box-shadow: inset 0 3px 2px rgba(255, 255, 255, 0.18), var(--shadow);
     }
 
     .brand {
@@ -209,10 +194,14 @@
           #ad7dff 108deg 144deg,
           #90ff6b 144deg 180deg
         );
-      box-shadow:
-        0 13px 22px rgba(0, 0, 0, 0.35),
-        inset 0 0 0 2px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 13px 22px rgba(0, 0, 0, 0.35), inset 0 0 0 2px rgba(255, 255, 255, 0.4);
       animation: spinDisc 8s linear infinite;
+    }
+
+    @keyframes spinDisc {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .btn {
@@ -224,18 +213,14 @@
       font-weight: 950;
       letter-spacing: 0.04em;
       background: var(--cyan);
-      box-shadow:
-        0 6px 0 rgba(0, 0, 0, 0.22),
-        0 12px 21px rgba(0, 0, 0, 0.18);
-      transition:
-        transform 0.12s ease,
-        filter 0.12s ease;
+      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.22), 0 12px 21px rgba(0, 0, 0, 0.18);
+      transition: transform 0.12s ease, filter 0.12s ease;
     }
 
     .btn:active {
-      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.22);
-      filter: brightness(0.92);
       transform: translateY(4px);
+      filter: brightness(0.92);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.22);
     }
 
     .btn.secondary {
@@ -260,8 +245,8 @@
 
     .btn-row {
       display: flex;
-      width: 100%;
       gap: 10px;
+      width: 100%;
     }
 
     .btn-row .btn {
@@ -270,10 +255,10 @@
 
     .topbar {
       display: flex;
-      margin-bottom: 18px;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      margin-bottom: 18px;
     }
 
     .topbar h2,
@@ -316,25 +301,20 @@
       border: 1px solid var(--line);
       border-radius: 24px;
       background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.13),
-          rgba(255, 255, 255, 0.035),
-          var(--panel)
-        );
+        linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.035)),
+        var(--panel);
       box-shadow: var(--shadow);
     }
 
     .card {
       min-height: 174px;
       padding: 16px;
-      color: var(--text);
       text-align: left;
     }
 
     .card.wide {
-      min-height: 132px;
       grid-column: 1 / -1;
+      min-height: 132px;
     }
 
     .card:active {
@@ -434,8 +414,8 @@
 
     .slot {
       display: flex;
-      min-width: 0;
       align-items: center;
+      min-width: 0;
     }
 
     .slot-dot {
@@ -478,8 +458,8 @@
 
     .numbers {
       display: flex;
-      margin: 9px 0 15px;
       gap: 8px;
+      margin: 9px 0 15px;
     }
 
     .number-btn {
@@ -520,32 +500,6 @@
       font-size: 0.82rem;
       line-height: 1.42;
       background: rgba(87, 229, 255, 0.09);
-    }
-
-    .notice.warning {
-      border-color: rgba(255, 83, 114, 0.52);
-      color: #ffd5df;
-      background: rgba(255, 83, 114, 0.12);
-    }
-
-    .integrity-pill {
-      display: inline-flex;
-      padding: 5px 9px;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid rgba(144, 255, 107, 0.46);
-      border-radius: 999px;
-      color: #b9ff9f;
-      font-size: 0.62rem;
-      font-weight: 1000;
-      letter-spacing: 0.06em;
-      background: rgba(144, 255, 107, 0.11);
-    }
-
-    .integrity-pill.quarantined {
-      border-color: rgba(255, 83, 114, 0.52);
-      color: #ffd4dd;
-      background: rgba(255, 83, 114, 0.14);
     }
 
     .game-screen {
@@ -590,11 +544,7 @@
       border-radius: 24px;
       touch-action: none;
       background:
-        radial-gradient(
-          circle at 20% 18%,
-          rgba(255, 255, 255, 0.09) 0 2px,
-          transparent 3px
-        ),
+        radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.09) 0 2px, transparent 3px),
         linear-gradient(155deg, #30366a, #16182e);
       box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.3);
     }
@@ -621,18 +571,20 @@
       font-size: 1.05rem;
       font-weight: 1000;
       background: var(--orange);
-      box-shadow:
-        0 7px 0 rgba(0, 0, 0, 0.18),
-        0 0 20px rgba(255, 159, 90, 0.5);
+      box-shadow: 0 7px 0 rgba(0, 0, 0, 0.18), 0 0 20px rgba(255, 159, 90, 0.5);
       touch-action: none;
       animation: targetPulse 0.72s ease-in-out infinite alternate;
     }
 
     .target.gold {
       background: var(--gold);
-      box-shadow:
-        0 7px 0 rgba(0, 0, 0, 0.18),
-        0 0 26px rgba(255, 211, 95, 0.78);
+      box-shadow: 0 7px 0 rgba(0, 0, 0, 0.18), 0 0 26px rgba(255, 211, 95, 0.78);
+    }
+
+    @keyframes targetPulse {
+      to {
+        transform: translate(-50%, -50%) scale(0.9);
+      }
     }
 
     .overlay {
@@ -688,15 +640,15 @@
       letter-spacing: -0.06em;
     }
 
-    .result-card p {
+    .result-card > p {
       margin: 8px 0 17px;
       color: var(--muted);
     }
 
     .rankings {
       display: grid;
-      margin: 15px 0 18px;
       gap: 8px;
+      margin: 15px 0 18px;
       text-align: left;
     }
 
@@ -758,7 +710,7 @@
       line-height: 1.42;
     }
 
-    .toast {
+    #toast {
       position: absolute;
       z-index: 80;
       bottom: calc(var(--safe-bottom) + 12px);
@@ -775,279 +727,17 @@
       background: #f6f7ff;
       box-shadow: var(--shadow);
       transform: translate(-50%, 130px);
-      transition:
-        opacity 0.2s ease,
-        transform 0.25s ease;
+      transition: opacity 0.2s ease, transform 0.25s ease;
     }
 
-    .toast.show {
+    #toast.show {
       opacity: 1;
       transform: translate(-50%, 0);
     }
 
-    .integrity-badge {
-      position: absolute;
-      z-index: 8;
-      top: 12px;
-      left: 12px;
-      padding: 6px 9px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 999px;
-      color: #b9ff9f;
-      font-size: 0.61rem;
-      font-weight: 1000;
-      letter-spacing: 0.06em;
-      pointer-events: none;
-      background: rgba(11, 14, 34, 0.72);
-    }
-
-    .integrity-badge.quarantined {
-      border-color: rgba(255, 83, 114, 0.5);
-      color: #ffd2dc;
-    }
-
-    .boot-screen {
-      position: fixed;
-      z-index: 9999;
-      inset: 0;
-      display: grid;
-      padding: 20px;
-      place-items: center;
-      overflow: hidden;
-      background:
-        radial-gradient(
-          circle at 15% 10%,
-          rgba(87, 229, 255, 0.15),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 85% 85%,
-          rgba(255, 110, 151, 0.12),
-          transparent 32%
-        ),
-        linear-gradient(155deg, #101328, #211847);
-      transition:
-        opacity 0.35s ease,
-        visibility 0.35s ease;
-    }
-
-    .boot-screen.boot-complete {
-      pointer-events: none;
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .console-frame {
-      position: relative;
-      width: min(420px, 100%);
-      min-height: 455px;
-      padding: 27px 22px 22px;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.18);
-      border-radius: 34px;
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.18),
-          rgba(255, 255, 255, 0.025) 46%,
-          rgba(32, 36, 74, 0.95)
-        );
-      box-shadow:
-        inset 0 2px 1px rgba(255, 255, 255, 0.22),
-        inset 0 -8px 20px rgba(0, 0, 0, 0.18),
-        0 22px 55px rgba(0, 0, 0, 0.42);
-      text-align: center;
-    }
-
-    .console-lights {
-      position: absolute;
-      top: 16px;
-      right: 18px;
-      display: flex;
-      gap: 7px;
-    }
-
-    .console-lights span {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #5c638f;
-    }
-
-    .console-lights span:nth-child(1) {
-      background: var(--green);
-      box-shadow: 0 0 10px rgba(144, 255, 107, 0.85);
-      animation: consoleBlink 1.15s steps(2, end) infinite;
-    }
-
-    .console-lights span:nth-child(2) {
-      background: var(--gold);
-      box-shadow: 0 0 10px rgba(255, 211, 95, 0.72);
-      animation: consoleBlink 1.15s steps(2, end) 0.28s infinite;
-    }
-
-    .console-lights span:nth-child(3) {
-      background: var(--pink);
-      box-shadow: 0 0 10px rgba(255, 110, 151, 0.62);
-      animation: consoleBlink 1.15s steps(2, end) 0.55s infinite;
-    }
-
-    .boot-disc {
-      display: grid;
-      width: 128px;
-      height: 128px;
-      margin: 13px auto 21px;
-      place-items: center;
-      border: 9px solid #282b43;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at center, #242740 0 18%, transparent 19%),
-        repeating-conic-gradient(
-          #ff6e97 0 36deg,
-          #ffd35f 36deg 72deg,
-          #57e5ff 72deg 108deg,
-          #ad7dff 108deg 144deg,
-          #90ff6b 144deg 180deg
-        );
-      box-shadow:
-        0 12px 23px rgba(0, 0, 0, 0.38),
-        inset 0 0 0 2px rgba(255, 255, 255, 0.38);
-      animation: bootDiscSpin 4s linear infinite;
-    }
-
-    .boot-disc-core {
-      display: grid;
-      width: 44px;
-      height: 44px;
-      place-items: center;
-      border: 3px solid rgba(255, 255, 255, 0.32);
-      border-radius: 50%;
-      color: #f7f8ff;
-      font-size: 0.82rem;
-      font-weight: 1000;
-      letter-spacing: -0.06em;
-      background: #171a31;
-      box-shadow: 0 0 16px rgba(87, 229, 255, 0.4);
-      animation: bootDiscCounterSpin 4s linear infinite;
-    }
-
-    .boot-kicker {
-      margin: 0 0 7px;
-      color: var(--muted);
-      font-size: 0.67rem;
-      font-weight: 950;
-      letter-spacing: 0.15em;
-    }
-
-    .boot-title {
-      margin: 0;
-      color: var(--text);
-      font-size: clamp(1.65rem, 7vw, 2.35rem);
-      letter-spacing: -0.06em;
-    }
-
-    .boot-cursor {
-      color: var(--cyan);
-      animation: cursorBlink 0.8s steps(2, end) infinite;
-    }
-
-    .boot-monitor {
-      position: relative;
-      z-index: 2;
-      margin-top: 27px;
-      padding: 15px;
-      border: 1px solid rgba(87, 229, 255, 0.25);
-      border-radius: 18px;
-      text-align: left;
-      background: rgba(5, 7, 21, 0.35);
-      box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.22);
-    }
-
-    .boot-line {
-      display: grid;
-      grid-template-columns: 22px 1fr auto;
-      align-items: center;
-      gap: 8px;
-      color: #e9ecff;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.77rem;
-      font-weight: 800;
-    }
-
-    .boot-icon {
-      display: inline-grid;
-      width: 20px;
-      height: 20px;
-      place-items: center;
-      color: var(--cyan);
-      font-size: 1rem;
-      animation: bootIconPulse 0.72s ease-in-out infinite alternate;
-    }
-
-    .boot-progress-track {
-      width: 100%;
-      height: 12px;
-      margin-top: 13px;
-      padding: 2px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 999px;
-      background: #11142a;
-    }
-
-    .boot-progress {
-      width: 0%;
-      height: 100%;
-      border-radius: inherit;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          var(--cyan) 0 13px,
-          #a8f5ff 13px 18px
-        );
-      box-shadow: 0 0 12px rgba(87, 229, 255, 0.7);
-      transition: width 0.25s ease;
-    }
-
-    .boot-message {
-      min-height: 2.7em;
-      margin: 12px 0 0;
-      color: var(--muted);
-      font-size: 0.76rem;
-      line-height: 1.35;
-    }
-
-    .boot-footer {
-      position: relative;
-      z-index: 2;
-      margin: 24px 0 0;
-      color: rgba(188, 195, 231, 0.78);
-      font-size: 0.61rem;
-      font-weight: 900;
-      letter-spacing: 0.09em;
-    }
-
-    .boot-scanlines {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.22;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          transparent 0 3px,
-          rgba(255, 255, 255, 0.04) 3px 4px
-        );
-      mix-blend-mode: overlay;
-      animation: scanShift 5s linear infinite;
-    }
-
-    .shake {
-      animation: shake 0.35s ease both;
-    }
-
     #rotate {
       position: fixed;
-      z-index: 10000;
+      z-index: 100;
       inset: 0;
       display: none;
       padding: 28px;
@@ -1073,34 +763,8 @@
       color: var(--muted);
     }
 
-    @keyframes floatBlob {
-      50% {
-        transform: translate(17px, 16px) scale(1.08);
-      }
-    }
-
-    @keyframes screenIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes spinDisc {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes targetPulse {
-      to {
-        transform: translate(-50%, -50%) scale(0.9);
-      }
+    .shake {
+      animation: shake 0.35s ease both;
     }
 
     @keyframes shake {
@@ -1126,49 +790,6 @@
       }
     }
 
-    @keyframes bootDiscSpin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes bootDiscCounterSpin {
-      to {
-        transform: rotate(-360deg);
-      }
-    }
-
-    @keyframes consoleBlink {
-      50% {
-        opacity: 0.28;
-        box-shadow: none;
-      }
-    }
-
-    @keyframes cursorBlink {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    @keyframes bootIconPulse {
-      from {
-        opacity: 0.45;
-        transform: scale(0.86);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1.08);
-      }
-    }
-
-    @keyframes scanShift {
-      to {
-        background-position: 0 30px;
-      }
-    }
-
     @media (orientation: landscape) and (max-height: 650px) {
       #rotate {
         display: flex;
@@ -1188,53 +809,11 @@
 </head>
 
 <body>
-  <div id="bootScreen" class="boot-screen" aria-live="polite">
-    <div class="console-frame">
-      <div class="console-lights" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-      <div class="boot-disc" aria-hidden="true">
-        <div class="boot-disc-core">TA</div>
-      </div>
-
-      <p class="boot-kicker">THUMB ARENA SYSTEM</p>
-
-      <h1 class="boot-title">
-        INITIALIZING<span class="boot-cursor">_</span>
-      </h1>
-
-      <div class="boot-monitor">
-        <div class="boot-line">
-          <span id="bootIcon" class="boot-icon">◌</span>
-          <span id="bootStep">Powering console…</span>
-          <span id="bootPercent">0%</span>
-        </div>
-
-        <div class="boot-progress-track">
-          <div id="bootProgress" class="boot-progress"></div>
-        </div>
-
-        <p id="bootMessage" class="boot-message">
-          Preparing local game cartridge.
-        </p>
-      </div>
-
-      <div class="boot-scanlines" aria-hidden="true"></div>
-
-      <p class="boot-footer">
-        OFFLINE • LOCAL PROFILE • NO ACCOUNT REQUIRED
-      </p>
-    </div>
-  </div>
-
   <div id="app"></div>
 
   <div id="rotate">
     <div>
-      <strong>↻</strong>
+      <strong>▯</strong>
       <h2>Rotate your device</h2>
       <p>Thumb Arena is designed for portrait play.</p>
     </div>
@@ -1243,13 +822,11 @@
   <script>
     "use strict";
 
-    const COLORS = ["#57e5ff", "#ff6e97", "#90ff6b", "#ffd35f"];
-
     const BASE_GAMES = [
       {
         id: "dodge",
         title: "Dodge Storm",
-        icon: "⚡",
+        icon: "☄",
         color: "#57e5ff",
         mode: "SOLO",
         description: "Drag your orb. Avoid incoming hazards."
@@ -1259,37 +836,37 @@
         title: "Trail Duel",
         icon: "〰",
         color: "#ad7dff",
-        mode: "PASS PLAY",
+        mode: "PASS & PLAY",
         description: "Leave a trail. Do not crash."
       },
       {
         id: "target",
         title: "Target Rush",
-        icon: "◉",
+        icon: "◎",
         color: "#ffd35f",
-        mode: "PASS PLAY",
+        mode: "PASS & PLAY",
         description: "Tap targets before they disappear."
       },
       {
         id: "hot",
         title: "Hot Cursor",
-        icon: "✦",
+        icon: "●",
         color: "#ff6e97",
-        mode: "PASS PLAY",
+        mode: "PASS & PLAY",
         description: "Pass the bomb before time runs out."
       },
       {
         id: "reflex",
         title: "Reflex Shot",
-        icon: "!",
+        icon: "⚡",
         color: "#90ff6b",
-        mode: "PASS PLAY",
+        mode: "PASS & PLAY",
         description: "Wait, then tap at the perfect time."
       },
       {
         id: "wheel",
         title: "Survival Wheel",
-        icon: "◌",
+        icon: "◉",
         color: "#ad7dff",
         mode: "SOLO",
         description: "Spin to select a Base Console game."
@@ -1300,7 +877,7 @@
       {
         id: "dodge2",
         title: "Dodge Storm 2",
-        icon: "⚡",
+        icon: "◉",
         color: "#57e5ff",
         mode: "PLAYABLE",
         description: "Pseudo-3D survival arena with hazards."
@@ -1316,7 +893,7 @@
       {
         id: "target2",
         title: "Target Rush 2",
-        icon: "◉",
+        icon: "◎",
         color: "#ffd35f",
         mode: "PLAYABLE",
         description: "3D-style target hunting with combos."
@@ -1324,7 +901,7 @@
       {
         id: "hot2",
         title: "Hot Cursor 2",
-        icon: "✦",
+        icon: "●",
         color: "#ff6e97",
         mode: "PLAYABLE",
         description: "Core tag with obstacles and speed zones."
@@ -1332,7 +909,7 @@
       {
         id: "reflex2",
         title: "Reflex Shot 2",
-        icon: "!",
+        icon: "⚡",
         color: "#90ff6b",
         mode: "PLAYABLE",
         description: "Cinematic reaction challenge rounds."
@@ -1340,7 +917,7 @@
       {
         id: "wheel2",
         title: "Survival Wheel 2",
-        icon: "◌",
+        icon: "◉",
         color: "#ad7dff",
         mode: "PLAYABLE",
         description: "Select a random playable Arena game."
@@ -1356,7 +933,7 @@
       {
         id: "brawl",
         title: "Arena Brawl",
-        icon: "✹",
+        icon: "✦",
         color: "#ff6e97",
         mode: "PLAYABLE",
         description: "Simple knockback party battle."
@@ -1372,937 +949,146 @@
       {
         id: "boss",
         title: "Boss Break",
-        icon: "☄",
+        icon: "⚔",
         color: "#90ff6b",
         mode: "PLAYABLE",
         description: "Tiny cooperative boss arena."
       }
     ];
 
-    const DATABASE_NAME = "thumb-arena-integrity-db";
-    const DATABASE_VERSION = 1;
-    const STORE_KEYS = "keys";
-    const STORE_SAVE = "save";
-    const INTEGRITY_KEY_ID = "save-integrity-key";
-    const SAVE_RECORD_ID = "current-save";
-    const SAVE_VERSION = 1;
-    const ZERO_HASH = "GENESIS";
-    const encoder = new TextEncoder();
+    const COLORS = ["#57e5ff", "#ff6e97", "#90ff6b", "#ffd35f"];
+    const ROOM_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
 
-    const GAME_RULES = {
-      dodge: {
-        title: "Dodge Storm",
-        maxDurationSeconds: 180,
-        maxScorePerSecond: 4,
-        maxXp: 120,
-        xpFormula(result) {
-          return Math.max(
-            8,
-            Math.min(
-              120,
-              Math.round(result.durationSeconds * 2 + result.score * 0.15)
-            )
-          );
-        }
-      },
-
-      dodge2: {
-        title: "Dodge Storm 2",
-        maxDurationSeconds: 600,
-        maxScorePerSecond: 6,
-        maxXp: 250,
-        xpFormula(result) {
-          return Math.max(
-            10,
-            Math.min(
-              250,
-              Math.round(result.durationSeconds * 3 + result.score * 0.25)
-            )
-          );
-        }
-      },
-
-      target: {
-        title: "Target Rush",
-        maxDurationSeconds: 30,
-        maxScorePerSecond: 6,
-        maxXp: 90,
-        xpFormula(result) {
-          return Math.max(8, Math.min(90, Math.round(result.score * 1.5)));
-        }
-      },
-
-      target2: {
-        title: "Target Rush 2",
-        maxDurationSeconds: 30,
-        maxScorePerSecond: 8,
-        maxXp: 220,
-        xpFormula(result) {
-          return Math.max(10, Math.min(220, Math.round(result.score * 2)));
-        }
-      },
-
-      reflex: {
-        title: "Reflex Shot",
-        minReactionMs: 80,
-        maxReactionMs: 10000,
-        maxXp: 55,
-        xpFormula(result) {
-          return Math.max(
-            5,
-            Math.min(55, 62 - Math.round(result.reactionMs / 18))
-          );
-        }
-      },
-
-      reflex2: {
-        title: "Reflex Shot 2",
-        minReactionMs: 80,
-        maxReactionMs: 10000,
-        maxXp: 100,
-        xpFormula(result) {
-          return Math.max(
-            10,
-            Math.min(100, 110 - Math.round(result.reactionMs / 12))
-          );
-        }
-      },
-
-      trail: {
-        title: "Trail Duel",
-        maxXp: 50,
-        xpFormula() {
-          return 20;
-        }
-      },
-
-      trail2: {
-        title: "Trail Duel 2",
-        maxXp: 100,
-        xpFormula() {
-          return 35;
-        }
-      },
-
-      hot: {
-        title: "Hot Cursor",
-        maxXp: 50,
-        xpFormula() {
-          return 20;
-        }
-      },
-
-      hot2: {
-        title: "Hot Cursor 2",
-        maxXp: 100,
-        xpFormula() {
-          return 35;
-        }
-      },
-
-      quest: {
-        title: "Mini Quest",
-        maxDurationSeconds: 60,
-        maxScorePerSecond: 4,
-        maxXp: 150,
-        xpFormula(result) {
-          return Math.max(10, Math.min(150, Math.round(result.score * 2)));
-        }
-      },
-
-      brawl: {
-        title: "Arena Brawl",
-        maxDurationSeconds: 60,
-        maxScorePerSecond: 5,
-        maxXp: 150,
-        xpFormula(result) {
-          return Math.max(10, Math.min(150, Math.round(result.score * 2)));
-        }
-      },
-
-      treasure: {
-        title: "Treasure Run",
-        maxDurationSeconds: 60,
-        maxScorePerSecond: 4,
-        maxXp: 150,
-        xpFormula(result) {
-          return Math.max(10, Math.min(150, Math.round(result.score * 2)));
-        }
-      },
-
-      boss: {
-        title: "Boss Break",
-        maxDurationSeconds: 60,
-        maxScorePerSecond: 5,
-        maxXp: 150,
-        xpFormula(result) {
-          return Math.max(10, Math.min(150, Math.round(result.score * 2)));
-        }
-      }
-    };
-
-    class ConsoleBootScreen {
+    class StorageManager {
       constructor() {
-        this.screen = document.getElementById("bootScreen");
-        this.icon = document.getElementById("bootIcon");
-        this.step = document.getElementById("bootStep");
-        this.percent = document.getElementById("bootPercent");
-        this.progress = document.getElementById("bootProgress");
-        this.message = document.getElementById("bootMessage");
-        this.currentProgress = 0;
-      }
-
-      async showStep({
-        icon = "◌",
-        title,
-        message,
-        progress,
-        minimumDuration = 240
-      }) {
-        const startedAt = performance.now();
-
-        this.icon.textContent = icon;
-        this.step.textContent = title;
-        this.message.textContent = message;
-
-        await this.setProgress(progress);
-
-        const elapsed = performance.now() - startedAt;
-        const remaining = Math.max(0, minimumDuration - elapsed);
-
-        if (remaining > 0) {
-          await new Promise((resolve) => setTimeout(resolve, remaining));
-        }
-      }
-
-      setProgress(targetProgress) {
-        const target = Math.max(0, Math.min(100, targetProgress));
-
-        return new Promise((resolve) => {
-          const start = this.currentProgress;
-          const startedAt = performance.now();
-          const duration = Math.max(180, Math.abs(target - start) * 8);
-
-          const update = (now) => {
-            const ratio = Math.min(1, (now - startedAt) / duration);
-            const eased = 1 - Math.pow(1 - ratio, 3);
-
-            this.currentProgress = Math.round(
-              start + (target - start) * eased
-            );
-
-            this.progress.style.width = `${this.currentProgress}%`;
-            this.percent.textContent = `${this.currentProgress}%`;
-
-            if (ratio < 1) {
-              requestAnimationFrame(update);
-              return;
-            }
-
-            this.currentProgress = target;
-            this.progress.style.width = `${target}%`;
-            this.percent.textContent = `${target}%`;
-            resolve();
-          };
-
-          requestAnimationFrame(update);
-        });
-      }
-
-      async complete({ verified, reason = "" }) {
-        if (verified) {
-          this.icon.textContent = "✓";
-          this.step.textContent = "SYSTEM READY";
-          this.message.textContent =
-            "Local save integrity confirmed. Loading Thumb Arena.";
-        } else {
-          this.icon.textContent = "!";
-          this.step.textContent = "PLAY MODE READY";
-          this.message.textContent =
-            reason ||
-            "Games are playable. Progression records require repair or reset.";
-        }
-
-        await this.setProgress(100);
-        await new Promise((resolve) =>
-          setTimeout(resolve, verified ? 520 : 1050)
-        );
-
-        this.screen.classList.add("boot-complete");
-
-        await new Promise((resolve) => setTimeout(resolve, 360));
-
-        this.screen.remove();
-      }
-    }
-
-    class SecureStorageManager {
-      constructor() {
-        this.db = null;
-        this.integrityKey = null;
-        this.record = null;
-        this.payload = null;
-        this.verified = false;
-        this.integrityReason = "";
+        this.key = "thumbArenaCompleteV1";
         this.memoryOnly = false;
+        this.data = this.load();
       }
 
-      async initialize(boot) {
-        await boot.showStep({
-          icon: "▣",
-          title: "MEMORY CHECK",
-          message: "Opening local cartridge memory.",
-          progress: 15,
-          minimumDuration: 340
-        });
-
-        this.db = await this.openDatabase();
-
-        await boot.showStep({
-          icon: "◈",
-          title: "KEY CARTRIDGE CHECK",
-          message: "Loading protected local integrity key.",
-          progress: 35,
-          minimumDuration: 390
-        });
-
-        this.integrityKey = await this.getOrCreateIntegrityKey();
-
-        await boot.showStep({
-          icon: "⌁",
-          title: "SAVE CHECKSUM",
-          message: "Reading signed local profile data.",
-          progress: 56,
-          minimumDuration: 360
-        });
-
-        const stored = await this.getFromStore(STORE_SAVE, SAVE_RECORD_ID);
-
-        if (!stored) {
-          await boot.showStep({
-            icon: "+",
-            title: "NEW PROFILE",
-            message: "Creating a fresh local player profile.",
-            progress: 73,
-            minimumDuration: 400
-          });
-
-          this.payload = this.createDefaultPayload();
-          this.record = await this.writeVerifiedSave(this.payload);
-          this.verified = true;
-          this.integrityReason = "";
-
-          await boot.showStep({
-            icon: "≋",
-            title: "REPLAY LOG CHECK",
-            message: "No prior game records found.",
-            progress: 91,
-            minimumDuration: 250
-          });
-
-          return;
-        }
-
-        this.record = stored;
-        this.payload = stored.payload;
-
-        await boot.showStep({
-          icon: "⌁",
-          title: "SIGNATURE VERIFY",
-          message: "Confirming local save data has not changed.",
-          progress: 74,
-          minimumDuration: 420
-        });
-
-        if (!this.payload || typeof stored.signature !== "string") {
-          this.verified = false;
-          this.integrityReason = "Save record is incomplete.";
-          return;
-        }
-
-        const signatureValid = await this.verifyPayload(
-          stored.payload,
-          stored.signature
-        );
-
-        if (!signatureValid) {
-          this.verified = false;
-          this.integrityReason = "Save signature did not match.";
-          return;
-        }
-
-        await boot.showStep({
-          icon: "≋",
-          title: "REPLAY LOG CHECK",
-          message: "Validating game history and progression rules.",
-          progress: 91,
-          minimumDuration: 420
-        });
-
-        const ledgerCheck = await this.verifyLedger(stored.payload.ledger);
-
-        if (!ledgerCheck.valid) {
-          this.verified = false;
-          this.integrityReason = ledgerCheck.reason;
-          return;
-        }
-
-        this.verified = true;
-        this.integrityReason = "";
-      }
-
-      createDefaultPayload() {
+      defaults() {
         return {
-          version: SAVE_VERSION,
-          createdAt: Date.now(),
-          updatedAt: Date.now(),
-          ledger: []
-        };
-      }
-
-      async openDatabase() {
-        return new Promise((resolve, reject) => {
-          const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
-
-          request.onupgradeneeded = () => {
-            const db = request.result;
-
-            if (!db.objectStoreNames.contains(STORE_KEYS)) {
-              db.createObjectStore(STORE_KEYS);
-            }
-
-            if (!db.objectStoreNames.contains(STORE_SAVE)) {
-              db.createObjectStore(STORE_SAVE);
-            }
-          };
-
-          request.onsuccess = () => resolve(request.result);
-
-          request.onerror = () => {
-            reject(request.error || new Error("Could not open IndexedDB."));
-          };
-        });
-      }
-
-      getFromStore(storeName, key) {
-        return new Promise((resolve, reject) => {
-          const transaction = this.db.transaction(storeName, "readonly");
-          const store = transaction.objectStore(storeName);
-          const request = store.get(key);
-
-          request.onsuccess = () => resolve(request.result);
-
-          request.onerror = () => {
-            reject(request.error || new Error("Could not read storage."));
-          };
-        });
-      }
-
-      putInStore(storeName, key, value) {
-        return new Promise((resolve, reject) => {
-          const transaction = this.db.transaction(storeName, "readwrite");
-          const store = transaction.objectStore(storeName);
-
-          store.put(value, key);
-
-          transaction.oncomplete = () => resolve();
-
-          transaction.onerror = () => {
-            reject(transaction.error || new Error("Could not save storage."));
-          };
-        });
-      }
-
-      deleteFromStore(storeName, key) {
-        return new Promise((resolve, reject) => {
-          const transaction = this.db.transaction(storeName, "readwrite");
-          const store = transaction.objectStore(storeName);
-
-          store.delete(key);
-
-          transaction.oncomplete = () => resolve();
-
-          transaction.onerror = () => {
-            reject(transaction.error || new Error("Could not delete storage."));
-          };
-        });
-      }
-
-      async getOrCreateIntegrityKey() {
-        const storedKey = await this.getFromStore(
-          STORE_KEYS,
-          INTEGRITY_KEY_ID
-        );
-
-        if (storedKey) {
-          return storedKey;
-        }
-
-        const key = await crypto.subtle.generateKey(
-          {
-            name: "HMAC",
-            hash: "SHA-256"
+          settings: {
+            sound: true,
+            vibration: true,
+            reducedEffects: false,
+            performance: "auto"
           },
-          false,
-          ["sign", "verify"]
-        );
-
-        await this.putInStore(STORE_KEYS, INTEGRITY_KEY_ID, key);
-
-        return key;
-      }
-
-      stableStringify(value) {
-        if (value === null || typeof value !== "object") {
-          return JSON.stringify(value);
-        }
-
-        if (Array.isArray(value)) {
-          return `[${value.map((item) => this.stableStringify(item)).join(",")}]`;
-        }
-
-        return `{${Object.keys(value)
-          .sort()
-          .map(
-            (key) =>
-              `${JSON.stringify(key)}:${this.stableStringify(value[key])}`
-          )
-          .join(",")}}`;
-      }
-
-      bytesToBase64(bytes) {
-        let binary = "";
-
-        for (const byte of new Uint8Array(bytes)) {
-          binary += String.fromCharCode(byte);
-        }
-
-        return btoa(binary);
-      }
-
-      base64ToBytes(base64) {
-        const binary = atob(base64);
-        const bytes = new Uint8Array(binary.length);
-
-        for (let index = 0; index < binary.length; index += 1) {
-          bytes[index] = binary.charCodeAt(index);
-        }
-
-        return bytes;
-      }
-
-      async sha256Base64(value) {
-        const buffer = await crypto.subtle.digest(
-          "SHA-256",
-          encoder.encode(value)
-        );
-
-        return this.bytesToBase64(buffer);
-      }
-
-      async signPayload(payload) {
-        const signature = await crypto.subtle.sign(
-          "HMAC",
-          this.integrityKey,
-          encoder.encode(this.stableStringify(payload))
-        );
-
-        return this.bytesToBase64(signature);
-      }
-
-      async verifyPayload(payload, signature) {
-        return crypto.subtle.verify(
-          "HMAC",
-          this.integrityKey,
-          this.base64ToBytes(signature),
-          encoder.encode(this.stableStringify(payload))
-        );
-      }
-
-      async calculateEventHash(eventWithoutHash) {
-        return this.sha256Base64(this.stableStringify(eventWithoutHash));
-      }
-
-      async writeVerifiedSave(payload) {
-        const signature = await this.signPayload(payload);
-
-        const record = {
-          version: SAVE_VERSION,
-          payload,
-          signature,
-          savedAt: Date.now()
-        };
-
-        await this.putInStore(STORE_SAVE, SAVE_RECORD_ID, record);
-
-        this.payload = payload;
-        this.record = record;
-
-        return record;
-      }
-
-      async verifyLedger(ledger) {
-        if (!Array.isArray(ledger)) {
-          return {
-            valid: false,
-            reason: "Replay log is not valid."
-          };
-        }
-
-        let expectedPreviousHash = ZERO_HASH;
-        let previousTimestamp = 0;
-
-        for (const event of ledger) {
-          if (
-            !event ||
-            typeof event !== "object" ||
-            typeof event.id !== "string" ||
-            typeof event.type !== "string" ||
-            typeof event.timestamp !== "number" ||
-            typeof event.previousHash !== "string" ||
-            typeof event.hash !== "string"
-          ) {
-            return {
-              valid: false,
-              reason: "Replay log has invalid event data."
-            };
-          }
-
-          if (event.previousHash !== expectedPreviousHash) {
-            return {
-              valid: false,
-              reason: "Replay log chain is broken."
-            };
-          }
-
-          if (event.timestamp < previousTimestamp) {
-            return {
-              valid: false,
-              reason: "Replay log timestamps are not ordered."
-            };
-          }
-
-          const eventWithoutHash = {
-            id: event.id,
-            type: event.type,
-            data: event.data,
-            timestamp: event.timestamp,
-            previousHash: event.previousHash
-          };
-
-          const expectedHash = await this.calculateEventHash(eventWithoutHash);
-
-          if (expectedHash !== event.hash) {
-            return {
-              valid: false,
-              reason: "Replay log event checksum failed."
-            };
-          }
-
-          const validation = this.validateGameResult(event.data);
-
-          if (!validation.valid) {
-            return validation;
-          }
-
-          expectedPreviousHash = event.hash;
-          previousTimestamp = event.timestamp;
-        }
-
-        return { valid: true };
-      }
-
-      validateGameResult(result) {
-        if (!result || typeof result !== "object") {
-          return {
-            valid: false,
-            reason: "Invalid game result."
-          };
-        }
-
-        const rules = GAME_RULES[result.gameId];
-
-        if (!rules) {
-          return {
-            valid: false,
-            reason: "Unknown game result."
-          };
-        }
-
-        if (
-          !Number.isFinite(result.xpAwarded) ||
-          result.xpAwarded < 0 ||
-          result.xpAwarded > rules.maxXp
-        ) {
-          return {
-            valid: false,
-            reason: "Invalid XP award."
-          };
-        }
-
-        if (
-          result.gameId === "dodge" ||
-          result.gameId === "dodge2" ||
-          result.gameId === "target" ||
-          result.gameId === "target2" ||
-          result.gameId === "quest" ||
-          result.gameId === "brawl" ||
-          result.gameId === "treasure" ||
-          result.gameId === "boss"
-        ) {
-          if (
-            !Number.isFinite(result.durationSeconds) ||
-            result.durationSeconds <= 0 ||
-            result.durationSeconds > rules.maxDurationSeconds
-          ) {
-            return {
-              valid: false,
-              reason: "Game duration is outside accepted limits."
-            };
-          }
-
-          if (
-            !Number.isFinite(result.score) ||
-            result.score < 0 ||
-            result.score >
-              result.durationSeconds * rules.maxScorePerSecond
-          ) {
-            return {
-              valid: false,
-              reason: "Game score is outside accepted limits."
-            };
-          }
-        }
-
-        if (result.gameId === "reflex" || result.gameId === "reflex2") {
-          if (
-            !Number.isFinite(result.reactionMs) ||
-            result.reactionMs < rules.minReactionMs ||
-            result.reactionMs > rules.maxReactionMs
-          ) {
-            return {
-              valid: false,
-              reason: "Reaction time is outside accepted limits."
-            };
-          }
-        }
-
-        const expectedXp = rules.xpFormula(result);
-
-        if (result.xpAwarded !== expectedXp) {
-          return {
-            valid: false,
-            reason: "XP award does not match game rules."
-          };
-        }
-
-        return { valid: true };
-      }
-
-      randomId(length = 16) {
-        const bytes = new Uint8Array(length);
-        crypto.getRandomValues(bytes);
-
-        return Array.from(bytes, (byte) =>
-          byte.toString(16).padStart(2, "0")
-        ).join("");
-      }
-
-      async createGameEvent(result) {
-        const ledger = this.payload.ledger;
-        const previousEvent = ledger[ledger.length - 1];
-
-        const eventWithoutHash = {
-          id: this.randomId(),
-          type: "game-completed",
-          data: result,
-          timestamp: Date.now(),
-          previousHash: previousEvent ? previousEvent.hash : ZERO_HASH
-        };
-
-        const hash = await this.calculateEventHash(eventWithoutHash);
-
-        return {
-          ...eventWithoutHash,
-          hash
+          base: {
+            gamesPlayed: 0,
+            wins: 0,
+            longestSurvival: 0,
+            targetHigh: 0,
+            fastestReaction: null,
+            reactionSum: 0,
+            reactionCount: 0
+          },
+          arena: {
+            gamesPlayed: 0,
+            wins: 0,
+            xp: 0,
+            level: 1,
+            dodgeStorm2Record: 0,
+            profileTitle: "Rookie",
+            unlocks: ["Neon Trail"]
+          },
+          tournament: null
         };
       }
 
-      async recordGameResult(result) {
-        if (!this.verified) {
+      load() {
+        const defaults = this.defaults();
+
+        try {
+          const raw = localStorage.getItem(this.key);
+          if (!raw) return defaults;
+
+          const stored = JSON.parse(raw);
+
           return {
-            saved: false,
-            reason: "Progression is quarantined."
+            ...defaults,
+            ...stored,
+            settings: {
+              ...defaults.settings,
+              ...(stored.settings || {})
+            },
+            base: {
+              ...defaults.base,
+              ...(stored.base || {})
+            },
+            arena: {
+              ...defaults.arena,
+              ...(stored.arena || {})
+            }
           };
+        } catch {
+          this.memoryOnly = true;
+          return defaults;
         }
-
-        const validation = this.validateGameResult(result);
-
-        if (!validation.valid) {
-          return {
-            saved: false,
-            reason: validation.reason
-          };
-        }
-
-        const event = await this.createGameEvent(result);
-
-        const nextPayload = {
-          ...this.payload,
-          updatedAt: Date.now(),
-          ledger: [...this.payload.ledger, event]
-        };
-
-        await this.writeVerifiedSave(nextPayload);
-
-        return {
-          saved: true,
-          reason: ""
-        };
       }
 
-      deriveProfile() {
-        const profile = {
-          xp: 0,
-          level: 1,
-          title: "Rookie",
-          unlocks: ["Neon Trail"],
-          gamesPlayed: 0,
-          wins: 0,
-          longestSurvival: 0,
-          targetHigh: 0,
-          fastestReaction: null,
-          reactionSum: 0,
-          reactionCount: 0,
-          dodgeStorm2Record: 0
-        };
+      save() {
+        try {
+          localStorage.setItem(this.key, JSON.stringify(this.data));
+        } catch {
+          this.memoryOnly = true;
+        }
+      }
 
-        if (!this.payload || !Array.isArray(this.payload.ledger)) {
-          return profile;
+      recordGame(consoleType) {
+        this.data[consoleType].gamesPlayed += 1;
+        this.save();
+      }
+
+      recordWin(consoleType) {
+        this.data[consoleType].wins += 1;
+        this.save();
+      }
+
+      addXP(amount) {
+        this.data.arena.xp += Math.max(0, Math.floor(amount));
+        this.data.arena.level = Math.max(1, Math.floor(this.data.arena.xp / 100) + 1);
+
+        if (this.data.arena.level >= 3 && !this.data.arena.unlocks.includes("Gold Sparks")) {
+          this.data.arena.unlocks.push("Gold Sparks");
         }
 
-        for (const event of this.payload.ledger) {
-          if (event.type !== "game-completed") {
-            continue;
-          }
-
-          const result = event.data;
-
-          profile.gamesPlayed += 1;
-          profile.wins += 1;
-          profile.xp += result.xpAwarded || 0;
-
-          if (result.gameId === "dodge") {
-            profile.longestSurvival = Math.max(
-              profile.longestSurvival,
-              result.durationSeconds || 0
-            );
-          }
-
-          if (result.gameId === "dodge2") {
-            profile.dodgeStorm2Record = Math.max(
-              profile.dodgeStorm2Record,
-              result.durationSeconds || 0
-            );
-          }
-
-          if (result.gameId === "target") {
-            profile.targetHigh = Math.max(
-              profile.targetHigh,
-              result.score || 0
-            );
-          }
-
-          if (
-            result.gameId === "reflex" ||
-            result.gameId === "reflex2"
-          ) {
-            profile.fastestReaction =
-              profile.fastestReaction === null
-                ? result.reactionMs
-                : Math.min(profile.fastestReaction, result.reactionMs);
-
-            profile.reactionSum += result.reactionMs;
-            profile.reactionCount += 1;
-          }
+        if (this.data.arena.level >= 5 && !this.data.arena.unlocks.includes("Storm Master")) {
+          this.data.arena.unlocks.push("Storm Master");
+          this.data.arena.profileTitle = "Storm Master";
         }
 
-        profile.level = Math.max(1, Math.floor(profile.xp / 100) + 1);
+        this.save();
+      }
 
-        if (profile.level >= 3) {
-          profile.unlocks.push("Gold Sparks");
-        }
-
-        if (profile.level >= 5) {
-          profile.unlocks.push("Storm Master");
-          profile.title = "Storm Master";
-        }
-
-        if (profile.level >= 10) {
-          profile.unlocks.push("Arena Legend");
-          profile.title = "Arena Legend";
-        }
-
-        return profile;
+      recordReaction(milliseconds) {
+        const b = this.data.base;
+        b.fastestReaction = b.fastestReaction === null
+          ? milliseconds
+          : Math.min(b.fastestReaction, milliseconds);
+        b.reactionSum += milliseconds;
+        b.reactionCount += 1;
+        this.save();
       }
 
       averageReaction() {
-        const profile = this.deriveProfile();
-
-        if (!profile.reactionCount) {
-          return null;
-        }
-
-        return Math.round(profile.reactionSum / profile.reactionCount);
+        const b = this.data.base;
+        return b.reactionCount > 0
+          ? Math.round(b.reactionSum / b.reactionCount)
+          : null;
       }
 
-      async resetAll() {
-        if (!this.db) {
-          this.db = await this.openDatabase();
-        }
-
-        await this.deleteFromStore(STORE_SAVE, SAVE_RECORD_ID);
-        await this.deleteFromStore(STORE_KEYS, INTEGRITY_KEY_ID);
-
-        this.integrityKey = await this.getOrCreateIntegrityKey();
-        this.payload = this.createDefaultPayload();
-        this.record = await this.writeVerifiedSave(this.payload);
-        this.verified = true;
-        this.integrityReason = "";
+      resetStatistics() {
+        const settings = { ...this.data.settings };
+        this.data = this.defaults();
+        this.data.settings = settings;
+        this.save();
       }
 
-      async recheck() {
-        this.verified = false;
-        this.integrityReason = "";
-
-        this.record = await this.getFromStore(STORE_SAVE, SAVE_RECORD_ID);
-
-        if (!this.record || !this.record.payload) {
-          this.integrityReason = "Save record is missing.";
-          return false;
-        }
-
-        this.payload = this.record.payload;
-
-        const signatureValid = await this.verifyPayload(
-          this.record.payload,
-          this.record.signature
-        );
-
-        if (!signatureValid) {
-          this.integrityReason = "Save signature did not match.";
-          return false;
-        }
-
-        const ledgerCheck = await this.verifyLedger(this.payload.ledger);
-
-        if (!ledgerCheck.valid) {
-          this.integrityReason = ledgerCheck.reason;
-          return false;
-        }
-
-        this.verified = true;
-        return true;
+      resetArenaProfile() {
+        const arena = this.defaults().arena;
+        this.data.arena = arena;
+        this.save();
       }
     }
 
@@ -2313,17 +1099,11 @@
       }
 
       sound(type = "click") {
-        if (!this.storage.verified) {
-          return;
-        }
+        if (!this.storage.data.settings.sound) return;
 
         try {
-          const AudioContextClass =
-            window.AudioContext || window.webkitAudioContext;
-
-          if (!AudioContextClass) {
-            return;
-          }
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return;
 
           if (!this.context) {
             this.context = new AudioContextClass();
@@ -2343,14 +1123,12 @@
           };
 
           const [frequency, duration, wave] = map[type] || map.click;
+
           const oscillator = this.context.createOscillator();
           const gain = this.context.createGain();
 
           oscillator.type = wave;
-          oscillator.frequency.setValueAtTime(
-            frequency,
-            this.context.currentTime
-          );
+          oscillator.frequency.setValueAtTime(frequency, this.context.currentTime);
 
           gain.gain.setValueAtTime(0.075, this.context.currentTime);
           gain.gain.exponentialRampToValueAtTime(
@@ -2358,101 +1136,83 @@
             this.context.currentTime + duration
           );
 
-          oscillator.connect(gain);
-          gain.connect(this.context.destination);
-
+          oscillator.connect(gain).connect(this.context.destination);
           oscillator.start();
           oscillator.stop(this.context.currentTime + duration);
-        } catch {
-          return;
-        }
+        } catch {}
       }
 
       vibrate(pattern = 16) {
+        if (!this.storage.data.settings.vibration) return;
+
         try {
           if ("vibrate" in navigator) {
             navigator.vibrate(pattern);
           }
-        } catch {
-          return;
-        }
+        } catch {}
       }
     }
 
     class InputManager {
-      attach(element, handlers) {
+      attach(element, handlers = {}) {
         let active = false;
         let pointerId = null;
         let startX = 0;
         let startY = 0;
 
-        const getPoint = (event) => {
+        const point = event => {
           const rect = element.getBoundingClientRect();
-
           return {
-            x: Math.max(
-              0,
-              Math.min(1, (event.clientX - rect.left) / rect.width)
-            ),
-            y: Math.max(
-              0,
-              Math.min(1, (event.clientY - rect.top) / rect.height)
-            )
+            x: Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width)),
+            y: Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height))
           };
         };
 
-        const onDown = (event) => {
+        const onDown = event => {
           event.preventDefault();
-
           active = true;
           pointerId = event.pointerId;
 
-          const point = getPoint(event);
-          startX = point.x;
-          startY = point.y;
+          const p = point(event);
+          startX = p.x;
+          startY = p.y;
 
           element.setPointerCapture?.(pointerId);
 
           handlers.down?.({
-            ...point,
+            ...p,
             pressed: true,
             released: false,
             tap: false
           });
         };
 
-        const onMove = (event) => {
-          if (!active || event.pointerId !== pointerId) {
-            return;
-          }
+        const onMove = event => {
+          if (!active || event.pointerId !== pointerId) return;
 
           event.preventDefault();
-
-          const point = getPoint(event);
+          const p = point(event);
 
           handlers.move?.({
-            ...point,
+            ...p,
             pressed: true,
             released: false,
             tap: false
           });
         };
 
-        const onUp = (event) => {
-          if (!active || event.pointerId !== pointerId) {
-            return;
-          }
+        const onUp = event => {
+          if (!active || event.pointerId !== pointerId) return;
 
           event.preventDefault();
-
-          const point = getPoint(event);
+          const p = point(event);
           active = false;
 
           handlers.up?.({
-            ...point,
+            ...p,
             pressed: false,
             released: true,
-            tap: Math.hypot(point.x - startX, point.y - startY) < 0.04
+            tap: Math.hypot(p.x - startX, p.y - startY) < 0.04
           });
         };
 
@@ -2470,22 +1230,75 @@
       }
     }
 
+    class LocalPartyManager {
+      constructor() {
+        this.party = null;
+      }
+
+      randomId(length = 16) {
+        const bytes = new Uint8Array(length);
+        crypto.getRandomValues(bytes);
+
+        return btoa(String.fromCharCode(...bytes))
+          .replace(/\+/g, "-")
+          .replace(/\//g, "_")
+          .replace(/=+$/g, "");
+      }
+
+      roomCode(length = 6) {
+        const bytes = new Uint8Array(length);
+        crypto.getRandomValues(bytes);
+
+        return Array.from(bytes, value => {
+          return ROOM_ALPHABET[value % ROOM_ALPHABET.length];
+        }).join("");
+      }
+
+      create(limit = 4) {
+        this.party = {
+          sessionId: this.randomId(16),
+          token: this.randomId(16),
+          hostSecret: this.randomId(16),
+          roomCode: this.roomCode(),
+          playerLimit: limit,
+          expiresAt: Date.now() + 10 * 60 * 1000,
+          players: [
+            {
+              id: this.randomId(10),
+              slot: 1,
+              name: "Host",
+              color: COLORS[0],
+              host: true,
+              connected: true
+            }
+          ]
+        };
+
+        return this.party;
+      }
+
+      end() {
+        this.party = null;
+      }
+    }
+
     class UIManager {
-      constructor(app, storage, audio, gameManager) {
+      constructor(app, storage, audio, party, gameManager) {
         this.app = app;
         this.storage = storage;
         this.audio = audio;
+        this.party = party;
         this.gameManager = gameManager;
         this.toastTimer = null;
       }
 
       escape(value) {
         return String(value)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#039;");
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
       }
 
       render(html, className = "") {
@@ -2494,26 +1307,19 @@
             ${html}
           </main>
           <div id="modal" class="modal"></div>
-          <div id="toast" class="toast"></div>
+          <div id="toast"></div>
         `;
       }
 
       bind(selector, callback) {
         const element = this.app.querySelector(selector);
-
-        if (element) {
-          element.addEventListener("click", callback);
-        }
-
+        if (element) element.addEventListener("click", callback);
         return element;
       }
 
       toast(message) {
         const toast = this.app.querySelector("#toast");
-
-        if (!toast) {
-          return;
-        }
+        if (!toast) return;
 
         toast.textContent = message;
         toast.classList.add("show");
@@ -2527,18 +1333,15 @@
 
       modal(title, text, confirmLabel, onConfirm, warning = false) {
         const modal = this.app.querySelector("#modal");
-
-        if (!modal) {
-          return;
-        }
+        if (!modal) return;
 
         modal.innerHTML = `
           <div class="modal-card">
             <h3>${this.escape(title)}</h3>
             <p>${this.escape(text)}</p>
             <div class="btn-row">
-              <button id="modalCancel" class="btn secondary">CANCEL</button>
-              <button id="modalConfirm" class="btn ${warning ? "warn" : ""}">
+              <button class="btn secondary" id="modalCancel">CANCEL</button>
+              <button class="btn ${warning ? "warn" : ""}" id="modalConfirm">
                 ${this.escape(confirmLabel)}
               </button>
             </div>
@@ -2557,103 +1360,15 @@
         };
       }
 
-      integrityPill() {
-        if (this.storage.verified) {
-          return `
-            <span class="integrity-pill">
-              ✓ LOCAL INTEGRITY CHECKED
-            </span>
-          `;
-        }
-
-        return `
-          <span class="integrity-pill quarantined">
-            ! PLAY MODE · PROGRESS UNSAVED
-          </span>
-        `;
-      }
-
-      home() {
-        this.gameManager.stop();
-
-        const integrityNote = this.storage.verified
-          ? "Local progression is integrity checked."
-          : "Games are playable. Progression is currently quarantined.";
-
-        this.render(`
-          <div class="topbar">
-            <div>
-              <h2>Thumb Arena</h2>
-              <p>Portable local party console.</p>
-            </div>
-
-            <button id="settingsButton" class="icon-btn" aria-label="Settings">
-              ⚙
-            </button>
-          </div>
-
-          <div style="margin: -6px 0 15px;">
-            ${this.integrityPill()}
-          </div>
-
-          <section class="grid">
-            <button id="soloButton" class="card">
-              <div class="card-icon" style="background: var(--cyan);">▶</div>
-              <h3>Play Solo</h3>
-              <p>Quick offline thumb games for one player.</p>
-              <span class="badge green">OFFLINE</span>
-            </button>
-
-            <button id="passButton" class="card">
-              <div class="card-icon" style="background: var(--purple);">↔</div>
-              <h3>Pass Play</h3>
-              <p>Share one phone with 2–4 players.</p>
-              <span class="badge green">NO NETWORK</span>
-            </button>
-
-            <button id="tournamentButton" class="card">
-              <div class="card-icon" style="background: var(--pink);">★</div>
-              <h3>Tournament</h3>
-              <p>Run 3, 5, or 10 local rounds.</p>
-              <span class="badge green">OFFLINE</span>
-            </button>
-
-            <button id="statsButton" class="card">
-              <div class="card-icon" style="background: #edf0ff;">▥</div>
-              <h3>Statistics</h3>
-              <p>View local records, Arena XP, and unlocks.</p>
-              <span class="badge dim">ON THIS DEVICE</span>
-            </button>
-          </section>
-
-          <div class="notice">
-            ${this.escape(integrityNote)}
-            Local saves are designed to resist casual editing, but all offline
-            browser data remains controlled by the device owner.
-          </div>
-
-          <button id="powerButton" class="btn dark">POWER OFF</button>
-        `);
-
-        this.bind("#settingsButton", () => this.settings());
-        this.bind("#soloButton", () => this.consoleSelect("solo"));
-        this.bind("#passButton", () => this.consoleSelect("pass"));
-        this.bind("#tournamentButton", () => this.tournamentSetup());
-        this.bind("#statsButton", () => this.statistics());
-        this.bind("#powerButton", () => this.boot());
-      }
-
       boot() {
-        this.gameManager.stop();
-
         this.render(`
-          <section class="center" style="min-height: 100%;">
+          <section class="center" style="min-height:100%">
             <div class="console-shell">
-              <div class="disc">◌</div>
+              <div class="disc">◉</div>
               <h1 class="brand">THUMB <span>ARENA</span></h1>
               <p class="tagline">Tiny games. Big thumb battles.</p>
               <button id="enterButton" class="btn">ENTER</button>
-              <p style="margin: 15px 0 0; font-size: .72rem; font-weight: 900;">
+              <p style="margin:15px 0 0;font-size:.72rem;font-weight:900">
                 OFFLINE • LOCAL • NO ACCOUNTS
               </p>
             </div>
@@ -2666,29 +1381,98 @@
         });
       }
 
+      home() {
+        this.gameManager.stop();
+
+        this.render(`
+          <div class="topbar">
+            <div>
+              <h2>Thumb Arena</h2>
+              <p>Portable local party console.</p>
+            </div>
+            <button id="settingsButton" class="icon-btn" aria-label="Settings">⚙</button>
+          </div>
+
+          <section class="grid">
+            <button id="soloButton" class="card">
+              <div class="card-icon" style="background:var(--cyan)">▶</div>
+              <h3>Play Solo</h3>
+              <p>Quick offline thumb games for one player.</p>
+              <span class="badge green">OFFLINE</span>
+            </button>
+
+            <button id="passButton" class="card">
+              <div class="card-icon" style="background:var(--purple)">↔</div>
+              <h3>Pass & Play</h3>
+              <p>Share one phone with 2–4 players.</p>
+              <span class="badge green">NO NETWORK</span>
+            </button>
+
+            <button id="createPartyButton" class="card wide">
+              <div class="card-icon" style="background:var(--green)">⌁</div>
+              <h3>Create Local Party</h3>
+              <p>Generate a temporary local room code for a host-runtime controller setup.</p>
+              <span class="badge gold">HOST RUNTIME MODE</span>
+            </button>
+
+            <button id="joinPartyButton" class="card">
+              <div class="card-icon" style="background:var(--gold)">▣</div>
+              <h3>Join Party</h3>
+              <p>Enter a nearby host address and room code.</p>
+              <span class="badge dim">LOCAL WI-FI</span>
+            </button>
+
+            <button id="tournamentButton" class="card">
+              <div class="card-icon" style="background:var(--pink)">★</div>
+              <h3>Tournament</h3>
+              <p>Run 3, 5, or 10 local rounds.</p>
+              <span class="badge green">OFFLINE</span>
+            </button>
+
+            <button id="statsButton" class="card wide">
+              <div class="card-icon" style="background:#edf0ff">▤</div>
+              <h3>Statistics</h3>
+              <p>View local wins, records, Arena XP, and cosmetic unlocks.</p>
+              <span class="badge dim">ON THIS DEVICE</span>
+            </button>
+          </section>
+
+          <div style="height:14px"></div>
+          <button id="powerButton" class="btn dark">⏻ POWER OFF</button>
+        `);
+
+        this.bind("#settingsButton", () => this.settings());
+        this.bind("#soloButton", () => this.consoleSelect("solo"));
+        this.bind("#passButton", () => this.consoleSelect("pass"));
+        this.bind("#createPartyButton", () => this.createParty());
+        this.bind("#joinPartyButton", () => this.joinParty());
+        this.bind("#tournamentButton", () => this.tournamentSetup());
+        this.bind("#statsButton", () => this.statistics());
+        this.bind("#powerButton", () => this.boot());
+      }
+
       consoleSelect(mode) {
         this.render(`
           <div class="topbar">
-            <button id="backButton" class="icon-btn" aria-label="Back">←</button>
-
-            <div style="text-align: right;">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
               <h2>Select Console</h2>
-              <p>${mode === "solo" ? "Solo mode" : "Pass Play mode"}</p>
+              <p>${mode === "solo" ? "Solo mode" : "Pass & Play mode"}</p>
             </div>
           </div>
 
           <section class="grid">
             <button id="baseConsoleButton" class="card">
-              <div class="card-icon" style="background: var(--cyan);">◫</div>
+              <div class="card-icon" style="background:var(--cyan)">▦</div>
               <h3>Base Console</h3>
               <p>Fast flat 2D games with instant rules.</p>
               <span class="badge green">LIGHTWEIGHT 2D</span>
             </button>
 
             <button id="arenaConsoleButton" class="card">
-              <div class="card-icon" style="background: var(--purple);">◈</div>
+              <div class="card-icon" style="background:var(--purple)">◈</div>
               <h3>Arena Console</h3>
-              <p>Low-poly-inspired arenas with more action.</p>
+              <p>Low-poly inspired arenas with more action.</p>
               <span class="badge">PSEUDO-3D</span>
             </button>
           </section>
@@ -2702,107 +1486,46 @@
       library(consoleType, mode) {
         const games = consoleType === "base" ? BASE_GAMES : ARENA_GAMES;
 
-        const cards = games
-          .map(
-            (game) => `
-              <button class="card" data-game-id="${this.escape(game.id)}">
-                <div
-                  class="card-icon"
-                  style="background: ${this.escape(game.color)};"
-                >
-                  ${this.escape(game.icon)}
-                </div>
-                <h3>${this.escape(game.title)}</h3>
-                <p>${this.escape(game.description)}</p>
-                <span class="badge ${
-                  game.mode === "PLAYABLE" ? "green" : "dim"
-                }">
-                  ${this.escape(game.mode)}
-                </span>
-              </button>
-            `
-          )
-          .join("");
+        const cards = games.map(game => `
+          <button class="card" data-game-id="${game.id}">
+            <div class="card-icon" style="background:${game.color}">${game.icon}</div>
+            <h3>${this.escape(game.title)}</h3>
+            <p>${this.escape(game.description)}</p>
+            <span class="badge ${game.mode === "PLAYABLE" ? "green" : "dim"}">
+              ${this.escape(game.mode)}
+            </span>
+          </button>
+        `).join("");
 
         this.render(`
           <div class="topbar">
-            <button id="backButton" class="icon-btn" aria-label="Back">←</button>
-
-            <div style="text-align: right;">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
               <h2>${consoleType === "base" ? "Base Console" : "Arena Console"}</h2>
               <p>Select a game disc.</p>
             </div>
           </div>
-
-          <section class="grid">
-            ${cards}
-          </section>
+          <section class="grid">${cards}</section>
         `);
 
         this.bind("#backButton", () => this.consoleSelect(mode));
 
-        this.app.querySelectorAll("[data-game-id]").forEach((button) => {
+        this.app.querySelectorAll("[data-game-id]").forEach(button => {
           button.addEventListener("click", () => {
             this.setupGame(button.dataset.gameId, consoleType, mode);
           });
         });
       }
 
-      instructions(gameId) {
-        const map = {
-          dodge:
-            "Touch and drag your orb around the arena. Avoid storm hazards for as long as possible.",
-          trail:
-            "Take turns drawing a path. Touching any trail eliminates your rider.",
-          target:
-            "Each player has 30 seconds. Tap orange targets for one point and gold targets for three.",
-          hot:
-            "Drag the bomb holder into a target player to pass the bomb. Do not hold it at zero.",
-          reflex:
-            "Wait until TAP appears, then tap immediately. An early tap is a false start.",
-          wheel:
-            "Spin the wheel to select a random playable Base Console game.",
-          dodge2:
-            "Drag the orb through a storm arena. Dodge hazards, preserve HP, and survive.",
-          trail2:
-            "Race through an energy arena. Avoid trails and arena danger.",
-          target2:
-            "Tap targets as they appear. Build a score before time expires.",
-          hot2:
-            "Move around the arena and pass the Core before the countdown ends.",
-          reflex2:
-            "Survive multiple reaction rounds. Tap only when STRIKE appears.",
-          wheel2:
-            "Spin to select a random playable Arena game.",
-          quest:
-            "Collect glowing objectives while avoiding red hazards.",
-          brawl:
-            "Collect objectives, tap for bonus points, and survive the arena.",
-          treasure:
-            "Collect treasure objectives before the timer expires.",
-          boss:
-            "Hit glowing weak points while avoiding arena hazards."
-        };
-
-        return map[gameId] || "Quick local thumb-controlled game.";
-      }
-
       setupGame(gameId, consoleType, mode) {
-        const game = [...BASE_GAMES, ...ARENA_GAMES].find(
-          (item) => item.id === gameId
-        );
-
-        const soloOnly = ["dodge", "dodge2", "wheel", "wheel2"].includes(
-          gameId
-        );
-
-        const multiplayer = !soloOnly && mode !== "solo";
+        const game = [...BASE_GAMES, ...ARENA_GAMES].find(item => item.id === gameId);
+        const soloOnly = ["dodge", "dodge2"].includes(gameId);
+        const multiplayer = !soloOnly && !["wheel", "wheel2"].includes(gameId);
 
         this.render(`
           <div class="topbar">
-            <button id="backButton" class="icon-btn" aria-label="Back">←</button>
-
-            <div style="text-align: right;">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
               <h2>${this.escape(game.title)}</h2>
               <p>Game setup</p>
             </div>
@@ -2816,13 +1539,11 @@
               multiplayer
                 ? `
                   <label class="label">Players</label>
-
                   <div class="numbers">
                     <button class="number-btn active" data-count="2">2</button>
                     <button class="number-btn" data-count="3">3</button>
                     <button class="number-btn" data-count="4">4</button>
                   </div>
-
                   <div id="playerFields"></div>
                 `
                 : `
@@ -2836,8 +1557,7 @@
                 `
             }
 
-            <div style="height: 15px;"></div>
-
+            <div style="height:15px"></div>
             <button id="startGameButton" class="btn">START</button>
           </section>
         `);
@@ -2846,37 +1566,27 @@
 
         const drawPlayers = () => {
           const fields = this.app.querySelector("#playerFields");
+          if (!fields) return;
 
-          if (!fields) {
-            return;
-          }
-
-          fields.innerHTML = Array.from(
-            { length: count },
-            (_, index) => `
-              <label class="label">Player ${index + 1}</label>
-              <input
-                class="input player-name"
-                maxlength="14"
-                value="Player ${index + 1}"
-              />
-            `
-          ).join("");
+          fields.innerHTML = Array.from({ length: count }, (_, index) => `
+            <label class="label">Player ${index + 1}</label>
+            <input class="input player-name" maxlength="14" value="Player ${index + 1}">
+          `).join("");
         };
 
         if (multiplayer) {
           drawPlayers();
 
-          this.app.querySelectorAll("[data-count]").forEach((button) => {
+          this.app.querySelectorAll("[data-count]").forEach(button => {
             button.addEventListener("click", () => {
               count = Number(button.dataset.count);
 
-              this.app.querySelectorAll("[data-count]").forEach((item) => {
+              this.app.querySelectorAll("[data-count]").forEach(item => {
                 item.classList.toggle("active", item === button);
               });
 
-              this.audio.sound("click");
               drawPlayers();
+              this.audio.sound("click");
             });
           });
         }
@@ -2885,22 +1595,232 @@
 
         this.bind("#startGameButton", () => {
           const players = multiplayer
-            ? [...this.app.querySelectorAll(".player-name")].map(
-                (input, index) =>
-                  input.value.trim() || `Player ${index + 1}`
-              )
+            ? [...this.app.querySelectorAll(".player-name")].map((input, index) => {
+                return input.value.trim() || `Player ${index + 1}`;
+              })
             : ["Player 1"];
 
-          this.gameManager.launch(gameId, consoleType, players, false);
+          this.gameManager.launch(gameId, consoleType, players);
+        });
+      }
+
+      instructions(gameId) {
+        const map = {
+          dodge: "Touch and drag your orb around the arena. Avoid storm hazards for as long as possible.",
+          trail: "Take turns drawing a path. Touching any trail eliminates your rider. The arena wraps at its edges.",
+          target: "Each player has 30 seconds. Tap orange targets for one point and gold targets for three.",
+          hot: "Drag the bomb holder into a target player to pass the bomb. Do not hold it at zero.",
+          reflex: "Wait until TAP appears, then tap immediately. An early tap is a false start.",
+          wheel: "Spin the wheel to select a random playable Base Console game.",
+          dodge2: "Drag the orb through a low-poly storm arena. Dodge hazards, preserve HP, and survive.",
+          trail2: "Race through an energy arena. Avoid trails, boundaries, and hazard zones.",
+          target2: "Tap targets as they appear in the arena. Build combos and avoid decoys.",
+          hot2: "Move around the arena and pass the Core before the countdown ends.",
+          reflex2: "Survive multiple cinematic reaction rounds. Tap only when STRIKE appears.",
+          wheel2: "Spin to select a random playable Arena Console game.",
+          quest: "Complete a tiny random objective: collect crystals, reach a portal, or find treasure.",
+          brawl: "Move, tap to strike, collect power-ups, and outscore rivals in a short arena fight.",
+          treasure: "Find treasure, avoid traps, and bring your prize back before time expires.",
+          boss: "Dodge attacks, tap weak points, collect energy, and defeat the boss before time expires."
+        };
+
+        return map[gameId] || "Quick local thumb-controlled game.";
+      }
+
+      createParty() {
+        this.render(`
+          <div class="topbar">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
+              <h2>Create Local Party</h2>
+              <p>Temporary host room</p>
+            </div>
+          </div>
+
+          <section class="panel">
+            <h3>Local Party Setup</h3>
+            <p>
+              A real multi-phone party requires a host runtime capable of running a local HTTP/WebSocket server.
+              Browser/PWA mode always supports Solo, Pass & Play, and Tournament.
+            </p>
+
+            <div class="notice">
+              For a private Local Party, use the host phone hotspot or trusted local Wi-Fi.
+              No cloud server, account, or internet gameplay is required.
+            </div>
+
+            <label class="label">Player Limit</label>
+            <div class="numbers">
+              <button class="number-btn" data-limit="2">2</button>
+              <button class="number-btn" data-limit="3">3</button>
+              <button class="number-btn active" data-limit="4">4</button>
+            </div>
+
+            <button id="createPartyButton" class="btn green">CREATE LOCAL PARTY</button>
+            <div style="height:10px"></div>
+            <button id="passFallbackButton" class="btn secondary">USE PASS & PLAY</button>
+          </section>
+        `);
+
+        let limit = 4;
+
+        this.bind("#backButton", () => this.home());
+        this.bind("#passFallbackButton", () => this.consoleSelect("pass"));
+
+        this.app.querySelectorAll("[data-limit]").forEach(button => {
+          button.addEventListener("click", () => {
+            limit = Number(button.dataset.limit);
+
+            this.app.querySelectorAll("[data-limit]").forEach(item => {
+              item.classList.toggle("active", item === button);
+            });
+          });
+        });
+
+        this.bind("#createPartyButton", () => {
+          const party = this.party.create(limit);
+          this.audio.sound("start");
+          this.partyLobby(party);
+        });
+      }
+
+      partyLobby(party) {
+        const playerRows = Array.from({ length: party.playerLimit }, (_, index) => {
+          const slot = index + 1;
+          const player = party.players.find(item => item.slot === slot);
+
+          return `
+            <div class="row">
+              <div class="slot">
+                <span class="slot-dot ${player ? "active" : ""}"></span>
+                <div>
+                  <strong>${player ? this.escape(player.name) : `Player ${slot}`}</strong>
+                  <small>${slot === 1 ? "Host" : player ? "Connected" : "Open"}</small>
+                </div>
+              </div>
+              <strong>${player ? "●" : "○"}</strong>
+            </div>
+          `;
+        }).join("");
+
+        const joinTemplate = `http://HOST-LOCAL-IP:8080/join?room=${party.roomCode}&token=${party.token}&v=1`;
+
+        this.render(`
+          <div class="topbar">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
+              <h2>Local Party Ready</h2>
+              <p>Temporary room expires in 10 minutes.</p>
+            </div>
+          </div>
+
+          <section class="panel">
+            <h3>Room Code</h3>
+            <div class="code-box">${party.roomCode}</div>
+
+            <div class="notice">
+              This browser-only prototype creates secure temporary room credentials.
+              A host runtime replaces HOST-LOCAL-IP and activates real nearby controller joining.
+            </div>
+
+            <label class="label">Local Join URL Template</label>
+            <input class="input" readonly value="${joinTemplate}">
+
+            <div style="height:14px"></div>
+
+            <div class="list">${playerRows}</div>
+
+            <div style="height:14px"></div>
+
+            <button id="testArenaButton" class="btn">START SAME-PHONE TEST</button>
+            <div style="height:10px"></div>
+            <button id="endPartyButton" class="btn warn">END PARTY</button>
+          </section>
+        `);
+
+        this.bind("#backButton", () => {
+          this.party.end();
+          this.home();
+        });
+
+        this.bind("#testArenaButton", () => {
+          this.gameManager.launch("dodge2", "arena", ["Host"]);
+        });
+
+        this.bind("#endPartyButton", () => {
+          this.modal(
+            "End Local Party?",
+            "The room code, temporary token, and player data will be cleared.",
+            "END PARTY",
+            () => {
+              this.party.end();
+              this.home();
+            },
+            true
+          );
+        });
+      }
+
+      joinParty() {
+        this.render(`
+          <div class="topbar">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
+              <h2>Join Local Party</h2>
+              <p>Host hotspot or shared Wi-Fi</p>
+            </div>
+          </div>
+
+          <section class="panel">
+            <h3>Manual Join</h3>
+            <p>
+              Connect to the host hotspot or same Wi-Fi first.
+              Then enter the local host address and temporary room code.
+            </p>
+
+            <label class="label">Host Address</label>
+            <input id="hostAddress" class="input" placeholder="192.168.43.1:8080">
+
+            <label class="label">Room Code</label>
+            <input id="roomCode" class="input" maxlength="6" placeholder="K7M4ZX">
+
+            <label class="label">Your Name</label>
+            <input id="playerName" class="input" maxlength="14" value="Player 2">
+
+            <div style="height:14px"></div>
+
+            <button id="requestJoinButton" class="btn">REQUEST TO JOIN</button>
+            <div style="height:10px"></div>
+            <button id="passFallbackButton" class="btn secondary">USE PASS & PLAY</button>
+          </section>
+        `);
+
+        this.bind("#backButton", () => this.home());
+        this.bind("#passFallbackButton", () => this.consoleSelect("pass"));
+
+        this.bind("#requestJoinButton", () => {
+          const address = this.app.querySelector("#hostAddress").value.trim();
+          const room = this.app.querySelector("#roomCode").value.trim().toUpperCase();
+
+          if (!address || room.length !== 6) {
+            this.toast("Enter a host address and six-character room code.");
+            return;
+          }
+
+          this.modal(
+            "Host Runtime Required",
+            "This single-file browser build cannot open or connect to a real host-local WebSocket server by itself. Use a host-enabled runtime, or use Pass & Play on one device.",
+            "OK",
+            () => {}
+          );
         });
       }
 
       tournamentSetup() {
         this.render(`
           <div class="topbar">
-            <button id="backButton" class="icon-btn" aria-label="Back">←</button>
-
-            <div style="text-align: right;">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
               <h2>Tournament Setup</h2>
               <p>Offline local event</p>
             </div>
@@ -2908,33 +1828,24 @@
 
           <section class="panel">
             <h3>Choose Console</h3>
-            <p>Play local rounds and award tournament points after each result.</p>
+            <p>Play quick local rounds and award tournament points after each result.</p>
 
-            <button id="baseTournamentButton" class="btn">
-              BASE CONSOLE TOURNAMENT
-            </button>
-
-            <div style="height: 10px;"></div>
-
-            <button id="arenaTournamentButton" class="btn secondary">
-              ARENA CONSOLE TOURNAMENT
-            </button>
+            <button id="baseTournamentButton" class="btn">BASE CONSOLE TOURNAMENT</button>
+            <div style="height:10px"></div>
+            <button id="arenaTournamentButton" class="btn secondary">ARENA CONSOLE TOURNAMENT</button>
           </section>
         `);
 
         this.bind("#backButton", () => this.home());
         this.bind("#baseTournamentButton", () => this.tournamentPlayers("base"));
-        this.bind("#arenaTournamentButton", () =>
-          this.tournamentPlayers("arena")
-        );
+        this.bind("#arenaTournamentButton", () => this.tournamentPlayers("arena"));
       }
 
       tournamentPlayers(consoleType) {
         this.render(`
           <div class="topbar">
-            <button id="backButton" class="icon-btn" aria-label="Back">←</button>
-
-            <div style="text-align: right;">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
               <h2>${consoleType === "base" ? "Base" : "Arena"} Tournament</h2>
               <p>Set players and rounds</p>
             </div>
@@ -2942,7 +1853,6 @@
 
           <section class="panel">
             <label class="label">Players</label>
-
             <div class="numbers">
               <button class="number-btn active" data-player-count="2">2</button>
               <button class="number-btn" data-player-count="3">3</button>
@@ -2952,16 +1862,13 @@
             <div id="tournamentPlayerFields"></div>
 
             <label class="label">Rounds</label>
-
             <div class="numbers">
               <button class="number-btn active" data-round-count="3">3</button>
               <button class="number-btn" data-round-count="5">5</button>
               <button class="number-btn" data-round-count="10">10</button>
             </div>
 
-            <button id="beginTournamentButton" class="btn">
-              START TOURNAMENT
-            </button>
+            <button id="beginTournamentButton" class="btn">START TOURNAMENT</button>
           </section>
         `);
 
@@ -2971,60 +1878,49 @@
         const drawFields = () => {
           const fields = this.app.querySelector("#tournamentPlayerFields");
 
-          fields.innerHTML = Array.from(
-            { length: playerCount },
-            (_, index) => `
-              <label class="label">Player ${index + 1}</label>
-              <input
-                class="input tournament-name"
-                maxlength="14"
-                value="Player ${index + 1}"
-              />
-            `
-          ).join("");
+          fields.innerHTML = Array.from({ length: playerCount }, (_, index) => `
+            <label class="label">Player ${index + 1}</label>
+            <input class="input tournament-name" maxlength="14" value="Player ${index + 1}">
+          `).join("");
         };
 
         drawFields();
 
-        this.app.querySelectorAll("[data-player-count]").forEach((button) => {
+        this.app.querySelectorAll("[data-player-count]").forEach(button => {
           button.addEventListener("click", () => {
             playerCount = Number(button.dataset.playerCount);
 
-            this.app
-              .querySelectorAll("[data-player-count]")
-              .forEach((item) => {
-                item.classList.toggle("active", item === button);
-              });
+            this.app.querySelectorAll("[data-player-count]").forEach(item => {
+              item.classList.toggle("active", item === button);
+            });
 
             drawFields();
           });
         });
 
-        this.app.querySelectorAll("[data-round-count]").forEach((button) => {
+        this.app.querySelectorAll("[data-round-count]").forEach(button => {
           button.addEventListener("click", () => {
             rounds = Number(button.dataset.roundCount);
 
-            this.app
-              .querySelectorAll("[data-round-count]")
-              .forEach((item) => {
-                item.classList.toggle("active", item === button);
-              });
+            this.app.querySelectorAll("[data-round-count]").forEach(item => {
+              item.classList.toggle("active", item === button);
+            });
           });
         });
 
         this.bind("#backButton", () => this.tournamentSetup());
 
         this.bind("#beginTournamentButton", () => {
-          const players = [...this.app.querySelectorAll(".tournament-name")].map(
-            (input, index) => ({
+          const players = [...this.app.querySelectorAll(".tournament-name")].map((input, index) => {
+            return {
               id: `local-${index + 1}`,
               name: input.value.trim() || `Player ${index + 1}`,
               color: COLORS[index],
               points: 0
-            })
-          );
+            };
+          });
 
-          this.gameManager.tournament = {
+          this.storage.data.tournament = {
             consoleType,
             totalRounds: rounds,
             currentRound: 1,
@@ -3032,27 +1928,25 @@
             usedGames: []
           };
 
+          this.storage.save();
           this.tournamentStandings();
         });
       }
 
       tournamentStandings() {
-        const tournament = this.gameManager.tournament;
+        const tournament = this.storage.data.tournament;
 
         if (!tournament) {
           this.home();
           return;
         }
 
-        const standings = [...tournament.players].sort(
-          (a, b) => b.points - a.points
-        );
+        const standings = [...tournament.players].sort((a, b) => b.points - a.points);
 
         this.render(`
           <div class="topbar">
-            <button id="backButton" class="icon-btn" aria-label="Back">←</button>
-
-            <div style="text-align: right;">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
               <h2>Tournament</h2>
               <p>Round ${tournament.currentRound} of ${tournament.totalRounds}</p>
             </div>
@@ -3060,68 +1954,44 @@
 
           <section class="panel">
             <h3>Current Standings</h3>
-
             <div class="list">
-              ${standings
-                .map(
-                  (player, index) => `
-                    <div class="row">
-                      <div class="slot">
-                        <span
-                          class="slot-dot active"
-                          style="background: ${this.escape(player.color)};"
-                        ></span>
-
-                        <div>
-                          <strong>${index + 1}. ${this.escape(player.name)}</strong>
-                          <small>${player.points} tournament points</small>
-                        </div>
-                      </div>
-
-                      <strong>${player.points}</strong>
+              ${standings.map((player, index) => `
+                <div class="row">
+                  <div class="slot">
+                    <span class="slot-dot active" style="background:${player.color}"></span>
+                    <div>
+                      <strong>${index + 1}. ${this.escape(player.name)}</strong>
+                      <small>${player.points} tournament points</small>
                     </div>
-                  `
-                )
-                .join("")}
+                  </div>
+                  <strong>${player.points}</strong>
+                </div>
+              `).join("")}
             </div>
 
-            <div style="height: 15px;"></div>
-
-            <button id="nextTournamentGameButton" class="btn">
-              PLAY NEXT ROUND
-            </button>
-
-            <div style="height: 10px;"></div>
-
-            <button id="endTournamentButton" class="btn warn">
-              END TOURNAMENT
-            </button>
+            <div style="height:15px"></div>
+            <button id="nextTournamentGameButton" class="btn">PLAY NEXT ROUND</button>
+            <div style="height:10px"></div>
+            <button id="endTournamentButton" class="btn warn">END TOURNAMENT</button>
           </section>
         `);
 
         this.bind("#backButton", () => this.home());
 
         this.bind("#nextTournamentGameButton", () => {
-          const source =
-            tournament.consoleType === "base" ? BASE_GAMES : ARENA_GAMES;
-
-          const allowed = source.filter(
-            (game) => !["wheel", "wheel2"].includes(game.id)
-          );
-
-          const unused = allowed.filter(
-            (game) => !tournament.usedGames.includes(game.id)
-          );
-
+          const source = tournament.consoleType === "base" ? BASE_GAMES : ARENA_GAMES;
+          const allowed = source.filter(game => !["wheel", "wheel2"].includes(game.id));
+          const unused = allowed.filter(game => !tournament.usedGames.includes(game.id));
           const pool = unused.length ? unused : allowed;
           const selected = pool[Math.floor(Math.random() * pool.length)];
 
           tournament.usedGames.push(selected.id);
+          this.storage.save();
 
           this.gameManager.launch(
             selected.id,
             tournament.consoleType,
-            tournament.players.map((player) => player.name),
+            tournament.players.map(player => player.name),
             true
           );
         });
@@ -3132,7 +2002,8 @@
             "Current tournament standings will be cleared.",
             "END",
             () => {
-              this.gameManager.tournament = null;
+              this.storage.data.tournament = null;
+              this.storage.save();
               this.home();
             },
             true
@@ -3141,62 +2012,49 @@
       }
 
       applyTournamentResults(results) {
-        const tournament = this.gameManager.tournament;
-
-        if (!tournament) {
-          return;
-        }
+        const tournament = this.storage.data.tournament;
+        if (!tournament) return;
 
         const points = [5, 3, 2, 1];
 
         results.forEach((result, index) => {
-          const player = tournament.players.find(
-            (item) => item.name === result.name
-          );
-
-          if (player) {
-            player.points += points[index] || 0;
-          }
+          const player = tournament.players.find(item => item.name === result.name);
+          if (player) player.points += points[index] || 0;
         });
 
         if (tournament.currentRound >= tournament.totalRounds) {
-          const finalStandings = [...tournament.players].sort(
-            (a, b) => b.points - a.points
-          );
+          const final = [...tournament.players].sort((a, b) => b.points - a.points);
+          this.storage.data.tournament = null;
+          this.storage.save();
 
-          this.gameManager.tournament = null;
-          this.tournamentChampion(finalStandings);
+          this.tournamentChampion(final);
           return;
         }
 
         tournament.currentRound += 1;
+        this.storage.save();
+
         this.tournamentRoundResults(results);
       }
 
       tournamentRoundResults(results) {
         this.render(`
-          <section class="result-screen" style="min-height: 100%;">
+          <section class="result-screen" style="min-height:100%">
             <div class="result-card">
-              <div style="font-size: 3.2rem;">★</div>
+              <div style="font-size:3.2rem">🏁</div>
               <h1>ROUND COMPLETE</h1>
               <p>Tournament points have been awarded.</p>
 
               <div class="rankings">
-                ${results
-                  .map(
-                    (item, index) => `
-                      <div class="rank">
-                        <strong>${index + 1}. ${this.escape(item.name)}</strong>
-                        <span>${[5, 3, 2, 1][index] || 0} points</span>
-                      </div>
-                    `
-                  )
-                  .join("")}
+                ${results.map((item, index) => `
+                  <div class="rank">
+                    <strong>${index + 1}. ${this.escape(item.name)}</strong>
+                    <span>+${[5, 3, 2, 1][index] || 0} points</span>
+                  </div>
+                `).join("")}
               </div>
 
-              <button id="standingsButton" class="btn">
-                VIEW STANDINGS
-              </button>
+              <button id="standingsButton" class="btn">VIEW STANDINGS</button>
             </div>
           </section>
         `, "result-screen");
@@ -3206,34 +2064,24 @@
 
       tournamentChampion(finalStandings) {
         this.render(`
-          <section class="result-screen" style="min-height: 100%;">
+          <section class="result-screen" style="min-height:100%">
             <div class="result-card">
-              <div style="font-size: 3.6rem;">★</div>
+              <div style="font-size:3.6rem">🏆</div>
               <h1>CHAMPION</h1>
               <p>${this.escape(finalStandings[0].name)} wins the tournament!</p>
 
               <div class="rankings">
-                ${finalStandings
-                  .map(
-                    (player, index) => `
-                      <div class="rank">
-                        <strong>${index + 1}. ${this.escape(player.name)}</strong>
-                        <span>${player.points} points</span>
-                      </div>
-                    `
-                  )
-                  .join("")}
+                ${finalStandings.map((player, index) => `
+                  <div class="rank">
+                    <strong>${index + 1}. ${this.escape(player.name)}</strong>
+                    <span>${player.points} points</span>
+                  </div>
+                `).join("")}
               </div>
 
-              <button id="newTournamentButton" class="btn">
-                NEW TOURNAMENT
-              </button>
-
-              <div style="height: 10px;"></div>
-
-              <button id="homeButton" class="btn dark">
-                RETURN HOME
-              </button>
+              <button id="newTournamentButton" class="btn">NEW TOURNAMENT</button>
+              <div style="height:10px"></div>
+              <button id="homeButton" class="btn dark">RETURN HOME</button>
             </div>
           </section>
         `, "result-screen");
@@ -3243,13 +2091,14 @@
       }
 
       settings() {
+        const settings = this.storage.data.settings;
+
         this.render(`
           <div class="topbar">
-            <button id="backButton" class="icon-btn" aria-label="Back">←</button>
-
-            <div style="text-align: right;">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
               <h2>Settings</h2>
-              <p>Local device controls</p>
+              <p>Saved only on this device</p>
             </div>
           </div>
 
@@ -3257,104 +2106,107 @@
             <div class="list">
               <div class="row">
                 <div>
-                  <strong>Save Integrity</strong>
-                  <small>${
-                    this.storage.verified
-                      ? "Signed local profile verified"
-                      : "Profile is quarantined"
-                  }</small>
+                  <strong>Sound</strong>
+                  <small>Generated arcade effects</small>
                 </div>
-
-                ${this.integrityPill()}
+                <button id="soundToggle" class="btn" style="width:auto;min-height:42px;padding:8px 12px">
+                  ${settings.sound ? "ON" : "OFF"}
+                </button>
               </div>
 
               <div class="row">
                 <div>
-                  <strong>Local Storage</strong>
-                  <small>IndexedDB + Web Crypto HMAC</small>
+                  <strong>Vibration</strong>
+                  <small>Compatible devices only</small>
                 </div>
+                <button id="vibrationToggle" class="btn" style="width:auto;min-height:42px;padding:8px 12px">
+                  ${settings.vibration ? "ON" : "OFF"}
+                </button>
+              </div>
 
-                <strong>LOCAL</strong>
+              <div class="row">
+                <div>
+                  <strong>Reduced Effects</strong>
+                  <small>Lower visual intensity</small>
+                </div>
+                <button id="effectsToggle" class="btn" style="width:auto;min-height:42px;padding:8px 12px">
+                  ${settings.reducedEffects ? "ON" : "OFF"}
+                </button>
+              </div>
+
+              <div class="row">
+                <div>
+                  <strong>Performance</strong>
+                  <small>Current quality preference</small>
+                </div>
+                <strong>${this.escape(settings.performance.toUpperCase())}</strong>
+              </div>
+
+              <div class="row">
+                <div>
+                  <strong>Storage</strong>
+                  <small>Local browser storage</small>
+                </div>
+                <strong>${this.storage.memoryOnly ? "MEMORY" : "LOCAL"}</strong>
               </div>
             </div>
 
-            ${
-              this.storage.verified
-                ? `
-                  <div class="notice">
-                    Your local replay log and signed save are valid. Scores are
-                    still offline records, not public competitive verification.
-                  </div>
-                `
-                : `
-                  <div class="notice warning">
-                    Save verification failed: ${this.escape(
-                      this.storage.integrityReason || "Unknown issue"
-                    )}. Games remain playable, but new XP, unlocks, and trusted
-                    records will not be saved until you reset local progression.
-                  </div>
-                `
-            }
-
-            <button id="recheckButton" class="btn secondary">
-              RECHECK SAVE
-            </button>
-
-            <div style="height: 10px;"></div>
-
-            <button id="statsButton" class="btn dark">
-              VIEW STATISTICS
-            </button>
-
-            <div style="height: 10px;"></div>
-
-            <button id="resetButton" class="btn warn">
-              RESET LOCAL PROGRESS
-            </button>
+            <div style="height:15px"></div>
+            <button id="statsButton" class="btn secondary">VIEW STATISTICS</button>
+            <div style="height:10px"></div>
+            <button id="resetStatsButton" class="btn warn">RESET STATISTICS</button>
+            <div style="height:10px"></div>
+            <button id="resetArenaButton" class="btn dark">RESET ARENA PROFILE</button>
           </section>
         `);
 
         this.bind("#backButton", () => this.home());
 
-        this.bind("#recheckButton", async () => {
-          const button = this.app.querySelector("#recheckButton");
+        this.bind("#soundToggle", () => {
+          this.storage.data.settings.sound = !settings.sound;
+          this.storage.save();
+          this.audio.sound("click");
+          this.settings();
+        });
 
-          button.disabled = true;
-          button.textContent = "CHECKING...";
+        this.bind("#vibrationToggle", () => {
+          this.storage.data.settings.vibration = !settings.vibration;
+          this.storage.save();
+          this.audio.vibrate(18);
+          this.settings();
+        });
 
-          try {
-            const valid = await this.storage.recheck();
-
-            if (valid) {
-              this.audio.sound("win");
-              this.toast("Local save passed integrity verification.");
-            } else {
-              this.audio.vibrate(45);
-              this.toast("Save verification failed. Play Mode remains active.");
-            }
-          } catch {
-            this.toast("Could not recheck local save.");
-          }
-
+        this.bind("#effectsToggle", () => {
+          this.storage.data.settings.reducedEffects = !settings.reducedEffects;
+          this.storage.save();
           this.settings();
         });
 
         this.bind("#statsButton", () => this.statistics());
 
-        this.bind("#resetButton", () => {
+        this.bind("#resetStatsButton", () => {
           this.modal(
-            "Reset Local Progress?",
-            "This clears local XP, unlocks, records, and signed replay history.",
+            "Reset Statistics?",
+            "This clears local games played, wins, high scores, reaction records, XP, and tournament data.",
             "RESET",
-            async () => {
-              try {
-                await this.storage.resetAll();
-                this.audio.sound("start");
-                this.toast("Fresh local profile created.");
-                this.settings();
-              } catch {
-                this.toast("Could not reset local progression.");
-              }
+            () => {
+              this.storage.resetStatistics();
+              this.toast("Local statistics reset.");
+              this.settings();
+            },
+            true
+          );
+        });
+
+        this.bind("#resetArenaButton", () => {
+          this.modal(
+            "Reset Arena Profile?",
+            "This clears local Arena XP, title, and cosmetic unlocks.",
+            "RESET PROFILE",
+            () => {
+              this.storage.resetArenaProfile();
+              this.toast("Arena profile reset.");
+              this.settings();
             },
             true
           );
@@ -3362,93 +2214,74 @@
       }
 
       statistics() {
-        const profile = this.storage.deriveProfile();
+        const base = this.storage.data.base;
+        const arena = this.storage.data.arena;
         const averageReaction = this.storage.averageReaction();
 
         this.render(`
           <div class="topbar">
-            <button id="backButton" class="icon-btn" aria-label="Back">←</button>
-
-            <div style="text-align: right;">
+            <button id="backButton" class="icon-btn">←</button>
+            <div style="text-align:right">
               <h2>Statistics</h2>
               <p>Local device records</p>
             </div>
           </div>
 
           <section class="panel">
-            <div style="margin-bottom: 14px;">
-              ${this.integrityPill()}
-            </div>
-
             <div class="list">
               <div class="row">
-                <div>
-                  <strong>Games Played</strong>
-                  <small>Validated completed rounds</small>
-                </div>
-                <strong>${profile.gamesPlayed}</strong>
+                <div><strong>Base Games Played</strong><small>All Base Console rounds</small></div>
+                <strong>${base.gamesPlayed}</strong>
               </div>
 
               <div class="row">
-                <div>
-                  <strong>Longest Survival</strong>
-                  <small>Base Dodge Storm</small>
-                </div>
-                <strong>${profile.longestSurvival.toFixed(1)}s</strong>
+                <div><strong>Base Wins</strong><small>Local results recorded</small></div>
+                <strong>${base.wins}</strong>
               </div>
 
               <div class="row">
-                <div>
-                  <strong>Target Rush High</strong>
-                  <small>Best Base target score</small>
-                </div>
-                <strong>${profile.targetHigh}</strong>
+                <div><strong>Longest Survival</strong><small>Base Dodge Storm</small></div>
+                <strong>${base.longestSurvival.toFixed(1)}s</strong>
               </div>
 
               <div class="row">
-                <div>
-                  <strong>Fastest Reaction</strong>
-                  <small>Base and Arena Reflex Shot</small>
-                </div>
-                <strong>${
-                  profile.fastestReaction === null
-                    ? "—"
-                    : `${profile.fastestReaction} ms`
-                }</strong>
+                <div><strong>Target Rush High</strong><small>Best Base target score</small></div>
+                <strong>${base.targetHigh}</strong>
               </div>
 
               <div class="row">
-                <div>
-                  <strong>Average Reaction</strong>
-                  <small>All valid reaction attempts</small>
-                </div>
-                <strong>${
-                  averageReaction === null ? "—" : `${averageReaction} ms`
-                }</strong>
+                <div><strong>Fastest Reaction</strong><small>Reflex Shot</small></div>
+                <strong>${base.fastestReaction === null ? "—" : `${base.fastestReaction} ms`}</strong>
               </div>
 
               <div class="row">
-                <div>
-                  <strong>Dodge Storm 2 Record</strong>
-                  <small>Longest Arena survival</small>
-                </div>
-                <strong>${profile.dodgeStorm2Record.toFixed(1)}s</strong>
+                <div><strong>Average Reaction</strong><small>All valid attempts</small></div>
+                <strong>${averageReaction === null ? "—" : `${averageReaction} ms`}</strong>
               </div>
 
               <div class="row">
-                <div>
-                  <strong>Arena Profile</strong>
-                  <small>${this.escape(profile.title)}</small>
-                </div>
-                <strong>Lv ${profile.level} · ${profile.xp} XP</strong>
+                <div><strong>Arena Games Played</strong><small>All Arena Console rounds</small></div>
+                <strong>${arena.gamesPlayed}</strong>
               </div>
 
               <div class="row">
-                <div>
-                  <strong>Cosmetics</strong>
-                  <small>${this.escape(profile.unlocks.join(", "))}</small>
-                </div>
-                <strong>${profile.unlocks.length}</strong>
+                <div><strong>Arena Wins</strong><small>Local results recorded</small></div>
+                <strong>${arena.wins}</strong>
+              </div>
+
+              <div class="row">
+                <div><strong>Dodge Storm 2 Record</strong><small>Longest Arena survival</small></div>
+                <strong>${arena.dodgeStorm2Record.toFixed(1)}s</strong>
+              </div>
+
+              <div class="row">
+                <div><strong>Arena Profile</strong><small>${this.escape(arena.profileTitle)}</small></div>
+                <strong>Lv ${arena.level} • ${arena.xp} XP</strong>
+              </div>
+
+              <div class="row">
+                <div><strong>Cosmetics</strong><small>${arena.unlocks.join(", ")}</small></div>
+                <strong>${arena.unlocks.length}</strong>
               </div>
             </div>
           </section>
@@ -3464,29 +2297,15 @@
               <span class="hud-label">${this.escape(label)}</span>
               <span id="hudValue" class="hud-value">${this.escape(value)}</span>
             </div>
-
-            <button id="exitGameButton" class="icon-btn" aria-label="Exit game">
-              ×
-            </button>
+            <button id="exitGameButton" class="icon-btn">✕</button>
           </div>
-
-          <section id="gameArea" class="game-area">
-            <div class="integrity-badge ${
-              this.storage.verified ? "" : "quarantined"
-            }">
-              ${
-                this.storage.verified
-                  ? "✓ LOCAL SAVE VERIFIED"
-                  : "! PLAY MODE · PROGRESS UNSAVED"
-              }
-            </div>
-          </section>
+          <section id="gameArea" class="game-area"></section>
         `, "game-screen");
 
         this.bind("#exitGameButton", () => {
           this.modal(
             "Exit Game?",
-            "This round will end without saving progression.",
+            "This round will end without saving a win.",
             "EXIT",
             () => this.home(),
             true
@@ -3496,41 +2315,25 @@
         return this.app.querySelector("#gameArea");
       }
 
-      results(title, subtitle, results, replay, savedState) {
-        const saveText = savedState.saved
-          ? "Local progression integrity checked and saved."
-          : "Round completed in Play Mode. Progression was not saved.";
-
+      results(title, subtitle, results, replay) {
         this.render(`
-          <section class="result-screen" style="min-height: 100%;">
+          <section class="result-screen" style="min-height:100%">
             <div class="result-card">
-              <div style="font-size: 3.3rem;">★</div>
+              <div style="font-size:3.3rem">🏆</div>
               <h1>${this.escape(title)}</h1>
               <p>${this.escape(subtitle)}</p>
 
-              <div class="notice ${
-                savedState.saved ? "" : "warning"
-              }">
-                ${this.escape(saveText)}
-              </div>
-
               <div class="rankings">
-                ${results
-                  .map(
-                    (result, index) => `
-                      <div class="rank">
-                        <strong>${index + 1}. ${this.escape(result.name)}</strong>
-                        <span>${this.escape(result.detail || String(result.score))}</span>
-                      </div>
-                    `
-                  )
-                  .join("")}
+                ${results.map((result, index) => `
+                  <div class="rank">
+                    <strong>${index + 1}. ${this.escape(result.name)}</strong>
+                    <span>${this.escape(result.detail || String(result.score))}</span>
+                  </div>
+                `).join("")}
               </div>
 
               <button id="replayButton" class="btn">PLAY AGAIN</button>
-
-              <div style="height: 10px;"></div>
-
+              <div style="height:10px"></div>
               <button id="homeButton" class="btn dark">RETURN HOME</button>
             </div>
           </section>
@@ -3547,41 +2350,27 @@
         this.audio = audio;
         this.ui = null;
         this.cleanup = null;
-        this.tournament = null;
       }
 
       stop() {
         if (typeof this.cleanup === "function") {
           this.cleanup();
+          this.cleanup = null;
         }
-
-        this.cleanup = null;
       }
 
       launch(gameId, consoleType, players, tournament = false) {
         this.stop();
 
         const wheelPoolBase = ["dodge", "trail", "target", "hot", "reflex"];
-        const wheelPoolArena = [
-          "dodge2",
-          "trail2",
-          "target2",
-          "hot2",
-          "reflex2",
-          "quest",
-          "brawl",
-          "treasure",
-          "boss"
-        ];
+        const wheelPoolArena = ["dodge2", "trail2", "target2", "hot2", "reflex2", "quest", "brawl", "treasure", "boss"];
 
         if (gameId === "wheel") {
-          gameId =
-            wheelPoolBase[Math.floor(Math.random() * wheelPoolBase.length)];
+          gameId = wheelPoolBase[Math.floor(Math.random() * wheelPoolBase.length)];
         }
 
         if (gameId === "wheel2") {
-          gameId =
-            wheelPoolArena[Math.floor(Math.random() * wheelPoolArena.length)];
+          gameId = wheelPoolArena[Math.floor(Math.random() * wheelPoolArena.length)];
         }
 
         if (gameId === "dodge" || gameId === "dodge2") {
@@ -3612,53 +2401,40 @@
         this.genericArenaGame(gameId, consoleType, players, tournament);
       }
 
-      async finish({
-        consoleType,
-        gameId,
-        title,
-        subtitle,
-        results,
-        replay,
-        tournament,
-        progressionResult
-      }) {
+      finish(consoleType, gameId, title, subtitle, results, replay, tournament) {
         this.stop();
 
-        let savedState = {
-          saved: false,
-          reason: "No progression event was created."
-        };
+        this.storage.recordWin(consoleType);
 
-        if (progressionResult) {
-          savedState = await this.storage.recordGameResult(progressionResult);
-
-          if (savedState.saved) {
-            this.audio.sound("win");
-            this.audio.vibrate([20, 25, 45]);
-          } else {
-            this.audio.vibrate(18);
-          }
+        if (consoleType === "arena") {
+          const total = results.reduce((sum, item) => sum + (Number(item.score) || 0), 0);
+          this.storage.addXP(Math.max(10, Math.round(total / Math.max(1, results.length))));
         }
 
-        if (tournament && this.tournament) {
+        this.audio.sound("win");
+        this.audio.vibrate([20, 25, 45]);
+
+        if (tournament && this.storage.data.tournament) {
           this.ui.applyTournamentResults(results);
           return;
         }
 
-        this.ui.results(title, subtitle, results, replay, savedState);
+        this.ui.results(title, subtitle, results, replay);
       }
 
       dodgeStorm(gameId, consoleType, players, tournament) {
+        this.storage.recordGame(consoleType);
+
         const area = this.ui.gameShell(
           gameId === "dodge2" ? "Dodge Storm 2" : "Dodge Storm",
-          "Preparing"
+          "Preparing…"
         );
 
         const canvas = document.createElement("canvas");
+        area.appendChild(canvas);
+
         const ctx = canvas.getContext("2d");
         const input = new InputManager();
-
-        area.appendChild(canvas);
 
         let frame = 0;
         let countdownTimer = 0;
@@ -3678,6 +2454,7 @@
             invulnerableUntil: 0,
             shield: false,
             speedUntil: 0,
+            combo: 1,
             score: 0
           },
           hazards: [],
@@ -3695,87 +2472,88 @@
 
           if (!state.player.x) {
             state.player.x = state.player.tx = rect.width / 2;
-            state.player.y = state.player.ty = rect.height * 0.68;
+            state.player.y = state.player.ty = rect.height / 2;
           }
         };
 
-        const collision = (x1, y1, r1, x2, y2, r2) =>
-          Math.hypot(x1 - x2, y1 - y2) < r1 + r2;
-
         const spawnHazard = (level, elapsed) => {
           const rect = area.getBoundingClientRect();
+
           const types = ["rock"];
-
-          if (gameId === "dodge2" && elapsed > 15) {
-            types.push("wall");
-          }
-
-          if (gameId === "dodge2" && elapsed > 30) {
-            types.push("rotator");
-          }
-
-          if (gameId === "dodge2" && elapsed > 50) {
-            types.push("ring");
-          }
-
-          if (gameId === "dodge2" && elapsed > 75) {
-            types.push("homing");
-          }
+          if (gameId === "dodge2" && elapsed > 15) types.push("wall");
+          if (gameId === "dodge2" && elapsed > 30) types.push("rotator");
+          if (gameId === "dodge2" && elapsed > 50) types.push("ring");
+          if (gameId === "dodge2" && elapsed > 75) types.push("homing");
 
           const type = types[Math.floor(Math.random() * types.length)];
-          const edge = Math.floor(Math.random() * 4);
+
+          if (type === "rotator") {
+            state.hazards.push({
+              type,
+              x: rect.width / 2,
+              y: rect.height / 2,
+              angle: Math.random() * Math.PI * 2,
+              length: Math.max(rect.width, rect.height) * 0.36,
+              speed: 0.018 + level * 0.002,
+              thickness: 18
+            });
+            return;
+          }
+
+          if (type === "ring") {
+            state.hazards.push({
+              type,
+              x: rect.width / 2,
+              y: rect.height / 2,
+              radius: 12,
+              speed: 1.4 + level * 0.08,
+              thickness: 11
+            });
+            return;
+          }
+
+          const side = Math.floor(Math.random() * 4);
+          const size = type === "wall"
+            ? 25 + Math.random() * 12
+            : 22 + Math.random() * Math.min(22, level * 3);
 
           let x = 0;
           let y = 0;
 
-          if (edge === 0) {
-            x = Math.random() * rect.width;
-            y = -40;
-          }
-
-          if (edge === 1) {
-            x = rect.width + 40;
+          if (side === 0) {
+            x = -size;
             y = Math.random() * rect.height;
-          }
-
-          if (edge === 2) {
-            x = Math.random() * rect.width;
-            y = rect.height + 40;
-          }
-
-          if (edge === 3) {
-            x = -40;
+          } else if (side === 1) {
+            x = rect.width + size;
             y = Math.random() * rect.height;
+          } else if (side === 2) {
+            x = Math.random() * rect.width;
+            y = -size;
+          } else {
+            x = Math.random() * rect.width;
+            y = rect.height + size;
           }
 
-          const angle = Math.atan2(
-            state.player.y - y,
-            state.player.x - x
-          );
+          const angle = Math.atan2(state.player.y - y, state.player.x - x);
+          const baseSpeed = 1.15 + level * 0.2 + Math.random() * 0.65;
 
           state.hazards.push({
             type,
             x,
             y,
-            vx: Math.cos(angle) * (1.8 + level * 0.18),
-            vy: Math.sin(angle) * (1.8 + level * 0.18),
-            r:
-              type === "rock"
-                ? 13 + Math.random() * 11
-                : type === "ring"
-                  ? 34 + Math.random() * 16
-                  : 18,
-            width: 20 + Math.random() * 16,
-            height: 20 + Math.random() * 18,
-            angle: Math.random() * Math.PI * 2,
-            rotation: (Math.random() - 0.5) * 0.12,
-            length: 50 + Math.random() * 40,
-            thickness: 12 + Math.random() * 6,
-            radius: 34 + Math.random() * 20
+            size,
+            angle,
+            vx: Math.cos(angle) * baseSpeed,
+            vy: Math.sin(angle) * baseSpeed,
+            rotation: Math.random() * Math.PI,
+            width: type === "wall" ? size * 3 : size,
+            height: type === "wall" ? size : size
           });
         };
 
         const spawnPickup = () => {
+          if (gameId !== "dodge2") return;
+
           const rect = area.getBoundingClientRect();
           const type = Math.random() < 0.5 ? "shield" : "speed";
 
@@ -3788,12 +2566,14 @@
           });
         };
 
+        const collision = (x1, y1, r1, x2, y2, r2) => {
+          return Math.hypot(x1 - x2, y1 - y2) < r1 + r2;
+        };
+
         const hitPlayer = () => {
           const now = performance.now();
 
-          if (now < state.player.invulnerableUntil) {
-            return;
-          }
+          if (now < state.player.invulnerableUntil) return;
 
           if (state.player.shield) {
             state.player.shield = false;
@@ -3805,6 +2585,7 @@
           }
 
           state.player.hp -= 1;
+          state.player.combo = 1;
           state.player.invulnerableUntil = now + 950;
 
           this.audio.sound("hit");
@@ -3819,79 +2600,24 @@
           }
         };
 
-        const drawHazard = (hazard) => {
-          ctx.save();
-          ctx.translate(hazard.x, hazard.y);
-
-          if (hazard.type === "ring") {
-            ctx.beginPath();
-            ctx.arc(0, 0, hazard.radius, 0, Math.PI * 2);
-            ctx.strokeStyle = "#ffd35f";
-            ctx.shadowColor = "#ffd35f";
-            ctx.shadowBlur = 14;
-            ctx.lineWidth = hazard.thickness;
-            ctx.stroke();
-            ctx.restore();
-            return;
-          }
-
-          if (hazard.type === "rotator") {
-            ctx.rotate(hazard.angle);
-            ctx.fillStyle = "#ad7dff";
-            ctx.shadowColor = "#ad7dff";
-            ctx.shadowBlur = 18;
-            ctx.fillRect(
-              -hazard.thickness / 2,
-              -hazard.length,
-              hazard.thickness,
-              hazard.length * 2
-            );
-            ctx.restore();
-            return;
-          }
-
-          ctx.rotate(hazard.rotation);
-          ctx.fillStyle =
-            hazard.type === "wall"
-              ? "#ad7dff"
-              : hazard.type === "homing"
-                ? "#ffcf63"
-                : "#ff6e97";
-
-          ctx.shadowColor = ctx.fillStyle;
-          ctx.shadowBlur = 14;
-
-          ctx.fillRect(
-            -hazard.width / 2,
-            -hazard.height / 2,
-            hazard.width,
-            hazard.height
-          );
-
-          ctx.restore();
-        };
-
         const draw = () => {
           const rect = area.getBoundingClientRect();
-          const elapsed = running
-            ? (performance.now() - startedAt) / 1000
-            : 0;
-
           ctx.clearRect(0, 0, rect.width, rect.height);
 
-          const background = ctx.createLinearGradient(
-            0,
-            0,
-            0,
-            rect.height
-          );
+          const elapsed = running ? (performance.now() - startedAt) / 1000 : 0;
+          const background = ctx.createLinearGradient(0, 0, 0, rect.height);
 
-          if (gameId === "dodge2" && elapsed > 30) {
-            background.addColorStop(0, "#552b48");
-            background.addColorStop(1, "#171225");
-          } else if (gameId === "dodge2" && elapsed > 15) {
-            background.addColorStop(0, "#293b72");
-            background.addColorStop(1, "#151830");
+          if (gameId === "dodge2") {
+            if (elapsed < 15) {
+              background.addColorStop(0, "#293b72");
+              background.addColorStop(1, "#151830");
+            } else if (elapsed < 30) {
+              background.addColorStop(0, "#5a3c39");
+              background.addColorStop(1, "#20182d");
+            } else {
+              background.addColorStop(0, "#552b48");
+              background.addColorStop(1, "#171225");
+            }
           } else {
             background.addColorStop(0, "#30396c");
             background.addColorStop(1, "#15172d");
@@ -3904,11 +2630,7 @@
             ctx.strokeStyle = "rgba(87,229,255,.11)";
             ctx.lineWidth = 1;
 
-            for (
-              let x = -rect.height;
-              x < rect.width + rect.height;
-              x += 28
-            ) {
+            for (let x = -rect.height; x < rect.width + rect.height; x += 28) {
               ctx.beginPath();
               ctx.moveTo(x, 0);
               ctx.lineTo(x + rect.height, rect.height);
@@ -3916,14 +2638,15 @@
             }
           }
 
-          state.pickups.forEach((pickup) => {
+          state.pickups.forEach(pickup => {
             ctx.save();
             ctx.translate(pickup.x, pickup.y);
             ctx.rotate((performance.now() - pickup.created) / 500);
-            ctx.fillStyle =
-              pickup.type === "shield" ? "#efffff" : "#90ff6b";
+
+            ctx.fillStyle = pickup.type === "shield" ? "#efffff" : "#90ff6b";
             ctx.shadowColor = ctx.fillStyle;
             ctx.shadowBlur = 18;
+
             ctx.beginPath();
             ctx.moveTo(0, -pickup.radius);
             ctx.lineTo(pickup.radius, 0);
@@ -3931,10 +2654,58 @@
             ctx.lineTo(-pickup.radius, 0);
             ctx.closePath();
             ctx.fill();
+
             ctx.restore();
           });
 
-          state.hazards.forEach(drawHazard);
+          state.hazards.forEach(hazard => {
+            ctx.save();
+
+            if (hazard.type === "rotator") {
+              ctx.translate(hazard.x, hazard.y);
+              ctx.rotate(hazard.angle);
+              ctx.fillStyle = "#ad7dff";
+              ctx.shadowColor = "#ad7dff";
+              ctx.shadowBlur = 18;
+              ctx.fillRect(-hazard.thickness / 2, -hazard.length, hazard.thickness, hazard.length * 2);
+              ctx.restore();
+              return;
+            }
+
+            if (hazard.type === "ring") {
+              ctx.beginPath();
+              ctx.arc(hazard.x, hazard.y, hazard.radius, 0, Math.PI * 2);
+              ctx.strokeStyle = "#ffd35f";
+              ctx.lineWidth = hazard.thickness;
+              ctx.shadowColor = "#ffd35f";
+              ctx.shadowBlur = 14;
+              ctx.stroke();
+              ctx.restore();
+              return;
+            }
+
+            ctx.translate(hazard.x, hazard.y);
+            ctx.rotate(hazard.rotation);
+
+            ctx.fillStyle =
+              hazard.type === "wall"
+                ? "#ad7dff"
+                : hazard.type === "homing"
+                  ? "#ffcf63"
+                  : "#ff6e97";
+
+            ctx.shadowColor = ctx.fillStyle;
+            ctx.shadowBlur = 14;
+
+            ctx.fillRect(
+              -hazard.width / 2,
+              -hazard.height / 2,
+              hazard.width,
+              hazard.height
+            );
+
+            ctx.restore();
+          });
 
           const blinking =
             performance.now() < state.player.invulnerableUntil &&
@@ -3942,19 +2713,8 @@
 
           if (!blinking) {
             ctx.beginPath();
-            ctx.arc(
-              state.player.x,
-              state.player.y,
-              state.player.r,
-              0,
-              Math.PI * 2
-            );
-
-            ctx.fillStyle =
-              state.player.speedUntil > performance.now()
-                ? "#90ff6b"
-                : "#57e5ff";
-
+            ctx.arc(state.player.x, state.player.y, state.player.r, 0, Math.PI * 2);
+            ctx.fillStyle = state.player.speedUntil > performance.now() ? "#90ff6b" : "#57e5ff";
             ctx.shadowColor = ctx.fillStyle;
             ctx.shadowBlur = state.player.shield ? 28 : 20;
             ctx.fill();
@@ -3966,82 +2726,128 @@
 
             if (state.player.shield) {
               ctx.beginPath();
-              ctx.arc(
-                state.player.x,
-                state.player.y,
-                state.player.r + 9,
-                0,
-                Math.PI * 2
-              );
-
+              ctx.arc(state.player.x, state.player.y, state.player.r + 9, 0, Math.PI * 2);
               ctx.strokeStyle = "rgba(239,255,255,.62)";
               ctx.lineWidth = 2;
               ctx.stroke();
             }
+
+            ctx.fillStyle = "#17213b";
+            ctx.font = "bold 13px system-ui";
+            ctx.textAlign = "center";
+            ctx.fillText("•ᴗ•", state.player.x, state.player.y + 5);
           }
         };
 
-        const endGame = async () => {
-          if (!running) {
-            return;
-          }
+        const endGame = () => {
+          if (!running) return;
 
           running = false;
 
           const seconds = (performance.now() - startedAt) / 1000;
           const score = Math.round(seconds + state.player.score);
 
-          const progressionResult = {
-            gameId,
-            durationSeconds: Number(seconds.toFixed(1)),
-            score,
-            xpAwarded: GAME_RULES[gameId].xpFormula({
-              durationSeconds: seconds,
-              score
-            })
-          };
+          if (gameId === "dodge") {
+            this.storage.data.base.longestSurvival = Math.max(
+              this.storage.data.base.longestSurvival,
+              seconds
+            );
+          } else {
+            this.storage.data.arena.dodgeStorm2Record = Math.max(
+              this.storage.data.arena.dodgeStorm2Record,
+              seconds
+            );
+
+            this.storage.addXP(Math.round(seconds * 6 + score * 0.3));
+          }
+
+          this.storage.save();
+
+          this.audio.sound("hit");
+          this.audio.vibrate([45, 20, 70]);
 
           const results = players.map((name, index) => ({
             name,
             score: index === 0 ? score : 0,
-            detail:
-              index === 0
-                ? `${seconds.toFixed(1)}s · ${score} score`
-                : "Pass Play attempt"
+            detail: index === 0
+              ? `${seconds.toFixed(1)}s • ${score} score`
+              : "Pass & Play attempt"
           }));
 
-          await this.finish({
-            consoleType,
-            gameId,
-            title:
-              gameId === "dodge2"
-                ? "STORM 2 RESULTS"
-                : "STORM RESULTS",
-            subtitle: `Survival: ${seconds.toFixed(1)} seconds.`,
-            results,
-            replay: () =>
-              this.dodgeStorm(gameId, consoleType, players, tournament),
-            tournament,
-            progressionResult
-          });
+          setTimeout(() => {
+            this.finish(
+              consoleType,
+              gameId,
+              gameId === "dodge2" ? "STORM 2 RESULTS" : "STORM RESULTS",
+              `Survival: ${seconds.toFixed(1)} seconds.`,
+              results,
+              () => this.dodgeStorm(gameId, consoleType, players, tournament),
+              tournament
+            );
+          }, 450);
         };
 
-        const loop = (now) => {
-          if (!running) {
+        removeInput = input.attach(area, {
+          down: point => {
+            const rect = area.getBoundingClientRect();
+            state.player.tx = point.x * rect.width;
+            state.player.ty = point.y * rect.height;
+          },
+          move: point => {
+            const rect = area.getBoundingClientRect();
+            state.player.tx = point.x * rect.width;
+            state.player.ty = point.y * rect.height;
+          }
+        });
+
+        const overlay = document.createElement("div");
+        overlay.className = "overlay";
+        overlay.innerHTML = `
+          <div class="overlay-card">
+            <div class="hud-label">${gameId === "dodge2" ? "Arena Survival" : "Dodge Storm"}</div>
+            <h2 id="countdownValue">3</h2>
+            <p>Drag to move. Release to stop. Avoid hazards.</p>
+          </div>
+        `;
+
+        area.appendChild(overlay);
+
+        let count = 3;
+
+        countdownTimer = setInterval(() => {
+          count -= 1;
+
+          const countElement = overlay.querySelector("#countdownValue");
+
+          if (count <= 0) {
+            clearInterval(countdownTimer);
+            countElement.textContent = "GO!";
+            this.audio.sound("start");
+
+            setTimeout(() => {
+              overlay.remove();
+              running = true;
+              startedAt = performance.now();
+              frame = requestAnimationFrame(loop);
+            }, 350);
+
             return;
           }
+
+          countElement.textContent = count;
+          this.audio.sound("click");
+        }, 700);
+
+        const loop = now => {
+          if (!running) return;
 
           const rect = area.getBoundingClientRect();
           const elapsed = (now - startedAt) / 1000;
           const level = Math.floor(elapsed / 10) + 1;
-          const speedMultiplier =
-            state.player.speedUntil > now ? 0.25 : 0.16;
+          const speedMultiplier = state.player.speedUntil > now ? 0.25 : 0.16;
 
-          state.player.x +=
-            (state.player.tx - state.player.x) * speedMultiplier;
-
-          state.player.y +=
-            (state.player.ty - state.player.y) * speedMultiplier;
+          state.player.x += (state.player.tx - state.player.x) * speedMultiplier;
+          state.player.y += (state.player.ty - state.player.y) * speedMultiplier;
 
           state.player.x = Math.max(
             state.player.r,
@@ -4069,19 +2875,17 @@
             state.lastPickup = now;
           }
 
-          for (let index = state.pickups.length - 1; index >= 0; index -= 1) {
-            const pickup = state.pickups[index];
+          for (let i = state.pickups.length - 1; i >= 0; i--) {
+            const pickup = state.pickups[i];
 
-            if (
-              collision(
-                state.player.x,
-                state.player.y,
-                state.player.r,
-                pickup.x,
-                pickup.y,
-                pickup.radius + 4
-              )
-            ) {
+            if (collision(
+              state.player.x,
+              state.player.y,
+              state.player.r,
+              pickup.x,
+              pickup.y,
+              pickup.radius + 4
+            )) {
               if (pickup.type === "shield") {
                 state.player.shield = true;
                 this.ui.toast("Shield acquired!");
@@ -4093,12 +2897,54 @@
               state.player.score += 12;
               this.audio.sound("gold");
               this.audio.vibrate(20);
-              state.pickups.splice(index, 1);
+              state.pickups.splice(i, 1);
             }
           }
 
-          for (let index = state.hazards.length - 1; index >= 0; index -= 1) {
-            const hazard = state.hazards[index];
+          for (let i = state.hazards.length - 1; i >= 0; i--) {
+            const hazard = state.hazards[i];
+
+            if (hazard.type === "rotator") {
+              hazard.angle += hazard.speed;
+
+              const dx = state.player.x - hazard.x;
+              const dy = state.player.y - hazard.y;
+              const distance = Math.hypot(dx, dy);
+
+              if (distance < hazard.length) {
+                const playerAngle = Math.atan2(dy, dx);
+                const armAngle = hazard.angle - Math.PI / 2;
+                const diff = Math.abs(Math.atan2(
+                  Math.sin(playerAngle - armAngle),
+                  Math.cos(playerAngle - armAngle)
+                ));
+
+                if (diff < 0.13) {
+                  hitPlayer();
+                }
+              }
+
+              continue;
+            }
+
+            if (hazard.type === "ring") {
+              hazard.radius += hazard.speed;
+
+              const distance = Math.hypot(
+                state.player.x - hazard.x,
+                state.player.y - hazard.y
+              );
+
+              if (Math.abs(distance - hazard.radius) < hazard.thickness + state.player.r * 0.4) {
+                hitPlayer();
+              }
+
+              if (hazard.radius > Math.max(rect.width, rect.height)) {
+                state.hazards.splice(i, 1);
+              }
+
+              continue;
+            }
 
             if (hazard.type === "homing") {
               const angle = Math.atan2(
@@ -4106,138 +2952,71 @@
                 state.player.x - hazard.x
               );
 
-              hazard.vx += Math.cos(angle) * 0.05;
-              hazard.vy += Math.sin(angle) * 0.05;
+              hazard.vx += Math.cos(angle) * 0.035;
+              hazard.vy += Math.sin(angle) * 0.035;
             }
 
-            if (hazard.type === "rotator") {
-              hazard.angle += 0.045;
-            } else if (hazard.type === "ring") {
-              hazard.radius += 0.45;
-            } else {
-              hazard.x += hazard.vx;
-              hazard.y += hazard.vy;
-              hazard.rotation += 0.06;
+            hazard.x += hazard.vx;
+            hazard.y += hazard.vy;
+            hazard.rotation += 0.035;
+
+            const hitRadius = Math.max(hazard.width, hazard.height) * 0.37;
+
+            if (collision(
+              state.player.x,
+              state.player.y,
+              state.player.r,
+              hazard.x,
+              hazard.y,
+              hitRadius
+            )) {
+              hitPlayer();
             }
 
-            const hitRadius =
-              hazard.type === "ring"
-                ? hazard.radius
-                : hazard.type === "rotator"
-                  ? hazard.length * 0.6
-                  : Math.max(hazard.width || 0, hazard.height || 0, hazard.r || 0);
-
-            const distance = Math.hypot(
+            const nearDistance = Math.hypot(
               state.player.x - hazard.x,
               state.player.y - hazard.y
             );
 
             if (
-              hazard.type !== "ring" &&
-              collision(
-                state.player.x,
-                state.player.y,
-                state.player.r,
-                hazard.x,
-                hazard.y,
-                hitRadius * 0.55
-              )
+              nearDistance < state.player.r + hitRadius + 14 &&
+              nearDistance > state.player.r + hitRadius
             ) {
-              hitPlayer();
+              state.player.score += state.player.combo;
+              state.player.combo = Math.min(5, state.player.combo + 0.01);
             }
 
             if (
-              hazard.type === "ring" &&
-              Math.abs(distance - hazard.radius) <
-                state.player.r + hazard.thickness
+              hazard.x < -150 ||
+              hazard.y < -150 ||
+              hazard.x > rect.width + 150 ||
+              hazard.y > rect.height + 150
             ) {
-              hitPlayer();
-            }
-
-            if (
-              hazard.x < -180 ||
-              hazard.y < -180 ||
-              hazard.x > rect.width + 180 ||
-              hazard.y > rect.height + 180 ||
-              (hazard.type === "ring" && hazard.radius > 220)
-            ) {
-              state.hazards.splice(index, 1);
+              state.hazards.splice(i, 1);
             }
           }
 
           const hud = document.querySelector("#hudValue");
 
           if (hud) {
-            hud.textContent =
-              gameId === "dodge2"
-                ? `${elapsed.toFixed(1)}s · HP ${"●".repeat(
-                    state.player.hp
-                  )} · +${state.player.score}`
-                : `${elapsed.toFixed(1)}s · Level ${level}`;
+            if (gameId === "dodge2") {
+              hud.textContent =
+                `${elapsed.toFixed(1)}s • HP ${"♥".repeat(state.player.hp)} • ` +
+                `x${state.player.combo.toFixed(1)} • Lv ${level}`;
+            } else {
+              hud.textContent = `${elapsed.toFixed(1)}s • Level ${level}`;
+            }
           }
 
           draw();
+
           frame = requestAnimationFrame(loop);
         };
 
         resize();
         window.addEventListener("resize", resize);
 
-        removeInput = input.attach(area, {
-          down: (point) => {
-            const rect = area.getBoundingClientRect();
-            state.player.tx = point.x * rect.width;
-            state.player.ty = point.y * rect.height;
-          },
-          move: (point) => {
-            const rect = area.getBoundingClientRect();
-            state.player.tx = point.x * rect.width;
-            state.player.ty = point.y * rect.height;
-          }
-        });
-
-        const overlay = document.createElement("div");
-        overlay.className = "overlay";
-        overlay.innerHTML = `
-          <div class="overlay-card">
-            <div class="hud-label">${
-              gameId === "dodge2" ? "Arena Survival" : "Dodge Storm"
-            }</div>
-            <h2 id="countdownValue">3</h2>
-            <p>Drag to move. Avoid hazards and survive.</p>
-          </div>
-        `;
-
-        area.appendChild(overlay);
-
-        let count = 3;
-
-        countdownTimer = setInterval(() => {
-          count -= 1;
-
-          const value = overlay.querySelector("#countdownValue");
-
-          if (count <= 0) {
-            clearInterval(countdownTimer);
-            value.textContent = "GO!";
-            this.audio.sound("start");
-
-            setTimeout(() => {
-              overlay.remove();
-              running = true;
-              startedAt = performance.now();
-              frame = requestAnimationFrame(loop);
-            }, 350);
-
-            return;
-          }
-
-          value.textContent = count;
-          this.audio.sound("click");
-        }, 700);
-
         this.cleanup = () => {
-          running = false;
           clearInterval(countdownTimer);
           cancelAnimationFrame(frame);
           removeInput?.();
@@ -4246,55 +3025,48 @@
       }
 
       targetRush(gameId, consoleType, players, tournament) {
+        this.storage.recordGame(consoleType);
+
         const area = this.ui.gameShell(
           gameId === "target2" ? "Target Rush 2" : "Target Rush",
-          "Preparing"
+          "Preparing…"
         );
 
         let playerIndex = 0;
-        const scores = players.map((name) => ({ name, score: 0 }));
+        const scores = players.map(name => ({ name, score: 0 }));
         let currentTarget = null;
         let frame = 0;
         let running = false;
         let startedAt = 0;
         let targetTimer = 0;
 
-        const nextPlayer = async () => {
+        const nextPlayer = () => {
           if (playerIndex >= players.length) {
             const results = [...scores]
               .sort((a, b) => b.score - a.score)
-              .map((item) => ({
+              .map((item, index) => ({
                 name: item.name,
                 score: item.score,
                 detail: `${item.score} points`
               }));
 
-            const winnerScore = results[0]?.score || 0;
+            if (gameId === "target") {
+              this.storage.data.base.targetHigh = Math.max(
+                this.storage.data.base.targetHigh,
+                results[0].score
+              );
+              this.storage.save();
+            }
 
-            const progressionResult = {
-              gameId,
-              durationSeconds: 30,
-              score: winnerScore,
-              xpAwarded: GAME_RULES[gameId].xpFormula({
-                durationSeconds: 30,
-                score: winnerScore
-              })
-            };
-
-            await this.finish({
+            this.finish(
               consoleType,
               gameId,
-              title:
-                gameId === "target2"
-                  ? "TARGET RUSH 2 RESULTS"
-                  : "TARGET RUSH RESULTS",
-              subtitle: "Highest score wins.",
+              gameId === "target2" ? "TARGET RUSH 2 RESULTS" : "TARGET RUSH RESULTS",
+              "Highest score wins.",
               results,
-              replay: () =>
-                this.targetRush(gameId, consoleType, players, tournament),
-              tournament,
-              progressionResult
-            });
+              () => this.targetRush(gameId, consoleType, players, tournament),
+              tournament
+            );
 
             return;
           }
@@ -4304,9 +3076,7 @@
           overlay.innerHTML = `
             <div class="overlay-card">
               <div class="hud-label">Target Rush</div>
-              <h2>PASS TO ${this.ui.escape(
-                players[playerIndex].toUpperCase()
-              )}</h2>
+              <h2>PASS TO ${this.ui.escape(players[playerIndex].toUpperCase())}</h2>
               <p>Tap targets for 30 seconds. Gold targets are worth three points.</p>
               <button id="readyButton" class="btn">TAP WHEN READY</button>
             </div>
@@ -4323,29 +3093,20 @@
         const spawnTarget = () => {
           currentTarget?.remove();
 
-          if (!running) {
-            return;
-          }
-
           const rect = area.getBoundingClientRect();
           const gold = Math.random() < (gameId === "target2" ? 0.24 : 0.17);
 
           currentTarget = document.createElement("button");
           currentTarget.className = `target ${gold ? "gold" : ""}`;
-          currentTarget.textContent = gold ? "3" : "1";
-          currentTarget.style.left = `${
-            45 + Math.random() * Math.max(1, rect.width - 90)
-          }px`;
-          currentTarget.style.top = `${
-            50 + Math.random() * Math.max(1, rect.height - 110)
-          }px`;
+          currentTarget.textContent = gold ? "★" : "+1";
 
-          currentTarget.addEventListener("pointerdown", (event) => {
+          currentTarget.style.left = `${45 + Math.random() * Math.max(1, rect.width - 90)}px`;
+          currentTarget.style.top = `${50 + Math.random() * Math.max(1, rect.height - 110)}px`;
+
+          currentTarget.addEventListener("pointerdown", event => {
             event.preventDefault();
 
-            if (!running) {
-              return;
-            }
+            if (!running) return;
 
             const points = gold ? 3 : 1;
             scores[playerIndex].score += points;
@@ -4365,8 +3126,11 @@
           clearTimeout(targetTimer);
 
           targetTimer = setTimeout(() => {
-            currentTarget?.remove();
-            currentTarget = null;
+            if (currentTarget) {
+              currentTarget.remove();
+              currentTarget = null;
+            }
+
             spawnTarget();
           }, gold ? 850 : 1200);
         };
@@ -4376,27 +3140,23 @@
           startedAt = performance.now();
           spawnTarget();
 
-          const loop = (now) => {
-            if (!running) {
-              return;
-            }
+          const loop = now => {
+            if (!running) return;
 
             const remaining = Math.max(0, 30000 - (now - startedAt));
             const hud = document.querySelector("#hudValue");
 
             if (hud) {
-              hud.textContent = `${players[playerIndex]} · ${Math.ceil(
-                remaining / 1000
-              )}s · ${scores[playerIndex].score} points`;
+              hud.textContent =
+                `${players[playerIndex]} • ${Math.ceil(remaining / 1000)}s • ` +
+                `${scores[playerIndex].score} points`;
             }
 
             if (remaining <= 0) {
               running = false;
-
               clearTimeout(targetTimer);
               currentTarget?.remove();
               currentTarget = null;
-
               playerIndex += 1;
 
               setTimeout(nextPlayer, 550);
@@ -4412,7 +3172,6 @@
         nextPlayer();
 
         this.cleanup = () => {
-          running = false;
           cancelAnimationFrame(frame);
           clearTimeout(targetTimer);
           currentTarget?.remove();
@@ -4420,14 +3179,16 @@
       }
 
       reflexShot(gameId, consoleType, players, tournament) {
+        this.storage.recordGame(consoleType);
+
         const area = this.ui.gameShell(
           gameId === "reflex2" ? "Reflex Shot 2" : "Reflex Shot",
-          "Preparing"
+          "Preparing players…"
         );
 
         let playerIndex = 0;
         const results = [];
-        const activeTimeouts = [];
+        let activeTimeouts = [];
 
         const later = (callback, milliseconds) => {
           const id = setTimeout(callback, milliseconds);
@@ -4435,44 +3196,25 @@
           return id;
         };
 
-        const nextPlayer = async () => {
+        const nextPlayer = () => {
           if (playerIndex >= players.length) {
             const rankings = [...results]
               .sort((a, b) => a.score - b.score)
-              .map((item) => ({
+              .map(item => ({
                 name: item.name,
                 score: item.score,
-                detail: item.falseStart
-                  ? "False start"
-                  : `${item.score} ms`
+                detail: item.falseStart ? "False start" : `${item.score} ms`
               }));
 
-            const bestValid = results
-              .filter((result) => !result.falseStart)
-              .sort((a, b) => a.score - b.score)[0];
-
-            const progressionResult = bestValid
-              ? {
-                  gameId,
-                  reactionMs: bestValid.score,
-                  xpAwarded: GAME_RULES[gameId].xpFormula({
-                    reactionMs: bestValid.score
-                  })
-                }
-              : null;
-
-            await this.finish({
+            this.finish(
               consoleType,
               gameId,
-              title:
-                gameId === "reflex2" ? "REFLEX 2 RESULTS" : "REFLEX RESULTS",
-              subtitle: "Lower reaction time is better.",
-              results: rankings,
-              replay: () =>
-                this.reflexShot(gameId, consoleType, players, tournament),
-              tournament,
-              progressionResult
-            });
+              gameId === "reflex2" ? "REFLEX 2 RESULTS" : "REFLEX RESULTS",
+              "Lower reaction time is better.",
+              rankings,
+              () => this.reflexShot(gameId, consoleType, players, tournament),
+              tournament
+            );
 
             return;
           }
@@ -4482,10 +3224,8 @@
           overlay.innerHTML = `
             <div class="overlay-card">
               <div class="hud-label">Reflex Shot</div>
-              <h2>PASS TO ${this.ui.escape(
-                players[playerIndex].toUpperCase()
-              )}</h2>
-              <p>Wait for TAP. Tapping early is a false start.</p>
+              <h2>PASS TO ${this.ui.escape(players[playerIndex].toUpperCase())}</h2>
+              <p>Wait for TAP! Tapping early is a false start.</p>
               <button id="readyButton" class="btn">TAP WHEN READY</button>
             </div>
           `;
@@ -4504,23 +3244,8 @@
           board.style.background = "#344264";
           board.innerHTML = `
             <div>
-              <div
-                style="
-                  font-size: 4rem;
-                  font-weight: 1000;
-                  letter-spacing: -.08em;
-                "
-              >
-                WAIT
-              </div>
-
-              <p
-                style="
-                  margin: 15px 0 0;
-                  color: #e6eaff;
-                  font-weight: 850;
-                "
-              >
+              <div style="font-size:4rem;font-weight:1000;letter-spacing:-.08em">WAIT…</div>
+              <p style="margin:15px 0 0;color:#e6eaff;font-weight:850">
                 ${this.ui.escape(players[playerIndex])}, stay ready.
               </p>
             </div>
@@ -4532,55 +3257,37 @@
           let goAt = 0;
 
           const finishAttempt = (milliseconds, falseStart = false) => {
-            if (state === "done") {
-              return;
-            }
+            if (state === "done") return;
 
             state = "done";
 
             board.innerHTML = `
               <div>
-                <div
-                  style="
-                    font-size: clamp(2.5rem, 14vw, 4.4rem);
-                    font-weight: 1000;
-                    letter-spacing: -.08em;
-                  "
-                >
+                <div style="font-size:clamp(2.5rem,14vw,4.4rem);font-weight:1000;letter-spacing:-.08em">
                   ${falseStart ? "TOO EARLY!" : `${milliseconds} ms`}
                 </div>
-
-                <p
-                  style="
-                    margin: 15px 0 0;
-                    color: #e6eaff;
-                    font-weight: 850;
-                  "
-                >
-                  ${
-                    falseStart
-                      ? "False start recorded."
-                      : "Reaction saved locally."
-                  }
+                <p style="margin:15px 0 0;color:#e6eaff;font-weight:850">
+                  ${falseStart ? "False start recorded." : "Reaction saved!"}
                 </p>
               </div>
             `;
 
             board.style.background = falseStart ? "#bc3c5b" : "#22b88d";
 
-            if (falseStart) {
-              this.audio.sound("hit");
-              this.audio.vibrate(40);
-            } else {
-              this.audio.sound("win");
-              this.audio.vibrate(20);
-            }
-
             results.push({
               name: players[playerIndex],
               score: milliseconds,
               falseStart
             });
+
+            if (!falseStart) {
+              this.storage.recordReaction(milliseconds);
+              this.audio.sound("win");
+              this.audio.vibrate(20);
+            } else {
+              this.audio.sound("hit");
+              this.audio.vibrate(40);
+            }
 
             later(() => {
               board.remove();
@@ -4589,24 +3296,19 @@
             }, 1200);
           };
 
-          const falseStartHandler = (event) => {
+          const falseStart = event => {
             event.preventDefault();
 
-            if (state !== "wait") {
-              return;
-            }
-
+            if (state !== "wait") return;
             finishAttempt(9999, true);
           };
 
-          board.addEventListener("pointerdown", falseStartHandler);
+          board.addEventListener("pointerdown", falseStart);
 
           const delay = 1500 + Math.random() * 3500;
 
           later(() => {
-            if (state !== "wait") {
-              return;
-            }
+            if (state !== "wait") return;
 
             state = "go";
             goAt = performance.now();
@@ -4614,46 +3316,23 @@
             board.style.background = "#20b78d";
             board.innerHTML = `
               <div>
-                <div
-                  style="
-                    font-size: clamp(3.5rem, 18vw, 5.4rem);
-                    font-weight: 1000;
-                    letter-spacing: -.08em;
-                  "
-                >
-                  TAP!
-                </div>
-
-                <p
-                  style="
-                    margin: 15px 0 0;
-                    color: #e6eaff;
-                    font-weight: 850;
-                  "
-                >
-                  NOW!
-                </p>
+                <div style="font-size:clamp(3.5rem,18vw,5.4rem);font-weight:1000;letter-spacing:-.08em">TAP!</div>
+                <p style="margin:15px 0 0;color:#e6eaff;font-weight:850">NOW!</p>
               </div>
             `;
 
             this.audio.sound("start");
 
-            board.removeEventListener("pointerdown", falseStartHandler);
+            board.removeEventListener("pointerdown", falseStart);
 
-            board.addEventListener(
-              "pointerdown",
-              (event) => {
-                event.preventDefault();
+            board.addEventListener("pointerdown", event => {
+              event.preventDefault();
 
-                if (state !== "go") {
-                  return;
-                }
+              if (state !== "go") return;
 
-                const milliseconds = Math.round(performance.now() - goAt);
-                finishAttempt(milliseconds, false);
-              },
-              { once: true }
-            );
+              const milliseconds = Math.round(performance.now() - goAt);
+              finishAttempt(milliseconds, false);
+            }, { once: true });
           }, delay);
         };
 
@@ -4665,16 +3344,18 @@
       }
 
       trailDuel(gameId, consoleType, players, tournament) {
+        this.storage.recordGame(consoleType);
+
         const area = this.ui.gameShell(
           gameId === "trail2" ? "Trail Duel 2" : "Trail Duel",
-          "Preparing"
+          "Preparing arena…"
         );
 
         const canvas = document.createElement("canvas");
+        area.appendChild(canvas);
+
         const ctx = canvas.getContext("2d");
         const input = new InputManager();
-
-        area.appendChild(canvas);
 
         let frame = 0;
         let removeInput = null;
@@ -4704,9 +3385,7 @@
         };
 
         const drawTrail = (trail, color) => {
-          if (trail.length < 2) {
-            return;
-          }
+          if (trail.length < 2) return;
 
           ctx.strokeStyle = color;
           ctx.lineWidth = gameId === "trail2" ? 11 : 9;
@@ -4716,8 +3395,8 @@
           ctx.beginPath();
           ctx.moveTo(trail[0].x, trail[0].y);
 
-          for (let index = 1; index < trail.length; index += 1) {
-            ctx.lineTo(trail[index].x, trail[index].y);
+          for (let i = 1; i < trail.length; i++) {
+            ctx.lineTo(trail[i].x, trail[i].y);
           }
 
           ctx.stroke();
@@ -4735,7 +3414,9 @@
           ctx.fillStyle = gradient;
           ctx.fillRect(0, 0, rect.width, rect.height);
 
-          playersState.forEach((player) => drawTrail(player.trail, player.color));
+          playersState.forEach(player => {
+            drawTrail(player.trail, player.color);
+          });
 
           if (currentTrail.length > 1 && playerIndex >= 0) {
             drawTrail(currentTrail, playersState[playerIndex].color);
@@ -4752,22 +3433,47 @@
           }
         };
 
-        const alivePlayers = () =>
-          playersState.filter((player) => player.alive);
+        const alivePlayers = () => playersState.filter(player => player.alive);
 
-        const nextAliveIndex = (start) => {
-          for (let index = 0; index < playersState.length; index += 1) {
-            const candidate = (start + index) % playersState.length;
-
-            if (playersState[candidate].alive) {
-              return candidate;
-            }
+        const nextAliveIndex = start => {
+          for (let i = 0; i < playersState.length; i++) {
+            const index = (start + i) % playersState.length;
+            if (playersState[index].alive) return index;
           }
 
           return -1;
         };
 
-        const collideTrail = (point) => {
+        const finish = () => {
+          const winner = alivePlayers()[0];
+
+          const results = [
+            {
+              name: winner?.name || "No rider",
+              score: 100,
+              detail: "Last rider standing"
+            },
+            ...playersState
+              .filter(player => player !== winner)
+              .map(player => ({
+                name: player.name,
+                score: 0,
+                detail: player.alive ? "Still alive" : "Eliminated"
+              }))
+          ];
+
+          this.finish(
+            consoleType,
+            gameId,
+            gameId === "trail2" ? "TRAIL DUEL 2 RESULTS" : "TRAIL DUEL RESULTS",
+            `${winner?.name || "No one"} controls the arena.`,
+            results,
+            () => this.trailDuel(gameId, consoleType, players, tournament),
+            tournament
+          );
+        };
+
+        const collideTrail = point => {
           for (const player of playersState) {
             for (const trailPoint of player.trail) {
               if (Math.hypot(point.x - trailPoint.x, point.y - trailPoint.y) < 12) {
@@ -4785,48 +3491,7 @@
           return false;
         };
 
-        const finish = async () => {
-          const winner = alivePlayers()[0];
-
-          const results = [
-            {
-              name: winner?.name || "No rider",
-              score: 100,
-              detail: "Last rider standing"
-            },
-            ...playersState
-              .filter((player) => player !== winner)
-              .map((player) => ({
-                name: player.name,
-                score: 0,
-                detail: player.alive ? "Still alive" : "Eliminated"
-              }))
-          ];
-
-          const progressionResult = {
-            gameId,
-            xpAwarded: GAME_RULES[gameId].xpFormula({})
-          };
-
-          await this.finish({
-            consoleType,
-            gameId,
-            title:
-              gameId === "trail2"
-                ? "TRAIL DUEL 2 RESULTS"
-                : "TRAIL DUEL RESULTS",
-            subtitle: winner
-              ? `${winner.name} controls the arena.`
-              : "No one controls the arena.",
-            results,
-            replay: () =>
-              this.trailDuel(gameId, consoleType, players, tournament),
-            tournament,
-            progressionResult
-          });
-        };
-
-        const endTurn = (crashed) => {
+        const endTurn = crashed => {
           clearTimeout(turnTimer);
 
           if (crashed) {
@@ -4848,17 +3513,16 @@
             return;
           }
 
-          playerIndex = nextAliveIndex(playerIndex + 1);
-
+          playerIndex = nextAliveIndex((playerIndex + 1) % playersState.length);
           setTimeout(nextTurn, 550);
         };
 
-        const moveTo = (point) => {
+        const moveTo = point => {
           const rect = area.getBoundingClientRect();
 
           const wrapped = {
-            x: ((point.x * rect.width) + rect.width) % rect.width,
-            y: ((point.y * rect.height) + rect.height) % rect.height
+            x: (point.x + rect.width) % rect.width,
+            y: (point.y + rect.height) % rect.height
           };
 
           if (collideTrail(wrapped)) {
@@ -4879,6 +3543,8 @@
             return;
           }
 
+          playerIndex = nextAliveIndex(playerIndex);
+
           const player = playersState[playerIndex];
 
           const overlay = document.createElement("div");
@@ -4886,10 +3552,8 @@
           overlay.innerHTML = `
             <div class="overlay-card">
               <div class="hud-label">Trail Duel</div>
-              <h2 style="color: ${this.ui.escape(player.color)};">
-                PASS TO ${this.ui.escape(player.name.toUpperCase())}
-              </h2>
-              <p>Drag continuously. Touch any trail and you crash.</p>
+              <h2 style="color:${player.color}">PASS TO ${this.ui.escape(player.name.toUpperCase())}</h2>
+              <p>Drag continuously. Touch any trail and you crash. The arena wraps at its edges.</p>
               <button id="readyButton" class="btn">TAP WHEN READY</button>
             </div>
           `;
@@ -4900,7 +3564,6 @@
             overlay.remove();
 
             const rect = area.getBoundingClientRect();
-
             const positions = [
               [rect.width * 0.2, rect.height * 0.2],
               [rect.width * 0.8, rect.height * 0.2],
@@ -4918,56 +3581,57 @@
 
             turnTimer = setTimeout(() => endTurn(false), 3500);
 
-            const loop = () => {
-              if (!currentPoint) {
-                return;
-              }
-
-              const remaining = Math.max(
-                0,
-                3500 - (performance.now() - turnStart)
-              );
-
-              const hud = document.querySelector("#hudValue");
-
-              if (hud) {
-                hud.textContent = `${playersState[playerIndex].name} · ${(
-                  remaining / 1000
-                ).toFixed(1)}s · ${alivePlayers().length} alive`;
-              }
-
-              draw();
-              frame = requestAnimationFrame(loop);
-            };
-
-            frame = requestAnimationFrame(loop);
+            loop();
           };
         };
 
-        resize();
-        window.addEventListener("resize", resize);
+        const loop = () => {
+          if (!currentPoint) return;
+
+          const remaining = Math.max(0, 3500 - (performance.now() - turnStart));
+          const hud = document.querySelector("#hudValue");
+
+          if (hud) {
+            hud.textContent =
+              `${playersState[playerIndex].name} • ${(remaining / 1000).toFixed(1)}s • ` +
+              `${alivePlayers().length} alive`;
+          }
+
+          if (remaining <= 0) return;
+
+          frame = requestAnimationFrame(loop);
+        };
 
         removeInput = input.attach(area, {
-          down: (point) => {
-            if (!currentPoint) {
-              return;
-            }
+          down: point => {
+            if (!currentPoint) return;
 
             dragging = true;
-            moveTo(point);
-          },
-          move: (point) => {
-            if (!dragging || !currentPoint) {
-              return;
-            }
 
-            moveTo(point);
+            const rect = area.getBoundingClientRect();
+
+            moveTo({
+              x: point.x * rect.width,
+              y: point.y * rect.height
+            });
+          },
+          move: point => {
+            if (!dragging || !currentPoint) return;
+
+            const rect = area.getBoundingClientRect();
+
+            moveTo({
+              x: point.x * rect.width,
+              y: point.y * rect.height
+            });
           },
           up: () => {
             dragging = false;
           }
         });
 
+        resize();
+        window.addEventListener("resize", resize);
         nextTurn();
 
         this.cleanup = () => {
@@ -4979,12 +3643,12 @@
       }
 
       hotCursor(gameId, consoleType, players, tournament) {
+        this.storage.recordGame(consoleType);
+
         const area = this.ui.gameShell(
           gameId === "hot2" ? "Hot Cursor 2" : "Hot Cursor",
-          "Preparing"
+          "Preparing bomb…"
         );
-
-        const input = new InputManager();
 
         let alive = players.map((name, index) => ({
           name,
@@ -5005,12 +3669,12 @@
         let targetX = 0;
         let targetY = 0;
 
-        const living = () => alive.filter((player) => player.alive);
+        const living = () => alive.filter(player => player.alive);
 
-        const randomLivingIndex = (exclude) => {
+        const randomLivingIndex = exclude => {
           const choices = alive
             .map((player, index) => ({ player, index }))
-            .filter((item) => item.player.alive && item.index !== exclude);
+            .filter(item => item.player.alive && item.index !== exclude);
 
           return choices[Math.floor(Math.random() * choices.length)]?.index ?? exclude;
         };
@@ -5022,7 +3686,7 @@
           targetEl = null;
         };
 
-        const finish = async () => {
+        const finish = () => {
           const winner = living()[0];
 
           const results = [
@@ -5032,41 +3696,27 @@
               detail: "Core survivor"
             },
             ...alive
-              .filter((player) => player !== winner)
-              .map((player) => ({
+              .filter(player => player !== winner)
+              .map(player => ({
                 name: player.name,
                 score: 0,
                 detail: player.alive ? "Still active" : "Eliminated"
               }))
           ];
 
-          const progressionResult = {
-            gameId,
-            xpAwarded: GAME_RULES[gameId].xpFormula({})
-          };
-
-          await this.finish({
+          this.finish(
             consoleType,
             gameId,
-            title:
-              gameId === "hot2"
-                ? "HOT CURSOR 2 RESULTS"
-                : "HOT CURSOR RESULTS",
-            subtitle: winner
-              ? `${winner.name} survived the Core.`
-              : "No one survived the Core.",
+            gameId === "hot2" ? "HOT CURSOR 2 RESULTS" : "HOT CURSOR RESULTS",
+            `${winner?.name || "No one"} survived the Core.`,
             results,
-            replay: () =>
-              this.hotCursor(gameId, consoleType, players, tournament),
-            tournament,
-            progressionResult
-          });
+            () => this.hotCursor(gameId, consoleType, players, tournament),
+            tournament
+          );
         };
 
         const explode = () => {
-          if (!running) {
-            return;
-          }
+          if (!running) return;
 
           running = false;
           clearElements();
@@ -5083,13 +3733,12 @@
           }
 
           holderIndex = randomLivingIndex(-1);
+
           setTimeout(nextTurn, 700);
         };
 
         const passCore = () => {
-          if (!running) {
-            return;
-          }
+          if (!running) return;
 
           running = false;
           clearElements();
@@ -5103,22 +3752,107 @@
           setTimeout(nextTurn, 450);
         };
 
-        const moveHolder = (point) => {
-          if (!running) {
-            return;
-          }
+        const runTurn = () => {
+          running = true;
 
           const rect = area.getBoundingClientRect();
 
-          holderX = Math.max(
-            36,
-            Math.min(rect.width - 36, point.x * rect.width)
-          );
+          targetIndex = randomLivingIndex(holderIndex);
 
-          holderY = Math.max(
-            36,
-            Math.min(rect.height - 36, point.y * rect.height)
-          );
+          holderX = rect.width * 0.5;
+          holderY = rect.height * 0.72;
+          targetX = 55 + Math.random() * Math.max(1, rect.width - 110);
+          targetY = 70 + Math.random() * Math.max(1, rect.height * 0.45);
+
+          playerEl = document.createElement("div");
+          playerEl.style.cssText = `
+            position:absolute;
+            width:72px;
+            height:72px;
+            left:${holderX}px;
+            top:${holderY}px;
+            transform:translate(-50%,-50%);
+            display:grid;
+            place-items:center;
+            border:5px solid #fff;
+            border-radius:50%;
+            background:${alive[holderIndex].color};
+            color:#1a1b31;
+            font-weight:1000;
+            box-shadow:0 0 22px rgba(255,211,95,.72);
+            touch-action:none;
+          `;
+
+          playerEl.innerHTML = `
+            ●
+            <span style="
+              position:absolute;
+              right:-7px;
+              top:-7px;
+              width:30px;
+              height:30px;
+              border:4px solid var(--gold);
+              border-radius:50%;
+              background:#191a2e;
+              box-shadow:0 0 19px var(--pink);
+            "></span>
+          `;
+
+          targetEl = document.createElement("div");
+          targetEl.style.cssText = `
+            position:absolute;
+            width:72px;
+            height:72px;
+            left:${targetX}px;
+            top:${targetY}px;
+            transform:translate(-50%,-50%);
+            display:grid;
+            place-items:center;
+            border:5px solid #fff;
+            border-radius:20px;
+            background:${alive[targetIndex].color};
+            color:#1a1b31;
+            font-size:1.4rem;
+            font-weight:1000;
+            box-shadow:0 0 19px rgba(255,255,255,.35);
+            touch-action:none;
+          `;
+
+          targetEl.textContent = "→";
+
+          area.append(playerEl, targetEl);
+
+          timer = performance.now() + 18000;
+
+          const loop = now => {
+            if (!running) return;
+
+            const remaining = Math.max(0, timer - now);
+            const hud = document.querySelector("#hudValue");
+
+            if (hud) {
+              hud.textContent =
+                `${alive[holderIndex].name} has Core • ${(remaining / 1000).toFixed(1)}s`;
+            }
+
+            if (remaining <= 0) {
+              explode();
+              return;
+            }
+
+            frame = requestAnimationFrame(loop);
+          };
+
+          frame = requestAnimationFrame(loop);
+        };
+
+        const moveHolder = point => {
+          if (!running) return;
+
+          const rect = area.getBoundingClientRect();
+
+          holderX = Math.max(36, Math.min(rect.width - 36, point.x * rect.width));
+          holderY = Math.max(36, Math.min(rect.height - 36, point.y * rect.height));
 
           playerEl.style.left = `${holderX}px`;
           playerEl.style.top = `${holderY}px`;
@@ -5141,10 +3875,8 @@
           overlay.innerHTML = `
             <div class="overlay-card">
               <div class="hud-label">Hot Cursor</div>
-              <h2 style="color: ${this.ui.escape(holder.color)};">
-                PASS TO ${this.ui.escape(holder.name.toUpperCase())}
-              </h2>
-              <p>Drag your circle into the square target before the Core reaches zero.</p>
+              <h2 style="color:${holder.color}">PASS TO ${this.ui.escape(holder.name.toUpperCase())}</h2>
+              <p>Drag your circle into the square target to pass the Core before time runs out.</p>
               <button id="readyButton" class="btn">TAP WHEN READY</button>
             </div>
           `;
@@ -5157,114 +3889,17 @@
           };
         };
 
-        const runTurn = () => {
-          running = true;
-
-          const rect = area.getBoundingClientRect();
-
-          targetIndex = randomLivingIndex(holderIndex);
-
-          holderX = rect.width * 0.5;
-          holderY = rect.height * 0.72;
-
-          targetX = 55 + Math.random() * Math.max(1, rect.width - 110);
-          targetY = 70 + Math.random() * Math.max(1, rect.height * 0.45);
-
-          playerEl = document.createElement("div");
-          playerEl.style.cssText = `
-            position: absolute;
-            width: 72px;
-            height: 72px;
-            left: ${holderX}px;
-            top: ${holderY}px;
-            transform: translate(-50%, -50%);
-            display: grid;
-            place-items: center;
-            border: 5px solid #fff;
-            border-radius: 50%;
-            background: ${alive[holderIndex].color};
-            color: #1a1b31;
-            font-weight: 1000;
-            box-shadow: 0 0 22px rgba(255, 211, 95, .72);
-            touch-action: none;
-          `;
-
-          playerEl.innerHTML = `
-            <span
-              style="
-                position: absolute;
-                right: -7px;
-                top: -7px;
-                width: 30px;
-                height: 30px;
-                border: 4px solid var(--gold);
-                border-radius: 50%;
-                background: #191a2e;
-                box-shadow: 0 0 19px var(--pink);
-              "
-            ></span>
-          `;
-
-          targetEl = document.createElement("div");
-          targetEl.style.cssText = `
-            position: absolute;
-            width: 72px;
-            height: 72px;
-            left: ${targetX}px;
-            top: ${targetY}px;
-            transform: translate(-50%, -50%);
-            display: grid;
-            place-items: center;
-            border: 5px solid #fff;
-            border-radius: 20px;
-            background: ${alive[targetIndex].color};
-            color: #1a1b31;
-            font-size: 1.4rem;
-            font-weight: 1000;
-            box-shadow: 0 0 19px rgba(255, 255, 255, .35);
-            touch-action: none;
-          `;
-
-          targetEl.textContent = "→";
-
-          area.append(playerEl, targetEl);
-
-          timer = performance.now() + 18000;
-
-          const loop = (now) => {
-            if (!running) {
-              return;
-            }
-
-            const remaining = Math.max(0, timer - now);
-            const hud = document.querySelector("#hudValue");
-
-            if (hud) {
-              hud.textContent = `${alive[holderIndex].name} has Core · ${(
-                remaining / 1000
-              ).toFixed(1)}s`;
-            }
-
-            if (remaining <= 0) {
-              explode();
-              return;
-            }
-
-            frame = requestAnimationFrame(loop);
-          };
-
-          frame = requestAnimationFrame(loop);
-        };
+        const input = new InputManager();
 
         removeInput = input.attach(area, {
           down: moveHolder,
           move: moveHolder
         });
 
+        holderIndex = Math.floor(Math.random() * alive.length);
         nextTurn();
 
         this.cleanup = () => {
-          running = false;
           cancelAnimationFrame(frame);
           clearElements();
           removeInput?.();
@@ -5272,62 +3907,35 @@
       }
 
       genericArenaGame(gameId, consoleType, players, tournament) {
-        const game = ARENA_GAMES.find((item) => item.id === gameId);
+        this.storage.recordGame(consoleType);
 
-        const area = this.ui.gameShell(game?.title || "Arena Game", "Preparing");
+        const game = ARENA_GAMES.find(item => item.id === gameId);
+        const area = this.ui.gameShell(game.title, "Preparing round…");
+
         const canvas = document.createElement("canvas");
+        area.appendChild(canvas);
+
         const ctx = canvas.getContext("2d");
         const input = new InputManager();
-
-        area.appendChild(canvas);
 
         let frame = 0;
         let removeInput = null;
         let startedAt = 0;
         let running = false;
         let score = 0;
-
-        const player = {
-          x: 0,
-          y: 0,
-          tx: 0,
-          ty: 0,
-          r: 18
-        };
-
-        const objective = {
-          x: 0,
-          y: 0,
-          r: 15
-        };
-
-        const hazards = [];
+        let player = { x: 0, y: 0, tx: 0, ty: 0, r: 18 };
+        let objective = { x: 0, y: 0, r: 15 };
+        let hazards = [];
 
         const config = {
-          quest: {
-            duration: 60000,
-            objectiveText: "Collect crystals",
-            color: "#57e5ff"
-          },
-          brawl: {
-            duration: 60000,
-            objectiveText: "Tap to strike",
-            color: "#ff6e97"
-          },
-          treasure: {
-            duration: 60000,
-            objectiveText: "Collect treasure",
-            color: "#ffd35f"
-          },
-          boss: {
-            duration: 60000,
-            objectiveText: "Hit weak points",
-            color: "#90ff6b"
-          }
+          quest: { duration: 60000, objectiveText: "Collect crystals", color: "#57e5ff" },
+          brawl: { duration: 60000, objectiveText: "Tap to strike", color: "#ff6e97" },
+          treasure: { duration: 60000, objectiveText: "Collect treasure", color: "#ffd35f" },
+          boss: { duration: 60000, objectiveText: "Hit weak points", color: "#90ff6b" }
         }[gameId] || {
           duration: 45000,
           objectiveText: "Score points",
-          color: game?.color || "#57e5ff"
+          color: game.color
         };
 
         const resize = () => {
@@ -5341,16 +3949,12 @@
           if (!player.x) {
             player.x = player.tx = rect.width / 2;
             player.y = player.ty = rect.height * 0.7;
-          }
-
-          if (!objective.x) {
             placeObjective();
           }
         };
 
         const placeObjective = () => {
           const rect = area.getBoundingClientRect();
-
           objective.x = 38 + Math.random() * Math.max(1, rect.width - 76);
           objective.y = 45 + Math.random() * Math.max(1, rect.height - 90);
         };
@@ -5367,7 +3971,16 @@
           ctx.fillStyle = gradient;
           ctx.fillRect(0, 0, rect.width, rect.height);
 
-          hazards.forEach((hazard) => {
+          ctx.strokeStyle = "rgba(255,255,255,.08)";
+
+          for (let x = -rect.height; x < rect.width + rect.height; x += 30) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x + rect.height, rect.height);
+            ctx.stroke();
+          }
+
+          hazards.forEach(hazard => {
             ctx.beginPath();
             ctx.arc(hazard.x, hazard.y, hazard.r, 0, Math.PI * 2);
             ctx.fillStyle = "#ff6e97";
@@ -5407,12 +4020,10 @@
           score += gameId === "brawl" ? 2 : 1;
           this.audio.sound("point");
           this.audio.vibrate(12);
-
           placeObjective();
 
           if (Math.random() < 0.25) {
             const rect = area.getBoundingClientRect();
-
             hazards.push({
               x: 35 + Math.random() * Math.max(1, rect.width - 70),
               y: 40 + Math.random() * Math.max(1, rect.height - 80),
@@ -5425,10 +4036,8 @@
           running = true;
           startedAt = performance.now();
 
-          const loop = async (now) => {
-            if (!running) {
-              return;
-            }
+          const loop = now => {
+            if (!running) return;
 
             const rect = area.getBoundingClientRect();
             const remaining = Math.max(0, config.duration - (now - startedAt));
@@ -5436,43 +4045,24 @@
             player.x += (player.tx - player.x) * 0.16;
             player.y += (player.ty - player.y) * 0.16;
 
-            player.x = Math.max(
-              player.r,
-              Math.min(rect.width - player.r, player.x)
-            );
+            player.x = Math.max(player.r, Math.min(rect.width - player.r, player.x));
+            player.y = Math.max(player.r, Math.min(rect.height - player.r, player.y));
 
-            player.y = Math.max(
-              player.r,
-              Math.min(rect.height - player.r, player.y)
-            );
-
-            if (
-              Math.hypot(player.x - objective.x, player.y - objective.y) <
-              player.r + objective.r
-            ) {
+            if (Math.hypot(player.x - objective.x, player.y - objective.y) < player.r + objective.r) {
               collect();
             }
 
-            for (let index = hazards.length - 1; index >= 0; index -= 1) {
-              if (
-                Math.hypot(
-                  player.x - hazards[index].x,
-                  player.y - hazards[index].y
-                ) <
-                player.r + hazards[index].r
-              ) {
+            for (let i = hazards.length - 1; i >= 0; i--) {
+              if (Math.hypot(player.x - hazards[i].x, player.y - hazards[i].y) < player.r + hazards[i].r) {
                 score = Math.max(0, score - 1);
-                hazards.splice(index, 1);
+                hazards.splice(i, 1);
                 this.audio.sound("hit");
               }
             }
 
             const hud = document.querySelector("#hudValue");
-
             if (hud) {
-              hud.textContent = `${config.objectiveText} · ${Math.ceil(
-                remaining / 1000
-              )}s · ${score}`;
+              hud.textContent = `${config.objectiveText} • ${Math.ceil(remaining / 1000)}s • ${score}`;
             }
 
             draw();
@@ -5480,40 +4070,21 @@
             if (remaining <= 0) {
               running = false;
 
-              const progressionResult = {
-                gameId,
-                durationSeconds: config.duration / 1000,
-                score,
-                xpAwarded: GAME_RULES[gameId].xpFormula({
-                  durationSeconds: config.duration / 1000,
-                  score
-                })
-              };
+              const results = players.map((name, index) => ({
+                name,
+                score: Math.max(0, score - index * 2),
+                detail: `${Math.max(0, score - index * 2)} points`
+              })).sort((a, b) => b.score - a.score);
 
-              const results = players
-                .map((name, index) => ({
-                  name,
-                  score: Math.max(0, score - index * 2),
-                  detail: `${Math.max(0, score - index * 2)} points`
-                }))
-                .sort((a, b) => b.score - a.score);
-
-              await this.finish({
+              this.finish(
                 consoleType,
                 gameId,
-                title: `${game.title.toUpperCase()} RESULTS`,
-                subtitle: `${score} total objective points.`,
+                `${game.title.toUpperCase()} RESULTS`,
+                `${score} total objective points.`,
                 results,
-                replay: () =>
-                  this.genericArenaGame(
-                    gameId,
-                    consoleType,
-                    players,
-                    tournament
-                  ),
-                tournament,
-                progressionResult
-              });
+                () => this.genericArenaGame(gameId, consoleType, players, tournament),
+                tournament
+              );
 
               return;
             }
@@ -5523,29 +4094,6 @@
 
           frame = requestAnimationFrame(loop);
         };
-
-        resize();
-        window.addEventListener("resize", resize);
-
-        removeInput = input.attach(area, {
-          down: (point) => {
-            const rect = area.getBoundingClientRect();
-
-            player.tx = point.x * rect.width;
-            player.ty = point.y * rect.height;
-
-            if (running && Math.random() < 0.4) {
-              score += 1;
-              this.audio.sound("point");
-            }
-          },
-          move: (point) => {
-            const rect = area.getBoundingClientRect();
-
-            player.tx = point.x * rect.width;
-            player.ty = point.y * rect.height;
-          }
-        });
 
         const overlay = document.createElement("div");
         overlay.className = "overlay";
@@ -5566,8 +4114,28 @@
           start();
         };
 
+        removeInput = input.attach(area, {
+          down: point => {
+            const rect = area.getBoundingClientRect();
+            player.tx = point.x * rect.width;
+            player.ty = point.y * rect.height;
+
+            if (running && Math.random() < 0.4) {
+              score += 1;
+              this.audio.sound("point");
+            }
+          },
+          move: point => {
+            const rect = area.getBoundingClientRect();
+            player.tx = point.x * rect.width;
+            player.ty = point.y * rect.height;
+          }
+        });
+
+        resize();
+        window.addEventListener("resize", resize);
+
         this.cleanup = () => {
-          running = false;
           cancelAnimationFrame(frame);
           removeInput?.();
           window.removeEventListener("resize", resize);
@@ -5578,47 +4146,28 @@
     class App {
       constructor() {
         this.app = document.querySelector("#app");
-        this.storage = new SecureStorageManager();
+        this.storage = new StorageManager();
         this.audio = new AudioManager(this.storage);
+        this.party = new LocalPartyManager();
         this.games = new GameManager(this.storage, this.audio);
-        this.ui = new UIManager(this.app, this.storage, this.audio, this.games);
+        this.ui = new UIManager(
+          this.app,
+          this.storage,
+          this.audio,
+          this.party,
+          this.games
+        );
 
         this.games.ui = this.ui;
-      }
 
-      async start() {
-        const boot = new ConsoleBootScreen();
-
-        try {
-          await this.storage.initialize(boot);
-
-          await boot.complete({
-            verified: this.storage.verified,
-            reason: this.storage.verified
-              ? ""
-              : `${this.storage.integrityReason} Games remain playable; local progression is quarantined.`
-          });
-        } catch (error) {
-          console.error(error);
-
-          this.storage.payload = this.storage.createDefaultPayload();
-          this.storage.verified = false;
-          this.storage.integrityReason =
-            "Local memory could not be initialized.";
-
-          await boot.complete({
-            verified: false,
-            reason:
-              "Local memory could not be checked. Games are playable, but progression is unavailable."
-          });
-        }
+        document.addEventListener("contextmenu", event => event.preventDefault());
+        document.addEventListener("gesturestart", event => event.preventDefault(), { passive: false });
 
         this.ui.boot();
       }
     }
 
-    const thumbArena = new App();
-    thumbArena.start();
+    new App();
   </script>
 </body>
 </html>
