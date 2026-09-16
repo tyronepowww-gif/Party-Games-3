@@ -1,0 +1,1991 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no"
+  >
+  <meta name="theme-color" content="#101328">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Thumb Arena">
+  <title>Thumb Arena T-Engine</title>
+
+  <style>
+    :root {
+      --bg: #101328;
+      --panel: rgba(37, 42, 80, 0.95);
+      --line: rgba(255, 255, 255, 0.16);
+      --text: #f8f9ff;
+      --muted: #bbc3e5;
+      --cyan: #57e5ff;
+      --pink: #ff6e97;
+      --green: #90ff6b;
+      --gold: #ffd35f;
+      --purple: #ad7dff;
+      --red: #ff5372;
+      --safe-top: max(12px, env(safe-area-inset-top));
+      --safe-bottom: max(12px, env(safe-area-inset-bottom));
+      --shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      overscroll-behavior: none;
+      background: #060713;
+      color: var(--text);
+      font-family: ui-rounded, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    button {
+      font: inherit;
+      border: 0;
+      cursor: pointer;
+    }
+
+    #app {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(87, 229, 255, 0.16), transparent 30%),
+        radial-gradient(circle at 90% 18%, rgba(173, 125, 255, 0.15), transparent 28%),
+        linear-gradient(155deg, #101328, #25194d);
+    }
+
+    .screen {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      padding: var(--safe-top) 10px var(--safe-bottom);
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hud {
+      display: flex;
+      min-height: 62px;
+      padding: 0 5px 8px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .hud-left {
+      min-width: 0;
+    }
+
+    .hud-label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.64rem;
+      font-weight: 950;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hud-value {
+      display: block;
+      max-width: calc(100vw - 92px);
+      overflow: hidden;
+      font-size: 1.04rem;
+      font-weight: 1000;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .heading {
+      display: block;
+      margin-top: 2px;
+      color: var(--gold);
+      font-size: 0.66rem;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+    }
+
+    .icon-btn {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      color: var(--text);
+      font-size: 1.15rem;
+      background: var(--panel);
+    }
+
+    .game-shell {
+      position: relative;
+      min-height: 0;
+      flex: 1;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      background: #15182f;
+      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.32);
+      touch-action: none;
+    }
+
+    #gameCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+
+    .control-zone {
+      position: absolute;
+      z-index: 12;
+      right: 11px;
+      bottom: 11px;
+      width: min(43vw, 194px);
+      aspect-ratio: 1;
+      padding: 7px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 29px;
+      background: rgba(16, 19, 45, 0.84);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      touch-action: none;
+    }
+
+    .direction-button {
+      min-width: 0;
+      min-height: 0;
+      border-radius: 16px;
+      color: #f7f9ff;
+      font-size: clamp(1rem, 5vw, 1.45rem);
+      font-weight: 1000;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13);
+      touch-action: none;
+    }
+
+    .direction-button.pressed,
+    .direction-button:active {
+      color: #12233a;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(87, 229, 255, 0.74);
+    }
+
+    .direction-center {
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: 0.61rem;
+      font-weight: 1000;
+      line-height: 1.06;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.24);
+      pointer-events: none;
+    }
+
+    .action-button {
+      position: absolute;
+      z-index: 12;
+      bottom: 15px;
+      left: 14px;
+      width: min(34vw, 145px);
+      min-height: 66px;
+      padding: 10px;
+      border: 3px solid rgba(255, 255, 255, 0.68);
+      border-radius: 22px;
+      color: #261323;
+      font-size: 0.88rem;
+      font-weight: 1000;
+      letter-spacing: 0.05em;
+      background: var(--pink);
+      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2), 0 0 22px rgba(255, 110, 151, 0.52);
+      touch-action: none;
+    }
+
+    .action-button:active,
+    .action-button.ready {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+      filter: brightness(1.06);
+    }
+
+    .overlay {
+      position: absolute;
+      z-index: 30;
+      inset: 0;
+      display: grid;
+      padding: 20px;
+      place-items: center;
+      text-align: center;
+      background: rgba(7, 8, 24, 0.8);
+      backdrop-filter: blur(5px);
+    }
+
+    .overlay-card {
+      width: min(370px, 100%);
+      padding: 25px 19px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(145deg, #3d4378, #24284d);
+      box-shadow: var(--shadow);
+    }
+
+    .overlay-card h1,
+    .overlay-card h2,
+    .overlay-card p {
+      margin: 0;
+    }
+
+    .overlay-card h1 {
+      font-size: 1.82rem;
+      letter-spacing: -0.05em;
+    }
+
+    .overlay-card h2 {
+      margin-bottom: 8px;
+      font-size: 1.48rem;
+    }
+
+    .overlay-card p {
+      margin: 10px 0 19px;
+      color: var(--muted);
+      line-height: 1.42;
+    }
+
+    .btn {
+      width: 100%;
+      min-height: 54px;
+      padding: 13px 16px;
+      border-radius: 18px;
+      color: #13152a;
+      font-weight: 950;
+      letter-spacing: 0.04em;
+      background: var(--cyan);
+      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.22), 0 12px 21px rgba(0, 0, 0, 0.18);
+    }
+
+    .btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    .btn.secondary {
+      color: #242644;
+      background: #f0f2ff;
+    }
+
+    .btn.dark {
+      color: var(--text);
+      background: #3a3e69;
+    }
+
+    .rankings {
+      display: grid;
+      gap: 8px;
+      margin: 15px 0 18px;
+      text-align: left;
+    }
+
+    .rank {
+      display: flex;
+      min-height: 50px;
+      padding: 10px 13px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .rank:first-child {
+      border: 1px solid rgba(255, 211, 95, 0.55);
+      background: rgba(255, 211, 95, 0.19);
+    }
+
+    .rank span {
+      color: var(--cyan);
+      font-size: 0.84rem;
+      font-weight: 900;
+      text-align: right;
+    }
+
+    #toast {
+      position: absolute;
+      z-index: 60;
+      bottom: calc(var(--safe-bottom) + 12px);
+      left: 50%;
+      max-width: calc(100% - 36px);
+      padding: 11px 15px;
+      border-radius: 999px;
+      color: #18192d;
+      font-size: 0.84rem;
+      font-weight: 950;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      background: #f6f7ff;
+      box-shadow: var(--shadow);
+      transform: translate(-50%, 130px);
+      transition: opacity 0.2s ease, transform 0.25s ease;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 360px) {
+      .control-zone {
+        width: 165px;
+      }
+
+      .action-button {
+        width: 122px;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 650px) {
+      #rotate {
+        display: flex;
+      }
+    }
+
+    #rotate {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      display: none;
+      padding: 28px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #101328;
+    }
+
+    #rotate strong {
+      display: block;
+      margin-bottom: 18px;
+      font-size: 4rem;
+      transform: rotate(90deg);
+    }
+
+    #rotate h2 {
+      margin: 0 0 8px;
+    }
+
+    #rotate p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <div id="rotate">
+    <div>
+      <strong>▯</strong>
+      <h2>Rotate your device</h2>
+      <p>T-Engine games are designed for portrait play.</p>
+    </div>
+  </div>
+
+  <script>
+    "use strict";
+
+    /*
+      Thumb Arena T-Engine
+
+      Routed game IDs:
+      - trail2
+      - quest
+      - brawl
+      - treasure
+      - boss
+
+      Input:
+      - Eight-direction movement pad
+      - Each direction updates player movement
+      - Each direction also sets virtual look-camera heading
+      - Action button performs game-specific action
+
+      This is single-device Pass & Play.
+      No networking, QR, room code, Firebase, WebSocket, or WebRTC code.
+    */
+
+    const PLAYER_COLORS = ["#57e5ff", "#ff6e97", "#90ff6b", "#ffd35f"];
+    const SAVE_KEY = "thumbArenaLauncherV1";
+
+    const GAME_CONFIGS = {
+      trail2: {
+        title: "Trail Duel 2",
+        icon: "〰",
+        color: "#ad7dff",
+        mode: "trail",
+        duration: 45000,
+        objective: "Survive the energy trails",
+        actionLabel: "DASH",
+        description: "Move in eight directions. Leave an energy trail. Touch any trail or boundary and crash."
+      },
+      quest: {
+        title: "Mini Quest",
+        icon: "◇",
+        color: "#57e5ff",
+        mode: "quest",
+        duration: 70000,
+        objective: "Collect 5 crystals and reach the portal",
+        actionLabel: "ACTION",
+        description: "Collect crystals, avoid hazards, then reach the portal."
+      },
+      brawl: {
+        title: "Arena Brawl",
+        icon: "✦",
+        color: "#ff6e97",
+        mode: "brawl",
+        duration: 60000,
+        objective: "Strike targets and avoid danger",
+        actionLabel: "ATTACK",
+        description: "Move with eight directions. Use Attack near enemies for points."
+      },
+      treasure: {
+        title: "Treasure Run",
+        icon: "◆",
+        color: "#ffd35f",
+        mode: "treasure",
+        duration: 70000,
+        objective: "Collect treasure and return to base",
+        actionLabel: "GRAB",
+        description: "Collect treasure gems, avoid traps, and return to the glowing base."
+      },
+      boss: {
+        title: "Boss Break",
+        icon: "⚔",
+        color: "#90ff6b",
+        mode: "boss",
+        duration: 90000,
+        objective: "Destroy weak points before time expires",
+        actionLabel: "ATTACK",
+        description: "Dodge the boss attacks and use Attack near glowing weak points."
+      }
+    };
+
+    function safeParsePlayers() {
+      const params = new URLSearchParams(window.location.search);
+      const fallback = [{
+        id: "local-1",
+        name: "Player 1",
+        color: PLAYER_COLORS[0]
+      }];
+
+      try {
+        const encoded = params.get("players");
+
+        if (!encoded) return fallback;
+
+        const json = decodeURIComponent(escape(atob(decodeURIComponent(encoded))));
+        const parsed = JSON.parse(json);
+
+        if (!Array.isArray(parsed) || !parsed.length) return fallback;
+
+        return parsed
+          .slice(0, 4)
+          .map((player, index) => ({
+            id: typeof player.id === "string" ? player.id.slice(0, 40) : `local-${index + 1}`,
+            name: typeof player.name === "string"
+              ? player.name.replace(/[<>]/g, "").slice(0, 14) || `Player ${index + 1}`
+              : `Player ${index + 1}`,
+            color: PLAYER_COLORS[index]
+          }));
+      } catch {
+        return fallback;
+      }
+    }
+
+    function loadStorage() {
+      const fallback = {
+        settings: {
+          sound: true,
+          vibration: true,
+          reducedEffects: false
+        },
+        arenaProfile: {
+          level: 1,
+          xp: 0,
+          selectedTitle: "Rookie",
+          records: {
+            trailDuel2: 0,
+            miniQuest: 0,
+            arenaBrawl: 0,
+            treasureRun: 0,
+            bossBreak: 0
+          }
+        }
+      };
+
+      try {
+        const raw = localStorage.getItem(SAVE_KEY);
+
+        if (!raw) return fallback;
+
+        const saved = JSON.parse(raw);
+
+        return {
+          ...fallback,
+          ...saved,
+          settings: {
+            ...fallback.settings,
+            ...(saved.settings || {})
+          },
+          arenaProfile: {
+            ...fallback.arenaProfile,
+            ...(saved.arenaProfile || {}),
+            records: {
+              ...fallback.arenaProfile.records,
+              ...((saved.arenaProfile || {}).records || {})
+            }
+          }
+        };
+      } catch {
+        return fallback;
+      }
+    }
+
+    function saveStorage(data) {
+      try {
+        localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+      } catch {}
+    }
+
+    class AudioManager {
+      constructor(storage) {
+        this.storage = storage;
+        this.context = null;
+      }
+
+      play(type = "click") {
+        if (!this.storage.settings?.sound) return;
+
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return;
+
+          if (!this.context) {
+            this.context = new AudioContextClass();
+          }
+
+          if (this.context.state === "suspended") {
+            this.context.resume();
+          }
+
+          const map = {
+            click: [460, 0.05, "sine"],
+            start: [720, 0.1, "sine"],
+            hit: [130, 0.16, "sawtooth"],
+            win: [900, 0.16, "triangle"],
+            point: [760, 0.06, "square"],
+            gold: [1040, 0.09, "sine"]
+          };
+
+          const [frequency, duration, wave] = map[type] || map.click;
+          const oscillator = this.context.createOscillator();
+          const gain = this.context.createGain();
+
+          oscillator.type = wave;
+          oscillator.frequency.setValueAtTime(frequency, this.context.currentTime);
+          gain.gain.setValueAtTime(0.07, this.context.currentTime);
+          gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            this.context.currentTime + duration
+          );
+
+          oscillator.connect(gain).connect(this.context.destination);
+          oscillator.start();
+          oscillator.stop(this.context.currentTime + duration);
+        } catch {}
+      }
+
+      vibrate(pattern = 15) {
+        if (!this.storage.settings?.vibration) return;
+
+        try {
+          navigator.vibrate?.(pattern);
+        } catch {}
+      }
+    }
+
+    class EightDirectionInput {
+      constructor() {
+        this.direction = null;
+        this.vector = { x: 0, y: 0 };
+        this.pressedButton = null;
+        this.cleanupFunctions = [];
+      }
+
+      static map() {
+        return {
+          nw: { x: -1, y: -1 },
+          n: { x: 0, y: -1 },
+          ne: { x: 1, y: -1 },
+          w: { x: -1, y: 0 },
+          e: { x: 1, y: 0 },
+          sw: { x: -1, y: 1 },
+          s: { x: 0, y: 1 },
+          se: { x: 1, y: 1 }
+        };
+      }
+
+      mount(container, onDirection) {
+        const pad = document.createElement("div");
+        pad.className = "control-zone";
+        pad.innerHTML = `
+          <button class="direction-button" data-dir="nw" aria-label="Northwest">↖</button>
+          <button class="direction-button" data-dir="n" aria-label="North">↑</button>
+          <button class="direction-button" data-dir="ne" aria-label="Northeast">↗</button>
+
+          <button class="direction-button" data-dir="w" aria-label="West">←</button>
+          <div class="direction-center">8 WAY<br>MOVE<br>+ LOOK</div>
+          <button class="direction-button" data-dir="e" aria-label="East">→</button>
+
+          <button class="direction-button" data-dir="sw" aria-label="Southwest">↙</button>
+          <button class="direction-button" data-dir="s" aria-label="South">↓</button>
+          <button class="direction-button" data-dir="se" aria-label="Southeast">↘</button>
+        `;
+
+        container.appendChild(pad);
+
+        const setDirection = direction => {
+          const raw = EightDirectionInput.map()[direction] || { x: 0, y: 0 };
+          const diagonal = raw.x !== 0 && raw.y !== 0;
+          const multiplier = diagonal ? Math.SQRT1_2 : 1;
+
+          this.direction = direction || null;
+          this.vector = {
+            x: raw.x * multiplier,
+            y: raw.y * multiplier
+          };
+
+          if (this.pressedButton) {
+            this.pressedButton.classList.remove("pressed");
+          }
+
+          this.pressedButton = direction
+            ? pad.querySelector(`[data-dir="${direction}"]`)
+            : null;
+
+          if (this.pressedButton) {
+            this.pressedButton.classList.add("pressed");
+          }
+
+          onDirection?.(this.vector, this.direction);
+        };
+
+        const release = event => {
+          if (event) event.preventDefault();
+          setDirection(null);
+        };
+
+        pad.querySelectorAll("[data-dir]").forEach(button => {
+          const press = event => {
+            event.preventDefault();
+            button.setPointerCapture?.(event.pointerId);
+            setDirection(button.dataset.dir);
+          };
+
+          button.addEventListener("pointerdown", press, { passive: false });
+          button.addEventListener("pointerup", release, { passive: false });
+          button.addEventListener("pointercancel", release, { passive: false });
+          button.addEventListener("pointerleave", event => {
+            if (event.buttons === 0) release(event);
+          }, { passive: false });
+
+          this.cleanupFunctions.push(() => {
+            button.removeEventListener("pointerdown", press);
+            button.removeEventListener("pointerup", release);
+            button.removeEventListener("pointercancel", release);
+          });
+        });
+
+        this.cleanupFunctions.push(() => pad.remove());
+      }
+
+      destroy() {
+        this.cleanupFunctions.forEach(cleanup => cleanup());
+        this.cleanupFunctions = [];
+        this.direction = null;
+        this.vector = { x: 0, y: 0 };
+      }
+    }
+
+    class EightDirectionCamera {
+      constructor() {
+        this.angle = 0;
+        this.targetAngle = 0;
+        this.direction = "n";
+        this.turnSpeed = 8;
+      }
+
+      static angles() {
+        return {
+          n: 0,
+          ne: Math.PI / 4,
+          e: Math.PI / 2,
+          se: Math.PI * 0.75,
+          s: Math.PI,
+          sw: Math.PI * 1.25,
+          w: Math.PI * 1.5,
+          nw: Math.PI * 1.75
+        };
+      }
+
+      setDirection(direction) {
+        if (!(direction in EightDirectionCamera.angles())) return;
+
+        this.direction = direction;
+        this.targetAngle = EightDirectionCamera.angles()[direction];
+      }
+
+      update(deltaSeconds) {
+        let difference = this.targetAngle - this.angle;
+
+        while (difference > Math.PI) difference -= Math.PI * 2;
+        while (difference < -Math.PI) difference += Math.PI * 2;
+
+        this.angle += difference * Math.min(1, this.turnSpeed * deltaSeconds);
+
+        if (this.angle < 0) this.angle += Math.PI * 2;
+        if (this.angle >= Math.PI * 2) this.angle -= Math.PI * 2;
+      }
+
+      headingName() {
+        const labels = {
+          n: "NORTH ↑",
+          ne: "NORTHEAST ↗",
+          e: "EAST →",
+          se: "SOUTHEAST ↘",
+          s: "SOUTH ↓",
+          sw: "SOUTHWEST ↙",
+          w: "WEST ←",
+          nw: "NORTHWEST ↖"
+        };
+
+        return labels[this.direction];
+      }
+    }
+
+    class TEngineApp {
+      constructor() {
+        this.storage = loadStorage();
+        this.audio = new AudioManager(this.storage);
+
+        const params = new URLSearchParams(window.location.search);
+        const requestedGame = params.get("game") || "quest";
+
+        this.gameId = GAME_CONFIGS[requestedGame] ? requestedGame : "quest";
+        this.config = GAME_CONFIGS[this.gameId];
+        this.players = safeParsePlayers();
+
+        this.app = document.querySelector("#app");
+        this.canvas = null;
+        this.ctx = null;
+        this.area = null;
+        this.frame = 0;
+        this.lastFrame = 0;
+        this.directionInput = null;
+        this.camera = new EightDirectionCamera();
+        this.currentPlayerIndex = 0;
+        this.turnResults = [];
+        this.gameState = null;
+        this.actionButton = null;
+        this.toastTimer = null;
+
+        document.addEventListener("contextmenu", event => event.preventDefault());
+
+        this.renderShell();
+        this.showIntro();
+      }
+
+      renderShell() {
+        this.app.innerHTML = `
+          <main class="screen active">
+            <div class="hud">
+              <div class="hud-left">
+                <span class="hud-label">${this.config.title}</span>
+                <span id="hudValue" class="hud-value">Preparing T-engine…</span>
+                <span id="headingValue" class="heading">LOOK: NORTH ↑</span>
+              </div>
+              <button id="exitButton" class="icon-btn" aria-label="Exit game">✕</button>
+            </div>
+
+            <section id="gameArea" class="game-shell">
+              <canvas id="gameCanvas"></canvas>
+            </section>
+          </main>
+
+          <div id="toast"></div>
+        `;
+
+        this.area = document.querySelector("#gameArea");
+        this.canvas = document.querySelector("#gameCanvas");
+        this.ctx = this.canvas.getContext("2d");
+
+        document.querySelector("#exitButton").addEventListener("click", () => {
+          this.stop();
+
+          const leave = confirm("Return to Thumb Arena? This current round will end.");
+
+          if (leave) {
+            this.returnToLauncher();
+          } else {
+            this.showIntro();
+          }
+        });
+
+        window.addEventListener("resize", () => this.resizeCanvas());
+        this.resizeCanvas();
+      }
+
+      resizeCanvas() {
+        const rect = this.area.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        this.canvas.width = rect.width * dpr;
+        this.canvas.height = rect.height * dpr;
+        this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      showIntro() {
+        this.stop();
+
+        const overlay = document.createElement("div");
+        overlay.className = "overlay";
+        overlay.innerHTML = `
+          <div class="overlay-card">
+            <div style="font-size:3.1rem;margin-bottom:3px">${this.config.icon}</div>
+            <h1>${this.escape(this.config.title)}</h1>
+            <p>${this.escape(this.config.description)}</p>
+            <p style="font-size:.8rem">
+              Use the 8-way pad to move and turn the T-engine look camera.
+            </p>
+            <button id="startButton" class="btn">START</button>
+            <div style="height:10px"></div>
+            <button id="backButton" class="btn dark">RETURN TO ARENA</button>
+          </div>
+        `;
+
+        this.area.appendChild(overlay);
+
+        overlay.querySelector("#startButton").onclick = () => {
+          overlay.remove();
+          this.audio.play("start");
+          this.startNextPlayer();
+        };
+
+        overlay.querySelector("#backButton").onclick = () => {
+          this.returnToLauncher();
+        };
+      }
+
+      showPassOverlay(player, onReady) {
+        const overlay = document.createElement("div");
+        overlay.className = "overlay";
+        overlay.innerHTML = `
+          <div class="overlay-card">
+            <div class="hud-label">T-Engine Pass & Play</div>
+            <h2 style="color:${player.color}">PASS TO ${this.escape(player.name.toUpperCase())}</h2>
+            <p>
+              Use the eight-direction pad to move and control the virtual look camera.
+              Use ${this.config.actionLabel} when it is useful.
+            </p>
+            <button id="readyButton" class="btn">TAP WHEN READY</button>
+          </div>
+        `;
+
+        this.area.appendChild(overlay);
+
+        overlay.querySelector("#readyButton").onclick = () => {
+          overlay.remove();
+          onReady();
+        };
+      }
+
+      startNextPlayer() {
+        if (this.currentPlayerIndex >= this.players.length) {
+          this.finishGame();
+          return;
+        }
+
+        const player = this.players[this.currentPlayerIndex];
+
+        this.showPassOverlay(player, () => {
+          this.beginTurn(player);
+        });
+      }
+
+      beginTurn(player) {
+        this.stop();
+
+        const rect = this.area.getBoundingClientRect();
+
+        this.gameState = {
+          player,
+          active: true,
+          startedAt: performance.now(),
+          timeLeft: this.config.duration,
+          score: 0,
+          health: this.gameId === "boss" ? 3 : 1,
+          playerEntity: {
+            x: 0,
+            y: 0,
+            radius: 14,
+            speed: 145,
+            color: player.color
+          },
+          movement: { x: 0, y: 0 },
+          actionCooldownUntil: 0,
+          actionFlashUntil: 0,
+          objective: null,
+          portal: null,
+          boss: null,
+          enemies: [],
+          hazards: [],
+          trails: [],
+          crystals: [],
+          treasures: [],
+          collected: 0,
+          objectiveCount: this.config.objective,
+          worldSize: 560,
+          trailTimer: 0,
+          bossAttackAt: 0,
+          bossWeakPoint: null
+        };
+
+        this.camera = new EightDirectionCamera();
+
+        this.configureWorld();
+        this.mountControls();
+        this.lastFrame = performance.now();
+        this.frame = requestAnimationFrame(now => this.loop(now));
+      }
+
+      configureWorld() {
+        const state = this.gameState;
+        const half = state.worldSize / 2;
+
+        state.playerEntity.x = 0;
+        state.playerEntity.y = 0;
+
+        if (this.gameId === "quest") {
+          for (let i = 0; i < 5; i++) {
+            state.crystals.push(this.randomWorldPoint(42));
+          }
+
+          state.portal = {
+            x: half - 62,
+            y: half - 62,
+            radius: 26,
+            active: false
+          };
+
+          for (let i = 0; i < 4; i++) {
+            state.hazards.push({
+              ...this.randomWorldPoint(65),
+              radius: 17,
+              vx: (Math.random() - 0.5) * 38,
+              vy: (Math.random() - 0.5) * 38
+            });
+          }
+        }
+
+        if (this.gameId === "brawl") {
+          for (let i = 0; i < 6; i++) {
+            state.enemies.push({
+              ...this.randomWorldPoint(55),
+              radius: 17,
+              health: 2,
+              alive: true,
+              phase: Math.random() * Math.PI * 2
+            });
+          }
+
+          for (let i = 0; i < 3; i++) {
+            state.hazards.push({
+              ...this.randomWorldPoint(80),
+              radius: 18,
+              vx: (Math.random() - 0.5) * 46,
+              vy: (Math.random() - 0.5) * 46
+            });
+          }
+        }
+
+        if (this.gameId === "treasure") {
+          for (let i = 0; i < 8; i++) {
+            state.treasures.push({
+              ...this.randomWorldPoint(45),
+              radius: 13,
+              value: 1 + Math.floor(Math.random() * 3)
+            });
+          }
+
+          state.portal = {
+            x: -half + 55,
+            y: -half + 55,
+            radius: 34,
+            active: true,
+            base: true
+          };
+
+          for (let i = 0; i < 5; i++) {
+            state.hazards.push({
+              ...this.randomWorldPoint(75),
+              radius: 16,
+              vx: (Math.random() - 0.5) * 50,
+              vy: (Math.random() - 0.5) * 50
+            });
+          }
+        }
+
+        if (this.gameId === "boss") {
+          state.boss = {
+            x: 0,
+            y: 0,
+            radius: 58,
+            health: 10,
+            maxHealth: 10,
+            angle: 0
+          };
+
+          state.bossWeakPoint = this.makeWeakPoint(state.boss);
+
+          for (let i = 0; i < 4; i++) {
+            state.hazards.push({
+              ...this.randomWorldPoint(95),
+              radius: 18,
+              vx: (Math.random() - 0.5) * 44,
+              vy: (Math.random() - 0.5) * 44
+            });
+          }
+        }
+
+        if (this.gameId === "trail2") {
+          state.trails.push({
+            color: "rgba(173,125,255,.75)",
+            points: [
+              { x: -210, y: -150 },
+              { x: -100, y: -150 },
+              { x: -100, y: -55 }
+            ]
+          });
+
+          state.trails.push({
+            color: "rgba(255,110,151,.74)",
+            points: [
+              { x: 190, y: 150 },
+              { x: 80, y: 150 },
+              { x: 80, y: 55 }
+            ]
+          });
+
+          for (let i = 0; i < 4; i++) {
+            state.hazards.push({
+              ...this.randomWorldPoint(80),
+              radius: 17,
+              vx: (Math.random() - 0.5) * 36,
+              vy: (Math.random() - 0.5) * 36
+            });
+          }
+        }
+      }
+
+      randomWorldPoint(padding = 40) {
+        const size = this.gameState.worldSize;
+        const half = size / 2 - padding;
+
+        return {
+          x: -half + Math.random() * half * 2,
+          y: -half + Math.random() * half * 2
+        };
+      }
+
+      makeWeakPoint(boss) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = boss.radius + 22;
+
+        return {
+          x: boss.x + Math.cos(angle) * distance,
+          y: boss.y + Math.sin(angle) * distance,
+          radius: 15
+        };
+      }
+
+      mountControls() {
+        this.directionInput = new EightDirectionInput();
+
+        this.directionInput.mount(this.area, (vector, direction) => {
+          if (!this.gameState) return;
+
+          this.gameState.movement = vector;
+
+          if (direction) {
+            this.camera.setDirection(direction);
+          }
+        });
+
+        this.actionButton = document.createElement("button");
+        this.actionButton.className = "action-button";
+        this.actionButton.textContent = this.config.actionLabel;
+
+        this.actionButton.addEventListener("pointerdown", event => {
+          event.preventDefault();
+          this.performAction();
+        }, { passive: false });
+
+        this.area.appendChild(this.actionButton);
+      }
+
+      performAction() {
+        const state = this.gameState;
+
+        if (!state || !state.active) return;
+
+        const now = performance.now();
+
+        if (now < state.actionCooldownUntil) {
+          this.showToast("Action recharging");
+          return;
+        }
+
+        state.actionCooldownUntil = now + 650;
+        state.actionFlashUntil = now + 180;
+
+        this.audio.play("point");
+        this.audio.vibrate(12);
+
+        if (this.gameId === "trail2") {
+          const vector = this.directionInput.vector;
+
+          if (vector.x === 0 && vector.y === 0) {
+            this.showToast("Choose a direction to dash");
+            return;
+          }
+
+          state.playerEntity.x += vector.x * 54;
+          state.playerEntity.y += vector.y * 54;
+
+          this.clampPlayer();
+          this.showToast("Dash!");
+        }
+
+        if (this.gameId === "quest") {
+          const crystal = this.nearestEntity(state.crystals, 34);
+
+          if (crystal) {
+            state.crystals.splice(state.crystals.indexOf(crystal), 1);
+            state.collected += 1;
+            state.score += 3;
+            this.audio.play("gold");
+
+            if (state.collected >= 5) {
+              state.portal.active = true;
+              this.showToast("Portal activated!");
+            } else {
+              this.showToast(`Crystal ${state.collected}/5`);
+            }
+          } else {
+            this.showToast("Move closer to a crystal");
+          }
+        }
+
+        if (this.gameId === "brawl") {
+          const enemy = this.nearestEntity(
+            state.enemies.filter(item => item.alive),
+            62
+          );
+
+          if (!enemy) {
+            this.showToast("No enemy in range");
+            return;
+          }
+
+          enemy.health -= 1;
+          state.score += 2;
+
+          const dx = enemy.x - state.playerEntity.x;
+          const dy = enemy.y - state.playerEntity.y;
+          const length = Math.hypot(dx, dy) || 1;
+
+          enemy.x += (dx / length) * 28;
+          enemy.y += (dy / length) * 28;
+
+          if (enemy.health <= 0) {
+            enemy.alive = false;
+            state.score += 4;
+            this.audio.play("gold");
+            this.showToast("Enemy knocked out!");
+          } else {
+            this.showToast("Hit!");
+          }
+        }
+
+        if (this.gameId === "treasure") {
+          const treasure = this.nearestEntity(state.treasures, 36);
+
+          if (treasure) {
+            state.treasures.splice(state.treasures.indexOf(treasure), 1);
+            state.collected += treasure.value;
+            state.score += treasure.value;
+            this.audio.play("gold");
+            this.showToast(`Treasure +${treasure.value}`);
+          } else if (this.distanceTo(state.portal) < state.portal.radius + 14 && state.collected > 0) {
+            state.score += state.collected * 3;
+            state.collected = 0;
+            this.audio.play("gold");
+            this.showToast("Treasure banked!");
+          } else {
+            this.showToast("Move close to treasure or base");
+          }
+        }
+
+        if (this.gameId === "boss") {
+          const weakPoint = state.bossWeakPoint;
+
+          if (weakPoint && this.distanceTo(weakPoint) < 64) {
+            state.boss.health -= 1;
+            state.score += 3;
+            state.bossWeakPoint = this.makeWeakPoint(state.boss);
+            this.audio.play("gold");
+            this.showToast(`Weak point hit! Boss HP ${state.boss.health}`);
+
+            if (state.boss.health <= 0) {
+              state.score += 12;
+              this.finishTurn(true);
+            }
+          } else {
+            this.showToast("Move close to a glowing weak point");
+          }
+        }
+      }
+
+      nearestEntity(items, range) {
+        const player = this.gameState.playerEntity;
+
+        const candidates = items
+          .map(item => ({
+            item,
+            distance: Math.hypot(player.x - item.x, player.y - item.y)
+          }))
+          .filter(item => item.distance <= range)
+          .sort((a, b) => a.distance - b.distance);
+
+        return candidates[0]?.item || null;
+      }
+
+      distanceTo(entity) {
+        const player = this.gameState.playerEntity;
+        return Math.hypot(player.x - entity.x, player.y - entity.y);
+      }
+
+      loop(now) {
+        const state = this.gameState;
+
+        if (!state || !state.active) return;
+
+        const deltaSeconds = Math.min((now - this.lastFrame) / 1000, 0.05);
+        this.lastFrame = now;
+
+        state.timeLeft = Math.max(0, this.config.duration - (now - state.startedAt));
+
+        this.update(deltaSeconds, now);
+        this.draw();
+        this.updateHUD();
+
+        if (state.timeLeft <= 0) {
+          this.finishTurn(false);
+          return;
+        }
+
+        this.frame = requestAnimationFrame(nextNow => this.loop(nextNow));
+      }
+
+      update(deltaSeconds, now) {
+        const state = this.gameState;
+        const player = state.playerEntity;
+        const speed = player.speed;
+
+        player.x += state.movement.x * speed * deltaSeconds;
+        player.y += state.movement.y * speed * deltaSeconds;
+
+        this.clampPlayer();
+        this.camera.update(deltaSeconds);
+
+        state.hazards.forEach(hazard => {
+          hazard.x += hazard.vx * deltaSeconds;
+          hazard.y += hazard.vy * deltaSeconds;
+
+          const half = state.worldSize / 2 - hazard.radius;
+
+          if (hazard.x < -half || hazard.x > half) hazard.vx *= -1;
+          if (hazard.y < -half || hazard.y > half) hazard.vy *= -1;
+
+          if (Math.hypot(player.x - hazard.x, player.y - hazard.y) < player.radius + hazard.radius) {
+            this.playerHit(hazard);
+          }
+        });
+
+        if (this.gameId === "trail2") {
+          state.trailTimer += deltaSeconds;
+
+          if (state.trailTimer > 0.08) {
+            state.trailTimer = 0;
+
+            const ownTrail = state.trails.find(item => item.playerTrail);
+
+            if (ownTrail) {
+              ownTrail.points.push({ x: player.x, y: player.y });
+
+              if (ownTrail.points.length > 180) {
+                ownTrail.points.shift();
+              }
+            } else {
+              state.trails.push({
+                playerTrail: true,
+                color: player.color,
+                points: [{ x: player.x, y: player.y }]
+              });
+            }
+          }
+
+          for (const trail of state.trails) {
+            const isOwnTrail = trail.playerTrail;
+
+            for (let i = 0; i < trail.points.length; i += 2) {
+              const point = trail.points[i];
+
+              if (
+                Math.hypot(player.x - point.x, player.y - point.y) < player.radius + 7 &&
+                (!isOwnTrail || i < trail.points.length - 10)
+              ) {
+                this.finishTurn(false);
+                return;
+              }
+            }
+          }
+        }
+
+        if (this.gameId === "brawl") {
+          state.enemies
+            .filter(enemy => enemy.alive)
+            .forEach(enemy => {
+              enemy.phase += deltaSeconds * 2.2;
+              enemy.x += Math.cos(enemy.phase) * 18 * deltaSeconds;
+              enemy.y += Math.sin(enemy.phase * 1.3) * 18 * deltaSeconds;
+
+              if (Math.hypot(player.x - enemy.x, player.y - enemy.y) < player.radius + enemy.radius) {
+                this.playerHit(enemy);
+              }
+            });
+        }
+
+        if (this.gameId === "boss") {
+          state.boss.angle += deltaSeconds * 0.9;
+
+          if (now > state.bossAttackAt) {
+            state.bossAttackAt = now + 2400;
+
+            const dx = player.x - state.boss.x;
+            const dy = player.y - state.boss.y;
+            const distance = Math.hypot(dx, dy) || 1;
+
+            state.hazards.push({
+              x: state.boss.x,
+              y: state.boss.y,
+              radius: 14,
+              vx: (dx / distance) * 130,
+              vy: (dy / distance) * 130,
+              bossShot: true
+            });
+
+            this.showToast("Boss attack!");
+          }
+        }
+      }
+
+      clampPlayer() {
+        const state = this.gameState;
+        const half = state.worldSize / 2 - state.playerEntity.radius;
+
+        state.playerEntity.x = Math.max(-half, Math.min(half, state.playerEntity.x));
+        state.playerEntity.y = Math.max(-half, Math.min(half, state.playerEntity.y));
+      }
+
+      playerHit(hazard) {
+        const state = this.gameState;
+
+        if (state.lastHitAt && performance.now() - state.lastHitAt < 700) return;
+
+        state.lastHitAt = performance.now();
+
+        if (this.gameId === "boss") {
+          state.health -= 1;
+          this.audio.play("hit");
+          this.audio.vibrate(35);
+
+          if (state.health <= 0) {
+            this.finishTurn(false);
+          } else {
+            this.showToast(`Hit! HP ${state.health}`);
+          }
+
+          return;
+        }
+
+        state.score = Math.max(0, state.score - 1);
+        hazard.vx *= -1;
+        hazard.vy *= -1;
+        this.audio.play("hit");
+        this.audio.vibrate(25);
+      }
+
+      finishTurn(victory) {
+        const state = this.gameState;
+
+        if (!state || !state.active) return;
+
+        state.active = false;
+        cancelAnimationFrame(this.frame);
+
+        const player = state.player;
+        const elapsed = Math.round((this.config.duration - state.timeLeft) / 1000);
+
+        let finalScore = state.score;
+
+        if (this.gameId === "trail2") {
+          finalScore = victory
+            ? 100
+            : Math.max(0, elapsed * 2 + state.score);
+        }
+
+        if (this.gameId === "quest" && state.collected >= 5 && state.portal.active) {
+          finalScore += 10;
+        }
+
+        if (this.gameId === "boss" && victory) {
+          finalScore += 20;
+        }
+
+        this.turnResults.push({
+          playerId: player.id,
+          name: player.name,
+          color: player.color,
+          score: finalScore,
+          detail: `${finalScore} points`
+        });
+
+        this.updateLocalRecords(finalScore);
+
+        this.cleanupControls();
+
+        this.currentPlayerIndex += 1;
+
+        setTimeout(() => this.startNextPlayer(), 650);
+      }
+
+      updateLocalRecords(score) {
+        const records = this.storage.arenaProfile.records;
+
+        if (this.gameId === "trail2") {
+          records.trailDuel2 = Math.max(records.trailDuel2 || 0, score);
+        }
+
+        if (this.gameId === "quest") {
+          records.miniQuest = Math.max(records.miniQuest || 0, score);
+        }
+
+        if (this.gameId === "brawl") {
+          records.arenaBrawl = Math.max(records.arenaBrawl || 0, score);
+        }
+
+        if (this.gameId === "treasure") {
+          records.treasureRun = Math.max(records.treasureRun || 0, score);
+        }
+
+        if (this.gameId === "boss") {
+          records.bossBreak = Math.max(records.bossBreak || 0, score);
+        }
+
+        this.storage.arenaProfile.xp += Math.max(8, Math.round(score * 1.5));
+        this.storage.arenaProfile.level = Math.max(
+          1,
+          Math.floor(this.storage.arenaProfile.xp / 100) + 1
+        );
+
+        if (this.storage.arenaProfile.level >= 5) {
+          this.storage.arenaProfile.selectedTitle = "Storm Master";
+        }
+
+        saveStorage(this.storage);
+      }
+
+      finishGame() {
+        this.stop();
+
+        const results = [...this.turnResults]
+          .sort((a, b) => b.score - a.score)
+          .map((result, index) => ({
+            ...result,
+            detail: index === 0
+              ? `${result.score} points • Winner`
+              : `${result.score} points`
+          }));
+
+        const overlay = document.createElement("div");
+        overlay.className = "overlay";
+        overlay.innerHTML = `
+          <div class="overlay-card">
+            <div style="font-size:3.4rem">🏆</div>
+            <h1>${this.escape(this.config.title.toUpperCase())}</h1>
+            <p>${this.escape(results[0]?.name || "Player")} wins this T-engine round.</p>
+
+            <div class="rankings">
+              ${results.map((result, index) => `
+                <div class="rank">
+                  <strong>${index + 1}. ${this.escape(result.name)}</strong>
+                  <span>${this.escape(result.detail)}</span>
+                </div>
+              `).join("")}
+            </div>
+
+            <button id="replayButton" class="btn">PLAY AGAIN</button>
+            <div style="height:10px"></div>
+            <button id="arenaButton" class="btn secondary">RETURN TO ARENA</button>
+          </div>
+        `;
+
+        this.area.appendChild(overlay);
+
+        overlay.querySelector("#replayButton").onclick = () => {
+          overlay.remove();
+          this.currentPlayerIndex = 0;
+          this.turnResults = [];
+          this.showIntro();
+        };
+
+        overlay.querySelector("#arenaButton").onclick = () => {
+          this.returnToLauncher();
+        };
+      }
+
+      draw() {
+        const state = this.gameState;
+        const ctx = this.ctx;
+        const rect = this.area.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const scale = Math.min(width, height) / 600;
+
+        ctx.clearRect(0, 0, width, height);
+
+        const bg = ctx.createLinearGradient(0, 0, 0, height);
+        bg.addColorStop(0, "#343d76");
+        bg.addColorStop(1, "#12152c");
+
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.save();
+
+        ctx.translate(width / 2, height / 2);
+
+        /*
+          Virtual T-engine look camera:
+          the world rotates opposite the camera heading.
+        */
+        ctx.rotate(-this.camera.angle);
+
+        ctx.scale(scale, scale);
+        ctx.translate(-state.playerEntity.x, -state.playerEntity.y);
+
+        this.drawWorldFloor(ctx, state);
+        this.drawBase(ctx, state);
+        this.drawTrails(ctx, state);
+        this.drawHazards(ctx, state);
+        this.drawGameObjects(ctx, state);
+        this.drawPlayer(ctx, state);
+
+        ctx.restore();
+
+        this.drawScreenEffects(ctx, width, height, state);
+      }
+
+      drawWorldFloor(ctx, state) {
+        const half = state.worldSize / 2;
+        const size = state.worldSize;
+
+        ctx.fillStyle = "rgba(19,25,57,.95)";
+        ctx.fillRect(-half, -half, size, size);
+
+        ctx.strokeStyle = "rgba(87,229,255,.11)";
+        ctx.lineWidth = 1;
+
+        for (let x = -half; x <= half; x += 35) {
+          ctx.beginPath();
+          ctx.moveTo(x, -half);
+          ctx.lineTo(x, half);
+          ctx.stroke();
+        }
+
+        for (let y = -half; y <= half; y += 35) {
+          ctx.beginPath();
+          ctx.moveTo(-half, y);
+          ctx.lineTo(half, y);
+          ctx.stroke();
+        }
+
+        ctx.strokeStyle = "rgba(255,255,255,.42)";
+        ctx.lineWidth = 6;
+        ctx.strokeRect(-half, -half, size, size);
+      }
+
+      drawBase(ctx, state) {
+        if (!state.portal || !state.portal.base) return;
+
+        ctx.save();
+        ctx.translate(state.portal.x, state.portal.y);
+
+        ctx.beginPath();
+        ctx.arc(0, 0, state.portal.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(87,229,255,.22)";
+        ctx.shadowColor = "#57e5ff";
+        ctx.shadowBlur = 24;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(0, 0, state.portal.radius * 0.65, 0, Math.PI * 2);
+        ctx.fillStyle = "#57e5ff";
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      drawTrails(ctx, state) {
+        state.trails.forEach(trail => {
+          if (!trail.points || trail.points.length < 2) return;
+
+          ctx.beginPath();
+          ctx.moveTo(trail.points[0].x, trail.points[0].y);
+
+          for (let i = 1; i < trail.points.length; i++) {
+            ctx.lineTo(trail.points[i].x, trail.points[i].y);
+          }
+
+          ctx.strokeStyle = trail.color;
+          ctx.lineWidth = trail.playerTrail ? 9 : 11;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          ctx.shadowColor = trail.color;
+          ctx.shadowBlur = 9;
+          ctx.stroke();
+          ctx.shadowBlur = 0;
+        });
+      }
+
+      drawHazards(ctx, state) {
+        state.hazards.forEach(hazard => {
+          ctx.beginPath();
+          ctx.arc(hazard.x, hazard.y, hazard.radius, 0, Math.PI * 2);
+          ctx.fillStyle = hazard.bossShot ? "#ffd35f" : "#ff6e97";
+          ctx.shadowColor = ctx.fillStyle;
+          ctx.shadowBlur = 15;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = "#fff";
+          ctx.stroke();
+        });
+      }
+
+      drawGameObjects(ctx, state) {
+        if (this.gameId === "quest") {
+          state.crystals.forEach(crystal => {
+            this.drawDiamond(ctx, crystal.x, crystal.y, 14, "#57e5ff");
+          });
+
+          if (state.portal?.active) {
+            ctx.save();
+            ctx.translate(state.portal.x, state.portal.y);
+            ctx.rotate(performance.now() / 700);
+
+            ctx.beginPath();
+            ctx.arc(0, 0, state.portal.radius, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(173,125,255,.24)";
+            ctx.shadowColor = "#ad7dff";
+            ctx.shadowBlur = 24;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(0, 0, state.portal.radius * 0.62, 0, Math.PI * 2);
+            ctx.fillStyle = "#ad7dff";
+            ctx.fill();
+
+            ctx.restore();
+          }
+        }
+
+        if (this.gameId === "treasure") {
+          state.treasures.forEach(treasure => {
+            this.drawDiamond(ctx, treasure.x, treasure.y, 13 + treasure.value * 2, "#ffd35f");
+          });
+        }
+
+        if (this.gameId === "brawl") {
+          state.enemies
+            .filter(enemy => enemy.alive)
+            .forEach(enemy => {
+              ctx.beginPath();
+              ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2);
+              ctx.fillStyle = "#ff6e97";
+              ctx.shadowColor = "#ff6e97";
+              ctx.shadowBlur = 14;
+              ctx.fill();
+              ctx.shadowBlur = 0;
+              ctx.lineWidth = 3;
+              ctx.strokeStyle = "#fff";
+              ctx.stroke();
+
+              ctx.fillStyle = "#1b1d36";
+              ctx.font = "bold 12px system-ui";
+              ctx.textAlign = "center";
+              ctx.fillText(String(enemy.health), enemy.x, enemy.y + 4);
+            });
+        }
+
+        if (this.gameId === "boss") {
+          const boss = state.boss;
+
+          ctx.save();
+          ctx.translate(boss.x, boss.y);
+          ctx.rotate(boss.angle);
+
+          ctx.beginPath();
+          ctx.arc(0, 0, boss.radius, 0, Math.PI * 2);
+          ctx.fillStyle = "#602d65";
+          ctx.shadowColor = "#ff6e97";
+          ctx.shadowBlur = 26;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+          ctx.lineWidth = 5;
+          ctx.strokeStyle = "#ffb0c5";
+          ctx.stroke();
+
+          for (let i = 0; i < 6; i++) {
+            const angle = i * Math.PI / 3;
+            ctx.beginPath();
+            ctx.arc(
+              Math.cos(angle) * boss.radius * 0.56,
+              Math.sin(angle) * boss.radius * 0.56,
+              7,
+              0,
+              Math.PI * 2
+            );
+            ctx.fillStyle = "#ffd35f";
+            ctx.fill();
+          }
+
+          ctx.restore();
+
+          const weak = state.bossWeakPoint;
+          this.drawDiamond(ctx, weak.x, weak.y, weak.radius, "#90ff6b");
+        }
+      }
+
+      drawDiamond(ctx, x, y, radius, color) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(performance.now() / 650);
+
+        ctx.beginPath();
+        ctx.moveTo(0, -radius);
+        ctx.lineTo(radius, 0);
+        ctx.lineTo(0, radius);
+        ctx.lineTo(-radius, 0);
+        ctx.closePath();
+
+        ctx.fillStyle = color;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 18;
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#fff";
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      drawPlayer(ctx, state) {
+        const player = state.playerEntity;
+
+        ctx.save();
+        ctx.translate(player.x, player.y);
+
+        ctx.beginPath();
+        ctx.arc(0, 0, player.radius, 0, Math.PI * 2);
+        ctx.fillStyle = player.color;
+        ctx.shadowColor = player.color;
+        ctx.shadowBlur = 20;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = "#f7fbff";
+        ctx.stroke();
+
+        const lookX = Math.sin(this.camera.angle) * 9;
+        const lookY = -Math.cos(this.camera.angle) * 9;
+
+        ctx.beginPath();
+        ctx.arc(lookX, lookY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = "#18203b";
+        ctx.fill();
+
+        if (performance.now() < state.actionFlashUntil) {
+          ctx.beginPath();
+          ctx.arc(0, 0, player.radius + 17, 0, Math.PI * 2);
+          ctx.strokeStyle = "#fff";
+          ctx.lineWidth = 4;
+          ctx.stroke();
+        }
+
+        ctx.restore();
+      }
+
+      drawScreenEffects(ctx, width, height, state) {
+        if (this.gameId === "boss") {
+          const ratio = state.boss.health / state.boss.maxHealth;
+
+          ctx.fillStyle = "rgba(0,0,0,.32)";
+          ctx.fillRect(16, 16, width - 32, 12);
+
+          ctx.fillStyle = ratio > 0.45 ? "#90ff6b" : "#ff6e97";
+          ctx.fillRect(16, 16, (width - 32) * ratio, 12);
+
+          ctx.strokeStyle = "rgba(255,255,255,.6)";
+          ctx.lineWidth = 1;
+          ctx.strokeRect(16, 16, width - 32, 12);
+        }
+      }
+
+      updateHUD() {
+        const state = this.gameState;
+        const seconds = Math.ceil(state.timeLeft / 1000);
+        const hud = document.querySelector("#hudValue");
+        const heading = document.querySelector("#headingValue");
+
+        let objectiveText = `${seconds}s • ${state.score} pts`;
+
+        if (this.gameId === "quest") {
+          objectiveText = `${seconds}s • Crystals ${state.collected}/5 • ${state.score} pts`;
+        }
+
+        if (this.gameId === "treasure") {
+          objectiveText = `${seconds}s • Carrying ${state.collected} • ${state.score} pts`;
+        }
+
+        if (this.gameId === "boss") {
+          objectiveText = `${seconds}s • HP ${"♥".repeat(state.health)} • Boss ${state.boss.health}/${state.boss.maxHealth}`;
+        }
+
+        if (this.gameId === "trail2") {
+          objectiveText = `${seconds}s • Trail survival • ${state.score} pts`;
+        }
+
+        hud.textContent = `${state.player.name} • ${objectiveText}`;
+        heading.textContent = `LOOK: ${this.camera.headingName()}`;
+      }
+
+      cleanupControls() {
+        this.directionInput?.destroy();
+        this.directionInput = null;
+
+        this.actionButton?.remove();
+        this.actionButton = null;
+      }
+
+      stop() {
+        cancelAnimationFrame(this.frame);
+
+        if (this.gameState) {
+          this.gameState.active = false;
+        }
+
+        this.cleanupControls();
+      }
+
+      returnToLauncher() {
+        this.stop();
+        window.location.href = "index.html";
+      }
+
+      showToast(message) {
+        let toast = document.querySelector("#toast");
+
+        if (!toast) return;
+
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        clearTimeout(this.toastTimer);
+
+        this.toastTimer = setTimeout(() => {
+          toast.classList.remove("show");
+        }, 1500);
+      }
+
+      escape(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+    }
+
+    new TEngineApp();
+  </script>
+</body>
+</html>
